@@ -98,7 +98,7 @@ function jQuery_object () {
     }
   };
 
-  this.val = function( inputValue ){
+  this.val = function(inputValue){
     if ( typeof inputValue === "string" ) {
       for (var i = 0; i < this.collection.length ; i++ ){
         this.collection[i].value = inputValue;
@@ -108,6 +108,19 @@ function jQuery_object () {
       return this.collection[0].value;
     }
   };
+
+  this.css = function(inputProperty, inputValue) {
+    if ( typeof inputValue === "string" ) {
+      for (var i = 0; i < this.collection.length ; i++ ){
+        this.collection[i].style[inputProperty] = inputValue;
+      }
+    }
+    else{
+      return this.collection[0].style[inputProperty];
+    }
+
+  };
+
 
 }
 
