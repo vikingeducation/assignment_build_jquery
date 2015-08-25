@@ -95,6 +95,28 @@ function jQuery(input){
     };
 
     return result;
+  };
+
+  result.toggleClass = function(input) {
+    for (var i=result.obj.length-1; i>=0; i--) {
+      if (result.idx(i).hasClass(input)) {
+        result.idx(i).removeClass(input);
+      } else {
+        result.idx(i).addClass(input);
+      }
+    };
+    return result;
+  };
+
+  result.val = function(input) {
+    if (result.obj[0] && input === undefined) {
+      return result.obj[0].value;
+    } else if (input) {
+      for (var i=0; i<result.length; i++) {
+        result.obj[i].value = input;
+      };
+      return result;
+    }
   }
 
   return result;
