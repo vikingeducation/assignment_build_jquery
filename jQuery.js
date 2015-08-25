@@ -93,17 +93,28 @@ function JQ(collection){
     };
   }
 
-  this.attr = function(setter) {
+  this.attr = function(propName, setter) {
     if (setter) {
       for (var i = 0; i < this.length; i++) {
-        this[i].style["attr"] = setter;
+        this[i].setAttribute(propName, setter);
       };
     } else {
       for (var i = 0; i < this.length; i++) {
-        if (this[i].style["attr"]) return parseInt(this[i].style["attr"]);
+        if (this[i].getAttribute(propName)) return this[i].getAttribute(propName);
       };
     };
   }
+
+  this.html = function(htmlString) {
+    if (htmlString) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].innerHTML = htmlString;
+      };
+    } else {
+        return this[0].innerHTML;
+      };
+  }
+
 
 }
 
