@@ -24,18 +24,11 @@ function JQ(collection){
 
   this.addClass = function(string) {
 
-    // if (this.length == 1) {
-    //   this[0].className += " " + string
-    // }
-
-
-    // if (this.length > 1) {
       for (var i = 0; i < this.length; i++) {
         if (!$(this[i]).hasClass(string)) {
           this[i].className += " " + string;
         };
       }
-    // }
   }
 
   this.removeClass = function(string) {
