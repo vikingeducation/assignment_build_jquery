@@ -41,17 +41,34 @@ function jQuery(input){
   };
 
   result.hasClass = function(str) {
-    // result.obj.forEach( 
+    // result.obj.forEach(
     //   function(ele) {
     //     if (ele.className === str) {return true;};
     //   }
     // );
+    var bool;
     for (var i=0; i<result.obj.length; i++) {
-      if (result.obj[i].className === str) {return true;};
-    };
-    return false;
-  };
+      // if (result.obj[i].className === str) {return true;};
+      var classnames = result.obj[i].className.split(" ");
+      classnames.forEach(
+        function(ele) {
+          if (ele === str) {
+            bool = true;
+          }
+        } // end fn
+        ); // end forEach
+      if (bool === true){return true;}
+    } // end for loop
 
+      return false;
+  }; // end of hasClass method
+
+  result.addClass = function(str){
+    for (var i=0; i<result.obj.length; i++) {
+      result.obj[i].className += " " + str;
+    }
+    return result;
+  }
 
   return result;
 }
