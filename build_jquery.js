@@ -79,13 +79,14 @@ function jQuery(input){
 
   result.removeClass = function(input){
     if (typeof input === "string" && result.hasClass(input)){
-      for (var i=0; i<result.obj.length; i++) {
+      // while (result.hasClass(input)){
+      for (var i=result.obj.length-1; i >=0; i--) {
         if (result.idx(i).hasClass(input)) {
           result.obj[i].className = result.obj[i].className.replace(input, "");
         }
       }
     } else if (typeof input === "function") {
-      for (var i=0; i<result.obj.length; i++) {
+      for (var i=result.obj.length-1; i >=0; i--)  {
         var c = result.obj[i].className;
         if (result.idx(i).hasClass(input(i, c))) {
           result.obj[i].className = result.obj[i].className.replace(input(i, c), "");
