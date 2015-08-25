@@ -120,9 +120,13 @@ function jQuery(input){
     }
   };
 
-  result.css(propName, val){
+  result.css = function(propName, val){
     if (val === undefined){
-
+      return result.obj[0].style[propName];
+    } else {
+      for (var i=0; i<result.length(); i++) {
+        result.obj[i].style[propName] = val;
+      }
     }
   }
 
