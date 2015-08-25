@@ -27,22 +27,9 @@ function jQuery(input){
     result.obj = arr;
   }
 
-
-  // if (result) {
-  //   // this.result = [];
-  //   arr = [];
-  //   result.forEach(function(ele) {
-  //     arr.push(jQuery(ele));
-  //   });
-  //   this.result = arr;
-  // }
-  // else {
-  //   this.result = [];
-  // }
-
   result.length = function() {
     return result.obj.length; // returns a number
-  },
+  };
 
   // result.foo = function(pos) {
   //   return "foo method";
@@ -51,6 +38,18 @@ function jQuery(input){
   result.idx = function(pos) {
     // return this.result[pos]; //currently returns DOM obj
     return jQuery(result.obj[pos]);
+  };
+
+  result.hasClass = function(str) {
+    // result.obj.forEach( 
+    //   function(ele) {
+    //     if (ele.className === str) {return true;};
+    //   }
+    // );
+    for (var i=0; i<result.obj.length; i++) {
+      if (result.obj[i].className === str) {return true;};
+    };
+    return false;
   };
 
 
