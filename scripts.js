@@ -79,10 +79,10 @@ function jQuery(arg){
 
 		this.val = function(arg){
 			if (arg == undefined){
-				return this.elements[0].innerHTML;
+				return this.elements[0].innerText;
 			} else {
 				for (var i = 0; i < this.elements.length; i++){
-					this.elements[i].innerHTML = arg;
+					this.elements[i].innerText = arg;
 				}
 			}
 		};
@@ -98,7 +98,23 @@ function jQuery(arg){
 		};
 
 		this.height = function(newHeight){
+			if (newHeight == undefined) {
+				return this.css("height").replace(/\D+/, "")
+			} else {
+				for (var i = 0; i < this.elements.length; i++){
+					this.elements[i].style.height = newHeight;
+				}
+			}
+		};
 
+		this.width = function(newWidth){
+			if (newWidth == undefined) {
+				return this.css("width").replace(/\D+/, "")
+			} else {
+				for (var i = 0; i < this.elements.length; i++){
+					this.elements[i].style.width = newWidth;
+				}
+			}
 		};
 
 	}
