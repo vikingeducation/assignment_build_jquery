@@ -63,9 +63,14 @@ function jQuery(input){
       return false;
   }; // end of hasClass method
 
-  result.addClass = function(str){
+  result.addClass = function(input){
     for (var i=0; i<result.obj.length; i++) {
-      result.obj[i].className += " " + str;
+      if (typeof input === "string"){
+      result.obj[i].className += " " + input;
+      } else {
+        //input is a fn
+        result.obj[i].className += input;
+      }
     }
     return result;
   }
