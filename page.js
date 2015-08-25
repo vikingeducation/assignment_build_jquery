@@ -42,7 +42,40 @@ function jQuery_object () {
   };
 
   this.idx = function(index){
-    return this.collection[index];
+    return jQuery(this.collection[index]);
   };
 
+  this.hasClass = function(classQuery){
+
+    for( var i = 0; i < this.collection.length; i++ ) {
+      return this.collection[i].className === classQuery ? true : false ;
+    }
+  };
+
+  this.addClass = function(classQuery){
+    for( var i = 0; i < this.collection.length; i++ ) {
+      this.collection[i].className += " " + classQuery ;
+    }
+  };
+
+  this.removeClass = function(classQuery){
+    for( var i = 0; i < this.collection.length; i++ ){
+      if ( this.collection[i].className.includes(classQuery) ) {
+        this.collection[i].className = this.collection[i].className.replace(classQuery, "") ;
+      }
+    }
+  };
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
