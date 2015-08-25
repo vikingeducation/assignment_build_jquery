@@ -57,8 +57,52 @@ function JQ(collection){
     };
   }
 
-  this.css = function(str) {
-    
+  this.css = function(propName, setter) {
+    if (setter) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].style[propName] = setter;
+      };
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        if (this[i].style[propName]) return this[i].style[propName];
+      };
+    };
+  }
+
+  this.height = function(setter) {
+    if (setter) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].style["height"] = setter;
+      };
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        if (this[i].style["height"]) return parseInt(this[i].style["height"]);
+      };
+    };
+  }
+
+  this.width = function(setter) {
+    if (setter) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].style["width"] = setter;
+      };
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        if (this[i].style["width"]) return parseInt(this[i].style["width"]);
+      };
+    };
+  }
+
+  this.attr = function(setter) {
+    if (setter) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].style["attr"] = setter;
+      };
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        if (this[i].style["attr"]) return parseInt(this[i].style["attr"]);
+      };
+    };
   }
 
 }
