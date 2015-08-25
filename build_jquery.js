@@ -67,16 +67,35 @@ function jQuery(input){
     for (var i=0; i<result.obj.length; i++) {
       if (typeof input === "string"){
       result.obj[i].className += " " + input;
-      } else {
+      } else if (typeof input === "function") {
         //input is a fn
-        result.obj[i].className += input;
+        var c = result.obj[i].className;
+        result.obj[i].className += " " + input(i, c);
+
       }
     }
     return result;
-  }
+  };
 
+  result.removeClass = function(input){
+    if (typeof input === "string" && result.hasClass(input)){
+      for (var i=0; i<result.obj.length; i++) {
+        if (result.idx(i).hasClass(input)) {
+          result.obj[i].className.replace(input, "");
+        }
+      }
+    } else if (typeof input === "function") {
+      for (var i=0; i<result.obj.length; i++) {
+        var c = result.obj[i].className;
+        if (result.idx(i).hasClass(input(i, c))) {
+          result.obj[i].className.replace(input(i, c), "");
+        }
+      }
+    }
+  }
+  
   return result;
-}
+};
 
 // Alias function
 var $ = function(input) {
