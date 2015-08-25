@@ -9,7 +9,10 @@ var jQuery = function (str) {
 
   switch (str[0]) {
     case '.':
-      jQ.collection.push(document.getElementsByClassName(str.slice(1, str.length)));
+      elements = document.getElementsByClassName(str.slice(1, str.length));
+      for(var i = 0; i < elements.length; i++ ){
+        jQ.collection.push(elements[i]);
+      }
       return jQ;
     case '#':
       jQ.collection.push(document.getElementById(str.slice(1, str.length)));
@@ -25,7 +28,11 @@ var jQuery = function (str) {
 function jQuery_object () {
   this.collection = [];
 
+  this.length = function(){
+    return this.collection.length;
+  };
 
 
 
-};
+
+}
