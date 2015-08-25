@@ -3,22 +3,25 @@
   // window.jQuery = jQuery;
 
 // Function to find jQuery object
-var jQuery = function (str) {
+var jQuery, $;
+jQuery = $ = function (str) {
 
   var jQ = new jQuery_object();
 
-  switch (str[0]) {
-    case '.':
-      elements = document.getElementsByClassName(str.slice(1, str.length));
-      for(var i = 0; i < elements.length; i++ ){
-        jQ.collection.push(elements[i]);
-      }
-      return jQ;
-    case '#':
-      jQ.collection.push(document.getElementById(str.slice(1, str.length)));
-      return jQ;
-    default:
-      jQ.collection.push(document.getElementsByTagName(str));
+  if (typeof(str) === "string") {
+    switch (str[0]) {
+      case '.':
+        jQ.insert(document.getElementsByClassName(str.slice(1, str.length)));
+        return jQ;
+      case '#':
+        jQ.insert([document.getElementById(str.slice(1, str.length))]);
+        return jQ;
+      default:
+        jQ.insert(document.getElementsByTagName(str));
+        return jQ;
+    }
+  } else {
+      jQ.collection.push(str);
       return jQ;
   }
 
@@ -32,7 +35,14 @@ function jQuery_object () {
     return this.collection.length;
   };
 
+  this.insert = function(arr){
+    for(var i = 0; i < arr.length; i++ ){
+      this.collection.push(arr[i]);
+    }
+  };
 
-
+  this.idx = function(index){
+    return this.collection[index];
+  };
 
 }
