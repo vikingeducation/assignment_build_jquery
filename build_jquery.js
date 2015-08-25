@@ -138,9 +138,15 @@ function jQuery(input){
     result.css('width', val);
   };
 
-  result.attr = function(attrName) {
-
-  }
+  result.attr = function(attrName, val) {
+    if (val) {
+      for (var i=0; i<result.length(); i++) {
+        result.obj[i].setAttribute(attrName, val);
+      }
+    } else {
+      return result.obj[0].getAttribute(attrName);
+    }
+  };
 
   return result;
 };
