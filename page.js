@@ -1,38 +1,41 @@
-window.onload = function() {
+// window.onload = function() {
 
-  jQuery = new jQ();
+  //Without this line, does not work, why?
+  // window.jQuery = jQuery;
+  
+  function jQuery(str) {
 
-};
-
-
-var jQ = function() {
-
-  this.id = function(str) {
-    document.getElementById(str);
-  };
-
-  this.tag = function(str) {
-    document.getElementsByTagName("");
-  };
-
-  this.className = function(str) {
-    document.getElementsByClassName("");
-  };
-
-  this.selector = function(str) {
     switch (str[0]) {
       case '.':
-        this.result = className(str.slice(1, -1));
-        break;
+        return document.getElementsByClassName(str.slice(1, str.length));
       case '#':
-        this.result = id(str.slice(1, -1));
-        break;
+        return document.getElementById(str.slice(1, str.length));
       default:
-        this.result = tag(str);
+        return document.getElementsByTagName(str);
     }
-    return result;
-  };
+ 
+  }
+// };
 
-  this.result = "";
 
-};
+  // var id = function(str) {
+  //   return document.getElementById(str);
+  // };
+
+  // var tag = function(str) {
+  //   return document.getElementsByTagName(str);
+  // };
+
+  // var className = function(str) {
+  //   return document.getElementsByClassName(str);
+  // };
+
+  // this.selector = function(str) {
+
+
+ // return this.result;
+  // };
+
+  // this.result = "";
+
+
