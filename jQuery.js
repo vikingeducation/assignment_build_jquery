@@ -6,8 +6,8 @@ function JQ(collection){
   };
 
   this.hasClass = function(string) {
-    for (var i = 0; i < collection.length; i++) {
-      var classes = collection[i].className;
+    for (var i = 0; i < this.length; i++) {
+      var classes = this[i].className;
       // console.log(classes)
       // var regex = ("\b*" + string + "\b*");
       // console.log("\b*" + string + "\b*");
@@ -23,9 +23,28 @@ function JQ(collection){
   }
 
   this.addClass = function(string) {
-    for (var i = 0; i < collection.length; i++) {
-      collection[i].className += " " + string;
-    };
+
+    // if (this.length == 1) {
+    //   this[0].className += " " + string
+    // }
+
+
+    // if (this.length > 1) {
+      for (var i = 0; i < this.length; i++) {
+        if (!$(this[i]).hasClass(string)) {
+          this[i].className += " " + string;
+        };
+      }
+    // }
+  }
+
+  this.removeClass = function(string) {
+    for (var i = 0; i < this.length; i++){
+      // if this[i].hasClass(string) == true, then remove class, else no nothing
+      if ($(this[i]).hasClass(string)) {
+        this[i].className = this[i].className.replace(string,"")
+      }
+    }
   }
 
 }
@@ -40,7 +59,7 @@ function jQuery(string) {
     var jq = new JQ(string)
     if (jq.length == undefined) {
       jq.length = 1;
-      jq[0] = string[0];
+      jq[0] = string;
     } else {
       for (var i = 0; i < jq.length; i++){
         jq[i] = string[i];
