@@ -5,16 +5,12 @@ function JQ(collection){
     return collection[num]
   };
 
-  this.hasClass = function(string) {
+  this.hasClass = function(str) {
     for (var i = 0; i < this.length; i++) {
       var classes = this[i].className;
-      // console.log(classes)
-      // var regex = ("\b*" + string + "\b*");
-      // console.log("\b*" + string + "\b*");
-      // if (classes == regex) return true;
       var class_arr = classes.split(" ");
       for (var j = 0; j < class_arr.length; j++) {
-        if (class_arr[j] === string) {
+        if (class_arr[j] === str) {
           return true;
         }
       };
@@ -22,55 +18,80 @@ function JQ(collection){
     return false;
   }
 
-  this.addClass = function(string) {
-
-      for (var i = 0; i < this.length; i++) {
-        if (!$(this[i]).hasClass(string)) {
-          this[i].className += " " + string;
-        };
-      }
+  this.addClass = function(str) {
+    for (var i = 0; i < this.length; i++) {
+      if (!$(this[i]).hasClass(str)) {
+        this[i].className += " " + str;
+      };
+    }
   }
 
-  this.removeClass = function(string) {
+  this.removeClass = function(str) {
     for (var i = 0; i < this.length; i++){
-      // if this[i].hasClass(string) == true, then remove class, else no nothing
-      if ($(this[i]).hasClass(string)) {
-        this[i].className = this[i].className.replace(string,"")
+      // if this[i].hasClass(str) == true, then remove class, else no nothing
+      if ($(this[i]).hasClass(str)) {
+        this[i].className = this[i].className.replace(str,"")
       }
     }
+  }
+
+  this.toggleClass = function(str) {
+    for (var i = 0; i < this.length; i++) {
+      if ($(this[i]).hasClass(str)) {
+        this[i].className = this[i].className.replace(str,"")
+      } else {
+        this[i].className += " " + str;
+      }
+    };
+  }
+
+  this.val = function(str) {
+    if (str) {
+      for (var i = 0; i < this.length; i++) {
+        this[i].value = str;
+      };
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        if (this[i].value) return this[i].value;
+      };
+    };
+  }
+
+  this.css = function(str) {
+    
   }
 
 }
 
 var $ = jQuery;
 
-function jQuery(string) {
+function jQuery(str) {
 
-  if (string == null) return new Object([]);
+  if (str == null) return new Object([]);
 
-  if (typeof(string) === "object") {
-    var jq = new JQ(string)
+  if (typeof(str) === "object") {
+    var jq = new JQ(str)
     if (jq.length == undefined) {
       jq.length = 1;
-      jq[0] = string;
+      jq[0] = str;
     } else {
       for (var i = 0; i < jq.length; i++){
-        jq[i] = string[i];
+        jq[i] = str[i];
       }
     }
     return jq;
   }
-  var search_type = string[0];
+  var search_type = str[0];
   switch (search_type) {
     case ".":
-      var arr = document.getElementsByClassName(string.slice(1,string.length));
+      var arr = document.getElementsByClassName(str.slice(1,str.length));
       var jq = new JQ(arr);
       for (var i = 0; i < jq.length; i++){
         jq[i] = arr[i];
       }
       return jq;
     case "#":
-      var elem = document.getElementById(string.slice(1,string.length));
+      var elem = document.getElementById(str.slice(1,str.length));
       if (elem === null) {
         return new JQ();
       } else {
@@ -80,7 +101,7 @@ function jQuery(string) {
         return jq;
       }
     default:
-      var arr = document.getElementsByTagName(string);
+      var arr = document.getElementsByTagName(str);
       var jq = new JQ(arr);
       for (var i = 0; i < jq.length; i++){
         jq[i] = arr[i];
