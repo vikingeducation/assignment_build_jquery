@@ -122,14 +122,25 @@ function jQuery(input){
 
   result.css = function(propName, val){
     if (val === undefined){
-      return result.obj[0].style[propName];
+      return window.getComputedStyle(result.obj[0])[propName];
     } else {
       for (var i=0; i<result.length(); i++) {
         result.obj[i].style[propName] = val;
       }
     }
-  }
+  };
 
+  result.height = function(val) {
+    result.css('height', val);
+  };
+
+  result.width = function(val) {
+    result.css('width', val);
+  };
+
+  result.attr = function(attrName) {
+
+  }
 
   return result;
 };
