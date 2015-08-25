@@ -108,16 +108,24 @@ function jQuery(input){
     return result;
   };
 
+  //come back to later for multiple select
   result.val = function(input) {
     if (result.obj[0] && input === undefined) {
       return result.obj[0].value;
     } else if (input) {
-      for (var i=0; i<result.length; i++) {
+      for (var i=0; i<result.length(); i++) {
         result.obj[i].value = input;
       };
       return result;
     }
+  };
+
+  result.css(propName, val){
+    if (val === undefined){
+
+    }
   }
+
 
   return result;
 };
