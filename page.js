@@ -98,6 +98,17 @@ function jQuery_object () {
     }
   };
 
+  this.val = function( inputValue ){
+    if ( typeof inputValue === "string" ) {
+      for (var i = 0; i < this.collection.length ; i++ ){
+        this.collection[i].value = inputValue;
+      }
+    }
+    else{
+      return this.collection[0].value;
+    }
+  };
+
 }
 
 
