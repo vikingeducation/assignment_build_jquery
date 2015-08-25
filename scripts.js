@@ -117,6 +117,34 @@ function jQuery(arg){
 			}
 		};
 
+		this.on = function(type, fn){
+			for (var i = 0; i < this.elements.length; i++){
+				this.addEvent(this.elements[i], type, fn);
+			}
+		};
+
+		this.removeOn = function(type, fn){
+			for (var i = 0; i < this.elements.length; i++){
+				this.removeEvent(this.elements[i], type, fn);
+			}
+		};
+
+		this.addEvent = function(obj, type, fn){
+	        if (obj && obj.addEventListener){
+	            obj.addEventListener(type, fn, false);
+	        } else if (obj && obj.attachEvent){
+	            obj.attachEvent('on' + type, fn);
+	        }
+	    };
+
+	    this.removeEvent: function(obj, type, fn){
+	        if (obj && obj.removeEventListener){
+	            obj.removeEventListener(type, fn, false);
+	        } else if (obj && obj.detachEvent){
+	            obj.detachEvent('on' + type, fn);
+	        }
+    	}
+
 	}
 	else{
 		return new jQuery(arg);
