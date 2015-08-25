@@ -69,7 +69,8 @@ function jQuery(input){
       result.obj[i].className += " " + input;
       } else {
         //input is a fn
-        result.obj[i].className += input;
+        var newClass = input(i)
+        result.obj[i].className += newClass;
       }
     }
     return result;
