@@ -46,10 +46,13 @@ function jQuery_object () {
   };
 
   this.hasClass = function(classQuery){
-
+    result = false;
     for( var i = 0; i < this.collection.length; i++ ) {
-      return this.collection[i].className === classQuery ? true : false ;
+      for( var j = 0; j < this.collection[i].classList.length; j++ ) {
+        if (this.collection[i].classList[j] === classQuery) { result = true; }
+      }
     }
+    return result;
   };
 
   this.addClass = function(classQuery){
@@ -67,6 +70,33 @@ function jQuery_object () {
   };
 
 
+  // If state is true, it always adds a class
+  // If state if false, it always removes a class
+  // If it's neither, it toggles
+  this.toggleClass = function(classQuery, state) {
+    var can_add, can_remove;
+
+    if (state) {
+      can_remove = false;
+      can_add = true;
+      } else if (state === false || state === 0) {
+        can_remove = true;
+        can_add = false;
+      } else {
+      can_add = true;
+      can_remove = true;
+    }
+
+    for( var i = 0; i < this.collection.length; i++ ){
+      if ( jQuery(this.collection[i]).hasClass(classQuery) && can_remove) {
+        console.log("removing class");
+        jQuery(this.collection[i]).removeClass(classQuery);
+      } else if (can_add) {
+        jQuery(this.collection[i]).addClass(classQuery);
+        console.log("adding class");
+      }
+    }
+  };
 
 }
 
