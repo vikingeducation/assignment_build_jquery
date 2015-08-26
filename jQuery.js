@@ -139,7 +139,7 @@ function jQuery(selector) {
 
   var queries = selector.split(" ");
   if (queries.length > 1) {
-    var arr = document.querySelector(selector);
+    var arr = document.querySelectorAll(selector);
     var jq = new JQ(arr);
     for (var i = 0; i < jq.length; i++){
       jq[i] = arr[i];
