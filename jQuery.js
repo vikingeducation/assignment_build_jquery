@@ -120,49 +120,63 @@ function JQ(collection){
 
 var $ = jQuery;
 
-function jQuery(str) {
+function jQuery(selector) {
 
-  if (str == null) return new Object([]);
+  if (!selector) return new Object([]);
 
-  if (typeof(str) === "object") {
-    var jq = new JQ(str)
+  if (typeof(selector) === "object") {
+    var jq = new JQ(selector)
     if (jq.length == undefined) {
       jq.length = 1;
-      jq[0] = str;
+      jq[0] = selector;
     } else {
       for (var i = 0; i < jq.length; i++){
-        jq[i] = str[i];
+        jq[i] = selector[i];
       }
     }
     return jq;
   }
-  var search_type = str[0];
-  switch (search_type) {
-    case ".":
-      var arr = document.getElementsByClassName(str.slice(1,str.length));
-      var jq = new JQ(arr);
-      for (var i = 0; i < jq.length; i++){
-        jq[i] = arr[i];
-      }
-      return jq;
-    case "#":
-      var elem = document.getElementById(str.slice(1,str.length));
-      if (elem === null) {
-        return new JQ();
-      } else {
-        var jq =  new JQ(elem);
-        jq.length = 1;
-        jq[0] = elem;
+
+  var queries = selector.split(" ");
+  if (queries.length > 1) {
+    var arr = document.querySelector(selector);
+    var jq = new JQ(arr);
+    for (var i = 0; i < jq.length; i++){
+      jq[i] = arr[i];
+    }
+    return jq;
+  } else{
+    var search_type = selector[0];
+    switch (search_type) {
+      case ".":
+        var arr = document.getElementsByClassName(selector.slice(1,selector.length));
+        var jq = new JQ(arr);
+        for (var i = 0; i < jq.length; i++){
+          jq[i] = arr[i];
+        }
         return jq;
-      }
-    default:
-      var arr = document.getElementsByTagName(str);
-      var jq = new JQ(arr);
-      for (var i = 0; i < jq.length; i++){
-        jq[i] = arr[i];
-      }
-      return jq
-  }
+      case "#":
+        var elem = document.getElementById(selector.slice(1,selector.length));
+        if (elem === null) {
+          return new JQ();
+        } else {
+          var jq =  new JQ(elem);
+          jq.length = 1;
+          jq[0] = elem;
+          return jq;
+          // this.length = 1;
+          // this[0] = elem;
+          // return this;
+        }
+      default:
+        var arr = document.getElementsByTagName(selector);
+        var jq = new JQ(arr);
+        for (var i = 0; i < jq.length; i++){
+          jq[i] = arr[i];
+        }
+        return jq
+    }
+  };
 }
 
 
