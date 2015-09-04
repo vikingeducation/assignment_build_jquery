@@ -1,19 +1,21 @@
-function FooConstructor(name) {
-  this.name = name;
-  this.age = function(){
+function FooConstructor() {
+  this.name = 'bill';
+  this.guess = function(){
     return Math.random();
   }
 }
 
 
 var BarConstructor = function() {
-  return {
-    name:  'bill',
-    age: function() {
+  function BarConstructor() {
+    this.name = 'bill';
+    this.guess = function() {
       return Math.random();
     }
-  };
+  }
+  return new BarConstructor();
 }
+
 
 
 function SimpleObject() {

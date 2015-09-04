@@ -1,16 +1,31 @@
-var jQuery = function(string) {
-  var collection = []
-  if (string[0] === '.') {
-    // find by class
-    collection = document.getElementsByClassName(string.substring(1, string.length));
+var jQuery = function(input) {
+  function jQuery() {
+    if (typeof input === 'object') {
+      this.collection = [input]
+    }
+    else if (input[0] === '.') {
+      // find by class
+      this.collection = document.getElementsByClassName(input.substring(1, input.length));
+    }
+    else if (input[0] === '#') {
+      // find by id
+      this.collection = [document.getElementById(input.substring(1, input.length))];
+    }
+    else {
+      // find by element
+      this.collection = document.getElementsByTagName(input);
+    }
+
+    this.length = function() {
+      return this.collection.length;
+    }
+
+    this.idx = function(index) {
+      return this.collection[index];
+    }
   }
-  else if (string[0] === '#') {
-    // find by id
-    collection = document.getElementById(string.substring(1, string.length));
-  }
-  else {
-    // find by element
-    collection = document.getElementsByTagName(string);
-  }
-  return collection;
-}
+
+  return new jQuery();
+};
+
+var $ = jQuery;
