@@ -142,6 +142,44 @@ var jQuery = function(input) {
       }
     }
 
+    this.attr = function(attributeName, setValue) {
+      if (typeof setValue === 'undefined') {
+        var node = this.collection[0];
+        return node.getAttribute(attributeName);
+      }
+      else {
+        for(var i = 0; i < this.collection.length; i++) {
+          if (typeof setValue === 'function') {
+            var value = setValue(i);
+          }
+          else {
+            var value = setValue;
+          }
+          this.collection[i].setAttribute(attributeName, value);
+        }
+        return this;
+      }
+    }
+
+    this.html = function(setHTML) {
+      if (typeof setHTML === 'undefined') {
+        var node = this.collection[0];
+        return node.innerHTML.trim();
+      }
+      else {
+        for(var i = 0; i < this.collection.length; i++) {
+          if (typeof setHTML === 'function') {
+            var value = setHTML(i);
+          }
+          else {
+            var value = setHTML;
+          }
+          this.collection[i].innerHTML = value;
+        }
+        return this;
+      }
+    }
+
 
   }
 
