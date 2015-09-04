@@ -39,28 +39,107 @@ var jQuery = function(input) {
       this.each(function(el) {
         el.className = (el.className + " " + className).trim();
       });
+      return this;
     }
 
     this.removeClass = function(classToRemove) {
       this.each(function(el) {
-        currentClasses = el.className
+        var currentClasses = el.className
         el.className = currentClasses.replace(classToRemove, "").trim();
       });
+      return this;
     }
 
-    this.toggleClass = function(className, state) {
+    this.toggleClass = function(className) {
       var regex = new RegExp("(^| )" + className + "( |$)")
 
       // when state not given
       this.each(function(el) {
         if (regex.test(el.className)) {
-          currentClasses = el.className
+          var currentClasses = el.className
           el.className = currentClasses.replace(className, "").trim();
         }
         else {
           el.className = (el.className + " " + className).trim();
         }
       })
+      return this;
+    }
+
+    this.val = function(setValue) {
+      if (typeof setValue === 'undefined') {
+        var node = this.collection[0];
+        return node.getAttribute('value');
+      }
+      else {
+        for(var i = 0; i < this.collection.length; i++) {
+          if (typeof setValue === 'function') {
+            var value = setValue(i);
+          }
+          else {
+            var value = setValue;
+          }
+          this.collection[i].setAttribute('value', value);
+        }
+        return this;
+      }
+    }
+
+    this.css = function(propertyName, setValue) {
+      if (typeof setValue === 'undefined') {
+        var node = this.collection[0];
+        return getComputedStyle(node)[propertyName];
+      }
+      else {
+        for(var i = 0; i < this.collection.length; i++) {
+          if (typeof setValue === 'function') {
+            var value = setValue(i);
+          }
+          else {
+            var value = setValue;
+          }
+          this.collection[i].style[propertyName] = value;
+        }
+        return this;
+      }
+    }
+
+    this.height = function(setValue) {
+      if (typeof setValue === 'undefined') {
+        var node = this.collection[0];
+        return getComputedStyle(node).height;
+      }
+      else {
+        for(var i = 0; i < this.collection.length; i++) {
+          if (typeof setValue === 'function') {
+            var value = setValue(i);
+          }
+          else {
+            var value = setValue;
+          }
+          this.collection[i].style.height = value;
+        }
+        return this;
+      }
+    }
+
+    this.width = function(setValue) {
+      if (typeof setValue === 'undefined') {
+        var node = this.collection[0];
+        return getComputedStyle(node).width;
+      }
+      else {
+        for(var i = 0; i < this.collection.length; i++) {
+          if (typeof setValue === 'function') {
+            var value = setValue(i);
+          }
+          else {
+            var value = setValue;
+          }
+          this.collection[i].style.width = value;
+        }
+        return this;
+      }
     }
 
 
