@@ -16,6 +16,7 @@ var jQuery = function(input) {
       this.collection = document.getElementsByTagName(input);
     }
 
+
     this.length = function() {
       return this.collection.length;
     }
@@ -60,6 +61,7 @@ var jQuery = function(input) {
           el.className = currentClasses.replace(className, "").trim();
         }
         else {
+          // add class?
           el.className = (el.className + " " + className).trim();
         }
       })
