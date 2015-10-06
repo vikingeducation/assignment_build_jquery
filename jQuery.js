@@ -40,8 +40,12 @@ function jQuery(input){
     
     // Method which cycles through every item in the collection
     each: function(f){
-      for(var i=0;i<collection.length;i++){
-        f(collection[i]);
+      if(!collection.length){
+        f(collection);
+      } else {
+        for(var i=0;i<collection.length;i++){
+          f(collection[i]);
+        }
       }
     },
     
@@ -57,7 +61,9 @@ function jQuery(input){
     },
     
     addClass: function(addClassName){
-      return collection.className += " " + addClassName;
+      this.each(function(element){
+        element.className += " " + addClassName;
+      });
     }
   };
   
@@ -70,5 +76,4 @@ function $(input){
 }
 
 var node = document.getElementById("content");
-var test = $(".my-class");
-console.log(test.hasClass("second-class"));
+$('.my-class').addClass("second-class");
