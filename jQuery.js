@@ -24,7 +24,7 @@ function jQuery(input){
       collection = Array(document.getElementById(input.slice(1)));
       break;
     case "node":
-      collection = [node];
+      collection = Array(node);
       break;
     case "element":
       collection = document.getElementsByTagName(input);
@@ -99,6 +99,8 @@ function jQuery(input){
     val: function(value){
       // If nothing is passed in for value then
       // we'll run the top part of the if statement
+      // QUESTION: Is there a better way to check for a 
+      // default value
       if(typeof value == 'undefined'){
         if(!!collection[0].value){
           return collection[0].value;
@@ -110,6 +112,41 @@ function jQuery(input){
         collection[0].value = value;
         return collection[0].value;
       }
+    }, 
+    
+    css: function(property, value){
+      if(typeof value == 'undefined'){
+        return collection[0].style[property];
+      } else {
+        collection[0].style[property] = value;
+        return collection[0].style[property];
+      }
+    }, 
+    
+    height: function(value){
+      if(typeof value == 'undefined'){
+        return collection[0].offsetHeight + "px";
+      } else {
+        collection[0].style.height = value;
+        return collection[0].style.height;
+      }
+    }, 
+    
+    width: function(value){
+      if(typeof value == 'undefined'){
+        return collection[0].offsetWidth + "px";
+      } else {
+        collection[0].style.width = value;
+        return collection[0].style.width;
+      }
+    }, 
+    
+    attr: function(property, value){
+      // skipping attr for now
+    }, 
+    
+    html: function(){
+      return collection[0].innerHTML;
     }
   };
   
@@ -124,5 +161,5 @@ function $(input){
 
 // Testing
 var node = document.getElementById("some-input");
-var test = $(node).val("nest");
+var test = $('#content').html();
 console.log(test);
