@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Assignment Build jQuery</title>
+
+    <script src="/my-jquery.js"></script>
+  </head>
+  <body>
+    <header>
+        <h1>
+          <a href="/">
+            Assignment Build jQuery
+          </a>
+        </h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="/constructors.html">
+                Constructors
+              </a>
+            </li>
+            <li>
+              <a href="/anonymous-functions.html">
+                Anonymous Functions
+              </a>
+            </li>
+            <li>
+              <a href="/build-jquery.html">
+                Build jQuery
+              </a>
+            </li>
+          </ul>
+        </nav>    
+    </header>
+
+    <main>
+
+      <h1>Constructors</h1>
+
+      <pre id="output"></pre>
+
+      <script>
+        // Constructos
+
+        $.ready(function() {
+          
+          var FooConstructor = function() {
+            this.fooProp = 'foo!';
+            this.fooMethod = function() {return this.fooProp;};
+          };
+
+          var BarConstructor = function() {
+            this.barProp = 'bar!';
+            this.barMethod = function() {return this.barProp;};
+
+            if (!(this instanceof BarConstructor)) {
+              return new BarConstructor();
+            }
+          };
+
+          puts(new FooConstructor());
+          puts(BarConstructor());
+
+        });
+      </script>
+
+    </main>
+
+  </body>
+</html>
+

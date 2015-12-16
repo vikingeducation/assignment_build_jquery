@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Assignment Build jQuery</title>
+
+    <style>
+      body {
+        margin-bottom: 128px;  
+      }
+
+      .green {
+        color: green;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .red {
+        background: red;
+      }
+    </style>
+
+    <script src="/my-jquery.js"></script>
+  </head>
+  <body>
+    <header>
+        <h1>
+          <a href="/">
+            Assignment Build jQuery
+          </a>
+        </h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="/constructors.html">
+                Constructors
+              </a>
+            </li>
+            <li>
+              <a href="/anonymous-functions.html">
+                Anonymous Functions
+              </a>
+            </li>
+            <li>
+              <a href="/build-jquery.html">
+                Build jQuery
+              </a>
+            </li>
+          </ul>
+        </nav>    
+    </header>
+
+    <main>
+
+      <h1>Build jQuery</h1>
+
+      <div id="test-elements">
+        <p id="paragraph">I'm a paragraph tag with an ID of <code>paragraph</code></p>
+        <span class="span">I'm a span with a CLASS of <code>span</code></span>
+        <ul class="list">
+          <li>List Item 1</li>
+          <li>List Item 2</li>
+          <li>List Item 3</li>
+          <li>List Item 4</li>
+          <li>List Item 5</li> 
+        </ul>
+        <p id="classes" class="one two three four">I'm a paragraph with many classes</p>
+        <p id="styles" style="color:red; background:#222; font-size: 24px;">I'm a paragraph with inline styles</p>
+
+        <button id="button" onclick="$('#button').toggleClass('red')">Click me!</button>
+
+        <form>
+          <input id="input" type="text" value="Building jQuery!">
+        </form>
+
+        <p id="css">Change my background color!</p>
+        <a href="#">Target Attribute?</a>
+        <p id="html"></p>
+      </div>
+      
+      <pre id="output"></pre>
+
+      <script>
+        // Build jQuery
+
+        $.ready(function() {
+
+          puts($('#paragraph'));
+          puts($('.span'));
+          puts($('ul'));
+          puts($('li'));
+          
+          puts($('li').length);
+          
+          puts($('li').idx(0));
+          
+          puts($(document.getElementById('paragraph')));
+          
+          puts($('#classes').hasClass('one'));
+          puts($('#classes').hasClass('foo'));
+          
+          $('li')
+            .addClass('green')
+            .addClass('text-center');
+          $('#classes').removeClass('two');
+          
+          puts($('#classes').first().className);
+          
+          puts($('#input').val('Set using $("#input").val()!'));
+          puts($('#input').val());
+          
+          puts($('#css').css('background', 'red'));
+          puts($('#css').css(['background-color']));
+          puts($('#css').css({"background-color": 'green'}));
+          puts($('#css').css('background-color', function(index, value){console.log(index, value); return 'white';}));
+          
+          puts($('main').height());
+          puts($('main').height('768px'));
+          puts($('main').width());
+          puts($('main').width('1024px'));
+
+          puts($('a').attr('target', '_blank'));
+
+          puts($('#html').html('All your HTML are belong to us!'));
+        });
+      </script>
+
+    </main>
+
+  </body>
+</html>
+
