@@ -11,11 +11,29 @@
   <div class="many">3/3 of many</div>
   <div>I've got nothing :(</div>
 
-  <select id="select-input">
-    <option>Single</option>
-    <option>Single2</option>
-  </select>
+  <p>
+    <select id="select-input" multiple="multiple">
+      <option>Single</option>
+      <option>Single2</option>
+      <option>Single3</option>
+      <option>Single4</option>
+    </select>
+  </p>
 
-  <input id="text-input" type="text" value="some text here">
+  <p>
+    <input id="text-input" type="text" value="some text here">
+    <br>
+    <input id="email-input" type="email" value="foo@example.com">
+  </p>
+  
+  <p>
+    <input name="snack-choices" class="checkbox-input" type="checkbox" value="almonds"> almonds
+    <input name="snack-choices" class="checkbox-input" type="checkbox" value="cashews"> cashews
+  </p> 
+
+  <p>
+    <input name="beverage" class="radio-input" type="radio" value="yes"> yes
+    <input name="beverage" class="radio-input" type="radio" value="no"> no
+  </p>
 </body>
 </html>
