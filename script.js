@@ -67,9 +67,7 @@ function jQuery(query) {
       // option to each through input collection or main
       var col = inputCol || this.collection
       for ( i=0; i<col.length; i++ ) {
-        if ( col[i] instanceof HTMLElement) {
-          inputFunction( col[i] );
-        }
+        inputFunction( col[i] );
       };
     },
 
@@ -103,8 +101,6 @@ function jQuery(query) {
       });
       return this;
     },
-
-    // select, textish, radio & checkbox
 
     val: function(value) {
       var elem = this.idx(0);
@@ -160,7 +156,22 @@ function jQuery(query) {
         }
 
       };
+    },
 
+    css: function(propertyName) {
+      var elem = this.idx(0)
+      
+      if (propertyName instanceof Array) {
+        var values = [];
+        this.each( function(prop) {
+          values.push( 
+            window.getComputedStyle(elem).getPropertyValue(prop) 
+          );
+        }, propertyName);
+        return values;
+      } else {
+        return window.getComputedStyle(elem).getPropertyValue(propertyName);
+      };
     }
 
   };
