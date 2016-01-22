@@ -27,6 +27,9 @@ function jQuery(query) {
   var results = function(query) {
     if ( query[0] === "<" ) {
       return query;
+    } else if ( query.split(" ").length > 0 ) {
+      var slim_query = query.split(" ").join(""); 
+      return document.querySelectorAll(slim_query);
     } else if ( query[0] === "#" ) {
       return document.getElementById(query.slice(1, query.length));
     } else if ( query[0] === "." ) {
@@ -40,7 +43,7 @@ function jQuery(query) {
 
   var resultsToArray = function(query) {
     var r = results(query);
-    if ( r.constructor === HTMLCollection ) {
+    if ( [HTMLCollection, NodeList].includes(r.constructor) ) {
       return Array.prototype.slice.call(r);
     } else {
       return new Array(r);
@@ -49,7 +52,6 @@ function jQuery(query) {
 
   var collection = resultsToArray(query);
 
-  // collection set above so we can call length on it, otherwise "undefined"
   var jQueryObj = {
 
     collection: collection,
@@ -62,9 +64,8 @@ function jQuery(query) {
       return collection[index];
     },
 
-    // adv collection functions
     each: function(inputFunction, inputCol) {
-      // option to each through input collection or main
+      // each through input collection if defined
       var col = inputCol || this.collection
       for ( i=0; i<col.length; i++ ) {
         inputFunction( col[i] );
