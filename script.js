@@ -158,19 +158,76 @@ function jQuery(query) {
       };
     },
 
-    css: function(propertyName) {
-      var elem = this.idx(0)
-      
-      if (propertyName instanceof Array) {
-        var values = [];
-        this.each( function(prop) {
-          values.push( 
-            window.getComputedStyle(elem).getPropertyValue(prop) 
-          );
-        }, propertyName);
-        return values;
+    css: function(propertyName, value) {
+      if (value === undefined) {
+        var elem = this.idx(0)
+
+        if (propertyName instanceof Array) {
+          var values = [];
+          this.each( function(prop) {
+            values.push( 
+              window.getComputedStyle(elem).getPropertyValue(prop) 
+            );
+          }, propertyName);
+          return values;
+        } else {
+          return window.getComputedStyle(elem).getPropertyValue(propertyName);
+        };
+
       } else {
-        return window.getComputedStyle(elem).getPropertyValue(propertyName);
+
+        if (typeof value == 'number') {
+          px_value = value + "px";
+          this.each( function(el) {
+            el.style[propertyName] = px_value
+          });
+          return this;
+        } else {
+          this.each( function(el) { 
+            el.style[propertyName] = value
+          })
+          return this;
+        };
+      };
+    },
+
+    height: function(value) {
+      if (value === undefined) {
+        return this.idx(0).clientHeight;
+      } else {
+        this.css("height", value);
+        return this;
+      };
+    },
+
+    width: function(value) {
+      if (value === undefined) {
+        return this.idx(0).clientWidth;
+      } else {
+        this.css("width", value);
+        return this;
+      };
+    },
+
+    attr: function(attrib, value) {
+      if (value === undefined) {
+        return this.idx(0).attributes[attrib].value;
+      } else {
+        this.each( function(el) {
+          el.attributes[attrib].value = value;
+        })
+        return this;
+      };
+    },
+
+    html: function(value) {
+      if (value === undefined) {
+        return this.idx(0).innerHTML;
+      } else {
+        this.each( function(el) {
+          el.innerHTML = value;
+        })
+        return this;
       };
     }
 
