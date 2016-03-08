@@ -11,11 +11,17 @@ var foo = new FooConstructor();
 foo;
 
 function BarConstructor() {
-  this.someProp = "xyz";
-  this.someMethod = function() {
-    return "Hello"
-  };
-  return this;
+  if (!(this instanceof BarConstructor)){
+      return new BarConstructor();
+  }
+  else{
+    return {
+      someProp: "xyz",
+      someMethod: function() {
+        return "Hello";
+      }
+    };
+  }
 }
 
 var bar = BarConstructor();
@@ -33,15 +39,32 @@ function SimpleObject() {
 
 
 function jQuery(str) {
+  var collection; 
 
-  switch(str[0]) {
-    case "." :
-      return document.getElementsByClassName(str.slice(1));
-      break;
-    case "#" :
-      return document.getElementById(str.slice(1));
-      break;
-    default :
-      return document.getElementsByTagName(str);
+  var search = function(str){
+    console.log(str);
+    switch(str[0]) {
+      case "." :
+        collection =  document.getElementsByClassName(str.slice(1));
+        break;
+      case "#" :
+        collection = document.getElementById(str.slice(1));
+        break;
+      default :
+        collection = document.getElementsByTagName(str);
+    }
+    console.log(collection);
+    return collection;
+  }
+
+  this.get_collection = search(str);
+
+  if(!(this instanceof jQuery)){
+    return new jQuery(str);
+  }
+  else{
+    this.idx = function(num){
+      this[num];
+    }
   }
 }
