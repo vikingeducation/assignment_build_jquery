@@ -30,31 +30,48 @@ var SimpleObject = function() {
 
 
 
-
 function jQuery(selector) {
 
   var collection = [];
+  var results = [];
 
   switch (selector[0]) {
     case ".":
     // selector is class
-      collection = document.getElementsByClassName(selector.slice(1));
+    // returns as []
+      results = document.getElementsByClassName(selector.slice(1));
       break;
     case "#":
     // selector is ID
-      collection = document.getElementById(selector.slice(1));
+    // returns as single result
+      results = Array(document.getElementById(selector.slice(1)));
+      // console.log(results)
       break;
     default:
     // selector is element
-      collection = document.getElementsByTagName(selector);
+    // returns as []
+      results = document.getElementsByTagName(selector);
       break;
   };
 
   
   if (typeof selector === "object") {
     // element is a node
-    collection = selector;
+    // returns as []
+    results = selector;
   };
+
+
+  var compileResults = (function() {
+    // console.log("I'm here! Results: " + results)
+    if (!(results === null)) {
+      collection = results;
+      return collection;
+    } else {
+      return [];
+    }
+
+  })();
 
 
   var jQueryObject = {
@@ -107,13 +124,13 @@ function jQuery(selector) {
     },
 
     val: function(myVal) {
-      this.each(function( el, index ) {
-        if (myVal === undefined) {
-          // getter
-        } else {
-          // setter
-        }
-      })
+      if (myVal === undefined) {
+        // getter
+        return collection[0].value;
+      } else {
+        // setter
+        // return collection[0].value;
+      }
     }
 
   }
