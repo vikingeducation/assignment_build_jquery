@@ -1,4 +1,5 @@
 
+
 function jQuery( selector ) {
   var elements;
   if( typeof selector === "string" ) {
@@ -33,11 +34,6 @@ JQueryReturn.prototype.idx = function( i ) {
   }
 }
 
-// JQueryReturn.prototype.idx = function() {
-//   return this.collection.length;
-// }
-
-
 JQueryReturn.prototype.hasClass = function( selector ) {
 
   var hasClassTestFn = function(el, cls) {
@@ -56,6 +52,7 @@ JQueryReturn.prototype.addClass = function( newClassName ) {
   for ( var i = 0; i < this.collection.length; i++ ) {
     this.collection[i].className += " " + newClassName
   }
+  return $(this.collection);
 }
 
 JQueryReturn.prototype.removeClass = function( removeClassName ) {
@@ -65,6 +62,7 @@ JQueryReturn.prototype.removeClass = function( removeClassName ) {
     classNames.splice(removeIndex, 1);
     this.collection[i].className = classNames.join(" ");
   }
+  return $(this.collection);
 }
 
 JQueryReturn.prototype.toggleClass = function( toggleClassName ) {
@@ -73,6 +71,7 @@ JQueryReturn.prototype.toggleClass = function( toggleClassName ) {
   } else {
     this.addClass( toggleClassName );
   }
+  return $(this.collection);
 }
 
 JQueryReturn.prototype.val = function( newVal ) {
@@ -90,6 +89,7 @@ JQueryReturn.prototype.css = function( property, value ) {
     for ( var i = 0; i < this.collection.length; i++ ) {
       this.collection[i].style[property] = value;
     }
+    return $(this.collection);
   } else {
     var style = getComputedStyle(this.collection[0]);
     return style.getPropertyValue(property);
