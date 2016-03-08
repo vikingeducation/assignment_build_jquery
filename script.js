@@ -1,8 +1,7 @@
 
 function FooConstructor(){
-  this.Prop = "foo!";
-  this.Method = funtion() { 
-    return "Hello"}
+  this.someProp = "foo!";
+  this.someMethod = funtion(){ return "Hello"};
 } 
 
 var foo = new FooConstructor();
