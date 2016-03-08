@@ -35,23 +35,29 @@ function jQuery(selector) {
   var collection = [];
   var results = [];
 
-  switch (selector[0]) {
-    case ".":
-    // selector is class
-    // returns as []
-      results = document.getElementsByClassName(selector.slice(1));
-      break;
-    case "#":
-    // selector is ID
-    // returns as single result
-      results = Array(document.getElementById(selector.slice(1)));
-      // console.log(results)
-      break;
-    default:
-    // selector is element
-    // returns as []
-      results = document.getElementsByTagName(selector);
-      break;
+  if (selector.includes(' ')) {
+    results = document.querySelector(selector)
+    console.log(results)
+  } else {
+
+    switch (selector[0]) {
+      case ".":
+      // selector is class
+      // returns as []
+        results = document.getElementsByClassName(selector.slice(1));
+        break;
+      case "#":
+      // selector is ID
+      // returns as single result
+        results = Array(document.getElementById(selector.slice(1)));
+        // console.log(results)
+        break;
+      default:
+      // selector is element
+      // returns as []
+        results = document.getElementsByTagName(selector);
+        break;
+    };
   };
 
   
@@ -123,13 +129,68 @@ function jQuery(selector) {
       return this;
     },
 
+    // worry about multiple later
     val: function(myVal) {
       if (myVal === undefined) {
         // getter
         return collection[0].value;
       } else {
         // setter
-        // return collection[0].value;
+        this.each(function(el, index) {
+          collection[index].value = myVal;
+        });
+      }
+    },
+
+    css: function(myCSS, value) {
+      if (value === undefined) {
+        return collection[0].style[myCSS];
+      } else {
+        this.each(function(el, index) {
+          collection[index].style[myCSS] = value;
+        })
+      }
+    },
+
+    // TODO: figure out window height
+    height: function(value) {
+      if (value === undefined) {
+        return collection[0].offsetHeight;
+      } else {
+        this.each(function(el, index) {
+          collection[index].style['height'] = value;
+        })
+      }
+    },
+
+    // TODO: figure out window width
+    width: function(value) {
+      if (value === undefined) {
+        return collection[0].offsetWidth;
+      } else {
+        this.each(function(el, index) {
+          collection[index].style['width'] = value;
+        })
+      }
+    },
+
+    attr: function(attrName, value) {
+      if (value === undefined) {
+        return collection[0].attributes[attrName];
+      } else {
+        this.each(function(el, index) {
+          collection[index].attributes[attrName] = value;
+        })
+      }
+    },
+
+    html: function(htmlString) {
+      if (htmlString === undefined) {
+        return collection[0].innerHTML;
+      } else {
+        this.each(function(el, index) {
+          collection[index].innerHTML = htmlString;
+        })
       }
     }
 
