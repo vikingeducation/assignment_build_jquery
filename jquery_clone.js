@@ -85,8 +85,15 @@ JQueryReturn.prototype.val = function( newVal ) {
   }
 }
 
-JQueryReturn.prototype.css = function() {
-
+JQueryReturn.prototype.css = function( property, value ) {
+  if (!!value) {
+    for ( var i = 0; i < this.collection.length; i++ ) {
+      this.collection[i].style[property] = value;
+    }
+  } else {
+    var style = getComputedStyle(this.collection[0]);
+    return style.getPropertyValue(property);
+  }
 }
 
 JQueryReturn.prototype.height = function() {
