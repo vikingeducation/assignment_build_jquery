@@ -59,32 +59,98 @@ function jQuery(selector) {
         break;
     }
     this.elements = results;
-  }
+  };
 
   this.length = function() {
     return this.elements.length;
-  }
+  };
 
   this.idx = function(index) {
     return this.elements[index];
-  }
+  };
 
   this.hasClass = function(className) {
     return this.elements[0].classList.contains(className);
-  }
+  };
 
   this.each = function(callback) {
     for (var i = 0; i < this.length(); ++i) {
       callback(i, this.elements[i]);
     }
-  }
+  };
 
   this.addClass = function(className) {
     this.each(function(index, element) {
       element.classList.add(className);
     });
     return this;
-  }
+  };
+
+  this.removeClass = function(className) {
+    this.each(function(index, element) {
+      element.classList.remove(className);
+    });
+    return this;
+  };
+
+  this.toggleClass = function(className) {
+    this.each(function(index, element) {
+      element.classList.toggle(className);
+    });
+    return this;
+  };
+
+  this.val = function(newValue) {
+    if (newValue) {
+      this.elements[0].attributes.value.value = newValue;
+      return this;
+    } else {
+      return this.elements[0].attributes.value.value;
+    }
+  };
+
+  this.css = function(propertyName, newValue) {
+    if (newValue) {
+      this.each( function(index, element) {
+        element.style[propertyName] = newValue;
+        });
+      return this;
+    } else {
+      var style = window.getComputedStyle(this.elements[0]);
+      return style[propertyName];
+    }
+  };
+
+  this.height = function(newValue) {
+    if (newValue) {
+      newValue = parseInt(newValue, 10);
+      this.css("height", newValue + "px");
+      return this;
+    } else {
+      return parseInt(this.css("height"), 10);
+    }
+  };
+
+  this.width = function(newValue) {
+    if (newValue) {
+      newValue = parseInt(newValue, 10);
+      this.css("width", newValue + "px");
+      return this;
+    } else {
+      return parseInt(this.css("width"), 10);
+    }
+  };
+
+  this.attr = function(attributeName, newValue) {
+    if (newValue) {
+      this.each( function(index, element) {
+        element.attributes[attributeName].value = newValue;
+        });
+      return this;
+    } else {
+      return this.elements[0].attributes[attributeName];
+    }
+  };
 }
 
 var $ = jQuery;
