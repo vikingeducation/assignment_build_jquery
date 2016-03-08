@@ -36,7 +36,14 @@ function jQuery(selector) {
 
   this.setElements = function(selector) {
     if (selector instanceof Element) {
+      console.log(selector + "is a node, adding directly to collection");
       this.elements = [selector];
+      return this;
+    }
+
+    if (selector.split(/ |\.|#/).length > 1) {
+      console.log(selector + "is a complicated query, using querySelector");
+      this.elements = document.querySelector(selector);
       return this;
     }
 
@@ -151,6 +158,17 @@ function jQuery(selector) {
       return this.elements[0].attributes[attributeName];
     }
   };
+
+  this.html = function(newHTML) {
+    if (newHTML) {
+      this.each( function(index, element) {
+        element.innerHTML = newHTML;
+      });
+      return this;
+    } else {
+      return this.elements[0].innerHTML;
+    }
+  }
 }
 
 var $ = jQuery;
