@@ -1,27 +1,58 @@
 
 function jQuery( selector ) {
-  switch (selector.charAt(0)) {
-  case "#":
-    var element = document.getElementById(selector.slice(1));
-    break;
-  case ".":
-    var element = document.getElementsByClassName(selector.slice(1));
-    break;
-  default:
-    var element = document.getElementsByTagName(selector);
+  var elements;
+  if( typeof selector === "string" ) {
+    switch (selector.charAt(0)) {
+    case "#":
+      elements = document.getElementById(selector.slice(1));
+      break;
+    case ".":
+      elements = document.getElementsByClassName(selector.slice(1));
+      break;
+    default:
+      elements = document.getElementsByTagName(selector);
+    }
+  } else if( Array.isArray(selector) ){
+    elements = selector;
+  } else {
+    // assumes that selector is one dom elt
+    elements = [ selector ];
   }
-  return new JQueryReturn(element);
+  return new JQueryReturn(elements);
 }
 
 var $ = jQuery;
 
-function JQueryReturn() {
-
+function JQueryReturn( collection ) {
+  this.collection = collection;
 }
 
-JQueryReturn.prototype.hasClass = function(className) {
-
+JQueryReturn.prototype.idx = function( i ) {
+  if (this.collection[i])  {
+    return this.collection[i];
+  }
 }
+
+// JQueryReturn.prototype.idx = function() {
+//   return this.collection.length;
+// }
+
+
+JQueryReturn.prototype.hasClass = function( selector ) {
+
+  var hasClassTestFn = function(el, cls) {
+    return el.className && new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className);
+  }
+
+  var retVal = false;
+  for( var i = 0; i < this.collection.length; i++){
+    retVal = retVal || hasClassTestFn( this.collection[i], selector );
+  } 
+
+  return retVal;
+}
+
+
 
 // hasClass() (Docs)
 // addClass() (Docs)
@@ -66,5 +97,5 @@ myObj = new SimpleObjConstructor();
 
 myObj.collection = [1,"foo",3];
 myObj.each( function( el, index ){
-    console.log( "Item " + index + " is " + el)
+    console.log( "Item " + index + " is " + el);
 });
