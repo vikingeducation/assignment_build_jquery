@@ -39,43 +39,69 @@ function SimpleObject() {
 
 
 function jQuery(str) { 
-  var collection; 
+  var collection = []; 
 
-  var search = function(str){
+  switch(str[0]) {
+    case "<" :
+       collection = [str];
+       break;
+    case "." :
+      collection =  document.getElementsByClassName(str.slice(1));
+      break;
+    case "#" :
+      collection = [document.getElementById(str.slice(1))];
+      break;
+    default :
+      collection = document.getElementsByTagName(str);
+  }
 
-    switch(str[0]) {
-      case "<" :
-         collection = [str];
-         break;
-      case "." :
-        collection =  document.getElementsByClassName(str.slice(1));
-        break;
-      case "#" :
-        collection = [document.getElementById(str.slice(1))];
-        break;
-      default :
-        collection = document.getElementsByTagName(str);
+  var jQueryObj = {
+    collection: collection,
+    length: collection.length, 
+    idx: function(num){
+      return collection[num];
+    },
+
+    hasClass: function(str){
+      if (document.getElementsByClassName(str).length > 0){
+        return true;
+      }
+      return false;
+    },
+
+    addClass: function(str){
+      for (i = 0; i < this.collection.length; i++){
+        this.collection[i].className += " " + str;
+      }
+    },
+
+    removeClass: function(str){
+      for (i = 0; i < this.collection.length; i++){
+        var x = this.collection[i].className.replace(new RegExp(str), "");
+        this.collection[i].className = x;
+        //why are you able to change the string in line 74 but you have to assign again here?
+      }
+    },
+
+    toggleClass: function(str){
+      if(this.hasClass(str)){
+        this.removeClass(str);
+      }
+      else{
+        this.addClass(str);
+      }  
     }
-    return collection;
+
+
+
+
   }
 
-  this.get_collection = search(str);
-
-  if(!(this instanceof jQuery)){
-    return new jQuery(str);
-  }
-  else{
-    this.idx = function(num){
-      return this.get_collection[num];
-    }
-  }
+  return jQueryObj;
 }
 
-//x = jQuery("p");
-//gives you jQuery Object and to get to the collcetion you have to do
-//x.get_collection --> specifially call this method
-// How do you get collection without calling get_collection and also have x.idx(0)
+  var $ = jQuery;
 
-var $ = jQuery;
 
+//Full Featured Functionality
 
