@@ -58,7 +58,7 @@ function jQuery(selector) {
       case "#":
         console.log(selector + " is an id");
         selector = selector.slice(1);
-        results = document.getElementById(selector);
+        results = [document.getElementById(selector)];
         break;
       default:
         console.log(selector + " is a tag");
@@ -168,7 +168,7 @@ function jQuery(selector) {
     } else {
       return this.elements[0].innerHTML;
     }
-  }
+  };
 }
 
 var $ = jQuery;
