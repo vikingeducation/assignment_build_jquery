@@ -52,7 +52,7 @@ JQueryReturn.prototype.addClass = function( newClassName ) {
   for ( var i = 0; i < this.collection.length; i++ ) {
     this.collection[i].className += " " + newClassName
   }
-  return $(this.collection);
+  return this;
 }
 
 JQueryReturn.prototype.removeClass = function( removeClassName ) {
@@ -62,7 +62,7 @@ JQueryReturn.prototype.removeClass = function( removeClassName ) {
     classNames.splice(removeIndex, 1);
     this.collection[i].className = classNames.join(" ");
   }
-  return $(this.collection);
+  return this;
 }
 
 JQueryReturn.prototype.toggleClass = function( toggleClassName ) {
@@ -71,7 +71,7 @@ JQueryReturn.prototype.toggleClass = function( toggleClassName ) {
   } else {
     this.addClass( toggleClassName );
   }
-  return $(this.collection);
+  return this;
 }
 
 JQueryReturn.prototype.val = function( newVal ) {
@@ -79,7 +79,7 @@ JQueryReturn.prototype.val = function( newVal ) {
     for ( var i = 0; i < this.collection.length; i++ ) {
       this.collection[i].value = newVal;
     }
-    return $(this.collection);
+    return this;
   } else {
     return this.collection[0].value;
   }
@@ -90,7 +90,7 @@ JQueryReturn.prototype.css = function( property, value ) {
     for ( var i = 0; i < this.collection.length; i++ ) {
       this.collection[i].style[property] = value;
     }
-    return $(this.collection);
+    return this;
   } else {
     var style = getComputedStyle(this.collection[0]);
     return style.getPropertyValue(property);
@@ -100,34 +100,48 @@ JQueryReturn.prototype.css = function( property, value ) {
 JQueryReturn.prototype.height = function( newVal ) {
   if ( !!newVal ) {
     for ( var i = 0; i < this.collection.length; i++ ) {
-      this.collection[i].style.height = newVal.toString() + "px";
+      this.collection[i].style.height = ( newVal.toString() + "px" );
     }
-    return $(this.collection);
+    return this;
   } else {
     return this.collection[0].offsetHeight;
   }
 }
 
-JQueryReturn.prototype.width = function() {
-
+JQueryReturn.prototype.width = function( newVal ) {
+  if ( !!newVal ) {
+    for ( var i = 0; i < this.collection.length; i++ ) {
+      this.collection[i].style.width = ( newVal.toString() + "px" );
+    }
+    return this;
+  } else {
+    return this.collection[0].offsetWidth;
+  }
 }
 
-JQueryReturn.prototype.attr = function() {
-
+JQueryReturn.prototype.attr = function(attribute, value) {
+  if ( !!value ) {
+    for ( var i = 0; i < this.collection.length; i++ ) {
+      this.collection[i].setAttribute( attribute, value );
+    }
+    return this;
+  } else {
+    return this.collection[0].getAttribute( attribute );
+  }
 }
 
-JQueryReturn.prototype.html = function() {
-
+JQueryReturn.prototype.html = function( newHTML ) {
+  if ( !!newHTML ) {
+    for ( var i = 0; i < this.collection.length; i++ ) {
+      this.collection[i].innerHTML = newHTML;
+    }
+    return this;
+  } else {
+    return this.collection[0].innerHTML;
+  }
 }
 
-
-// val() (Docs) Getter & Setter
-// css() (Docs) Getter & Setter
-// height() (Docs) Getter & Setter
-// width() (Docs) Getter & Setter
-// attr() (Docs) Getter & Setter
-// html() (Docs) Getter & Setter
-
+//////////////////////////////////////////
 
 function FooConstructor() {
   this.ourProp = { josh: "tetris", koz: "hotdog"}
@@ -144,7 +158,6 @@ function BarConstructor() {
 var bar = BarConstructor();
 
 var bar2 = new BarConstructor();
-
 
 function SimpleObjConstructor() {
   this.ourProp = "hotdog";
