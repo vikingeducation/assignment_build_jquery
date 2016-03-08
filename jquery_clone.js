@@ -47,17 +47,65 @@ JQueryReturn.prototype.hasClass = function( selector ) {
   var retVal = false;
   for( var i = 0; i < this.collection.length; i++){
     retVal = retVal || hasClassTestFn( this.collection[i], selector );
-  } 
+  }
 
-  return retVal;
+  return !!retVal;
+}
+
+JQueryReturn.prototype.addClass = function( newClassName ) {
+  for ( var i = 0; i < this.collection.length; i++ ) {
+    this.collection[i].className += " " + newClassName
+  }
+}
+
+JQueryReturn.prototype.removeClass = function( removeClassName ) {
+  for ( var i = 0; i < this.collection.length; i++ ) {
+    var classNames = this.collection[i].className.split(" ");
+    var removeIndex = classNames.indexOf( removeClassName );
+    classNames.splice(removeIndex, 1);
+    this.collection[i].className = classNames.join(" ");
+  }
+}
+
+JQueryReturn.prototype.toggleClass = function( toggleClassName ) {
+  if ( this.hasClass( toggleClassName ) ) {
+    this.removeClass( toggleClassName );
+  } else {
+    this.addClass( toggleClassName );
+  }
+}
+
+JQueryReturn.prototype.val = function( newVal ) {
+  if ( !!newVal ) {
+    for ( var i = 0; i < this.collection.length; i++ ) {
+      this.collection[i].value = newVal;
+    }
+  } else {
+    return this.collection[0].value;
+  }
+}
+
+JQueryReturn.prototype.css = function() {
+
+}
+
+JQueryReturn.prototype.height = function() {
+
+}
+
+JQueryReturn.prototype.width = function() {
+
+}
+
+JQueryReturn.prototype.attr = function() {
+
+}
+
+JQueryReturn.prototype.html = function() {
+
 }
 
 
-
-// hasClass() (Docs)
-// addClass() (Docs)
-// removeClass() (Docs)
-// toggleClass() (Docs)
 // val() (Docs) Getter & Setter
 // css() (Docs) Getter & Setter
 // height() (Docs) Getter & Setter
