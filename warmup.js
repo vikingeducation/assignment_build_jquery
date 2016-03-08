@@ -65,9 +65,62 @@ function jQuery(selector) {
 
     idx: function(index) {
       return collection[index];
-    }
-  };
+    },
 
+    each: function(function_param) {
+      for(var i=0; i < collection.length; i++) {
+        var el = collection[i];
+        var index = i;
+        function_param(el, index);
+      }
+    },
+
+    hasClass: function(myClass) {
+      var result = false;
+      this.each(function( el, index ) {
+        if (el.classList.contains(myClass)) {
+          result = true;
+        }
+      })
+      return result;
+    },
+
+    addClass: function(myClass) {
+      this.each(function( el, index ) {
+        el.classList.add(myClass);
+      })
+      return this;
+    },
+
+    removeClass: function(myClass) {
+      this.each(function( el, index ) {
+        el.classList.remove(myClass);
+      })
+      return this;
+    },
+
+    toggleClass: function(myClass) {
+      this.each(function( el, index ) {
+        el.classList.toggle(myClass);
+      })
+      return this;
+    },
+
+    val: function(myVal) {
+      this.each(function( el, index ) {
+        if (myVal === undefined) {
+          // getter
+        } else {
+          // setter
+        }
+      })
+    }
+
+  }
 
   return jQueryObject;
+};
+
+function $(selector) {
+  return jQuery(selector);
 };
