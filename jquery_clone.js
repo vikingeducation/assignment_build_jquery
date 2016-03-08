@@ -79,6 +79,7 @@ JQueryReturn.prototype.val = function( newVal ) {
     for ( var i = 0; i < this.collection.length; i++ ) {
       this.collection[i].value = newVal;
     }
+    return $(this.collection);
   } else {
     return this.collection[0].value;
   }
@@ -96,8 +97,15 @@ JQueryReturn.prototype.css = function( property, value ) {
   }
 }
 
-JQueryReturn.prototype.height = function() {
-
+JQueryReturn.prototype.height = function( newVal ) {
+  if ( !!newVal ) {
+    for ( var i = 0; i < this.collection.length; i++ ) {
+      this.collection[i].style.height = newVal.toString() + "px";
+    }
+    return $(this.collection);
+  } else {
+    return this.collection[0].offsetHeight;
+  }
 }
 
 JQueryReturn.prototype.width = function() {
