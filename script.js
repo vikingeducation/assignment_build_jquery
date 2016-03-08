@@ -38,22 +38,24 @@ function SimpleObject() {
 }
 
 
-function jQuery(str) {
+function jQuery(str) { 
   var collection; 
 
   var search = function(str){
-    console.log(str);
+
     switch(str[0]) {
+      case "<" :
+         collection = [str];
+         break;
       case "." :
         collection =  document.getElementsByClassName(str.slice(1));
         break;
       case "#" :
-        collection = document.getElementById(str.slice(1));
+        collection = [document.getElementById(str.slice(1))];
         break;
       default :
         collection = document.getElementsByTagName(str);
     }
-    console.log(collection);
     return collection;
   }
 
@@ -64,7 +66,16 @@ function jQuery(str) {
   }
   else{
     this.idx = function(num){
-      this[num];
+      return this.get_collection[num];
     }
   }
 }
+
+//x = jQuery("p");
+//gives you jQuery Object and to get to the collcetion you have to do
+//x.get_collection --> specifially call this method
+// How do you get collection without calling get_collection and also have x.idx(0)
+
+var $ = jQuery;
+
+
