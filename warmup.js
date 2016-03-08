@@ -28,28 +28,46 @@ var SimpleObject = function() {
   };
 };
 
+
+
+
 function jQuery(selector) {
-  this.collection = [];
+
+  var collection = [];
 
   switch (selector[0]) {
     case ".":
     // selector is class
-      this.collection = document.getElementsByClassName(selector.slice(1));
+      collection = document.getElementsByClassName(selector.slice(1));
       break;
     case "#":
     // selector is ID
-      this.collection = document.getElementById(selector.slice(1));
+      collection = document.getElementById(selector.slice(1));
       break;
     default:
     // selector is element
-      this.collection = document.getElementsByTagName(selector);
+      collection = document.getElementsByTagName(selector);
       break;
   };
 
-  var length = this.collection.length;
+  
+  if (typeof selector === "object") {
+    // element is a node
+    collection = selector;
+  };
+
+
   var jQueryObject = {
+
+    collection: collection,
+
+    length: collection.length,
+
     idx: function(index) {
-      return this.collection[index];
+      return collection[index];
     }
   };
+
+
+  return jQueryObject;
 };
