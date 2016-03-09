@@ -110,14 +110,32 @@ function jQuery(str) {
       else {
         return collection[0].style[css_selector];
       }
-    }
+    },
 
     height: function(input){
       if(input){
-        collection[0].clientHeight = input;
+        this.collection[0].s = input;
       }
       else {
-        return collection[0].clientHeight;
+        return this.collection[0].clientHeight;
+      }
+    }, //getter works but not setter?
+
+    width: function(input){
+      if(input){
+        this.collection[0].style[width] = input;
+      }
+      else{
+        return this.collection[0].clientWidth;
+      }
+    },//again getter works but not setter
+
+    attr: function(attrName){
+      if(attrName){
+        this.collection[0].attributes = attrName;
+      }
+      else{
+        return this.collection[0].attributes[attrName];
       }
     }
 
