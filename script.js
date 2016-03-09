@@ -112,6 +112,15 @@ function jQuery(str) {
       }
     }
 
+    height: function(input){
+      if(input){
+        collection[0].clientHeight = input;
+      }
+      else {
+        return collection[0].clientHeight;
+      }
+    }
+
   }
 
   return jQueryObj;
