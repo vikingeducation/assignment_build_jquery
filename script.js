@@ -27,6 +27,18 @@ var jQuery = function(selector){
     return this.collection[index];
   };
 
+  this.hasClass = function(inputClass){
+    var classes = this.collection[0].classList
+
+    for (var i = 0; i < classes.length; i++) {
+      if (classes[i] === inputClass) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   return this;
 };
 
