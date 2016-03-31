@@ -59,6 +59,22 @@ var jQuery = function(selector){
     }
   };
 
+  this.height = function(newValue){
+    if (newValue) {
+      return this.css('height', newValue);
+    } else {
+      return this.css('height');
+    }
+  };
+
+  this.width = function(newValue){
+    if (newValue) {
+      return this.css('width', newValue);
+    } else {
+      return this.css('width');
+    }
+  };
+
   // Setters
   this.addClass = function(inputClass){
     this.each(function(element){
