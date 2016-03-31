@@ -35,13 +35,19 @@ var jQuery = function(selector){
     this.each(function(element){
       element.classList.add(inputClass);
     });
-  }
+  };
 
   this.removeClass = function(inputClass){
     this.each(function(element){
       element.classList.remove(inputClass);
     });
-  }
+  };
+
+  this.toggleClass = function(inputClass){
+    this.each(function(element){
+      element.classList.toggle(inputClass);
+    });
+  };
 
   // eachFunction arguments include the element
   this.each = function (eachFunction) {
