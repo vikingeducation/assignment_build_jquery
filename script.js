@@ -28,15 +28,26 @@ var jQuery = function(selector){
   };
 
   this.hasClass = function(inputClass){
-    var classes = this.collection[0].classList
+    return this.collection[0].classList.contains(inputClass);
+  };
 
-    for (var i = 0; i < classes.length; i++) {
-      if (classes[i] === inputClass) {
-        return true;
-      }
+  this.addClass = function(inputClass){
+    this.each(function(element){
+      element.classList.add(inputClass);
+    });
+  }
+
+  this.removeClass = function(inputClass){
+    this.each(function(element){
+      element.classList.remove(inputClass);
+    });
+  }
+
+  // eachFunction arguments include the element
+  this.each = function (eachFunction) {
+    for (var i = 0; i < this.collection.length; i++){
+      eachFunction(this.collection[i]);
     }
-
-    return false;
   };
 
   return this;
