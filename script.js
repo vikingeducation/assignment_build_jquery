@@ -27,10 +27,27 @@ var jQuery = function(selector){
     return this.collection[index];
   };
 
+  // Getters
   this.hasClass = function(inputClass){
     return this.collection[0].classList.contains(inputClass);
   };
 
+  this.val = function(){
+    // Or did we want nodeValue?
+    return this.collection[0].value;
+  }
+
+  this.css = function(property){
+    var computedStyle = window.getComputedStyle(this.collection[0]);
+
+    if (property) {
+      return computedStyle.getPropertyValue(property);
+    } else {
+      return computedStyle;
+    }
+  };
+
+  // Setters
   this.addClass = function(inputClass){
     this.each(function(element){
       element.classList.add(inputClass);
