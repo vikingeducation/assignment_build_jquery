@@ -7,21 +7,14 @@ function FooConstructor(){
   }
 }
 
-// function BarConstructor(){
-//   return Object.create(null, {
-//     barProp: {value: "bar!"},
-//     barMethod: {value: function(){
-//           console.log("Bar method!");
-//         }}
-//   })
-// }
-
 function BarConstructor(){
-  return {
-    barProp: "bar!",
-    barMethod: function(){
-      console.log("Bar method!");
-    }
+  if (!(this instanceof BarConstructor)) {
+    return new BarConstructor();
+  }
+
+  this.barProp = "bar!";
+  this.barMethod = function(){
+    console.log("Bar method!");
   };
 }
 
