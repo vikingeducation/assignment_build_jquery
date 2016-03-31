@@ -32,18 +32,30 @@ var jQuery = function(selector){
     return this.collection[0].classList.contains(inputClass);
   };
 
-  this.val = function(){
+  // Getters and Setters
+  this.val = function(newValue){
     // Or did we want nodeValue?
+    if (newValue) {
+      this.collection[0].value = newValue;
+    }
+
     return this.collection[0].value;
   }
 
-  this.css = function(property){
-    var computedStyle = window.getComputedStyle(this.collection[0]);
+  this.css = function(property, newValue){
+    var firstComputedStyle = window.getComputedStyle(this.collection[0]);
 
     if (property) {
-      return computedStyle.getPropertyValue(property);
+      if (newValue) {
+        this.each(function(element){
+          element.style[property] = newValue;
+        })
+      }
+
+      return firstComputedStyle.getPropertyValue(property);
+
     } else {
-      return computedStyle;
+      return firstComputedStyle;
     }
   };
 
