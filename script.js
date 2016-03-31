@@ -5,7 +5,9 @@ var jQuery = function(selector){
 
   // Why must I put this first when before order didn't matter?
   var getCollection = function(selector) {
-    if (selector.charAt(0) === '#') {
+    if (typeof selector === 'object') {
+      return selector
+    } else if (selector.charAt(0) === '#') {
       return [window.document.getElementById(selector.slice(1))];
     } else if (selector.charAt(0) === '.') {
       return window.document.getElementsByClassName(selector.slice(1));
@@ -26,4 +28,8 @@ var jQuery = function(selector){
   };
 
   return this;
-}
+};
+
+var $ = function(selector){
+  return jQuery.call(this, selector);
+};
