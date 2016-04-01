@@ -75,6 +75,16 @@ var jQuery = function(selector){
     }
   };
 
+  this.attr = function(attribute, newValue){
+    if (newValue) {
+      this.each(function(element){
+        element.setAttribute(attribute, newValue);
+      })
+    }
+
+    return this.collection[0].getAttribute(attribute);
+  };
+
   // Setters
   this.addClass = function(inputClass){
     this.each(function(element){
