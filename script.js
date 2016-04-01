@@ -85,6 +85,16 @@ var jQuery = function(selector){
     return this.collection[0].getAttribute(attribute);
   };
 
+  this.html = function(htmlString){
+    if (htmlString) {
+      this.each(function(element){
+        element.innerHTML = htmlString;
+      })
+    }
+
+    return this.collection[0].innerHTML;
+  };
+
   // Setters
   this.addClass = function(inputClass){
     this.each(function(element){
