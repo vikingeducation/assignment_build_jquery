@@ -51,6 +51,12 @@
             this.collection = collection || [];
           };
 
+          SimpleObject.each = function(collection, func) {
+            for (var i = 0; i < collection.length; i++) {
+              func(collection[i], i);
+            }
+          };
+
           SimpleObject.prototype.each = function(func) {
             for (var i = 0; i < this.collection.length; i++) {
               func(this.collection[i], i);

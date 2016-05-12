@@ -116,7 +116,11 @@
           puts($('#css').css('background', 'red'));
           puts($('#css').css(['background-color']));
           puts($('#css').css({"background-color": 'green'}));
-          puts($('#css').css('background-color', function(index, value){console.log(index, value); return 'white';}));
+          puts($('#css').css('backgroundColor', function(index, value){console.log(index, value); return 'white';}));
+          // puts($('#css').css({
+          //   "backgroundColor": 'blue',
+          //   "fontSize": '32px'
+          // }));
           
           puts($('main').height());
           puts($('main').height('768px'));

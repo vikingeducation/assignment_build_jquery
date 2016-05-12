@@ -54,10 +54,9 @@
   $.prototype.addClass = function(className) {
     this.each(function(element) {
       if (element) {
-        element.className || (element.className = '');
-        className = element.className ? ' ' + className : className;
-        className = element.className + className;
-        element.setAttribute('class', className);
+        var classNames = element.className.split(' ');
+        classNames.push(className);
+        element.className = classNames.join(' ');
       }
     });
 
@@ -67,11 +66,10 @@
   $.prototype.removeClass = function(className) {
     this.each(function(element) {
       if (element) {
-        element.className || (element.className = '');
         var classNames = element.className.split(' ');
         var regex = new RegExp(className);
         if (classNames.length > 1) {
-          if (classNames.indexOf(className) === classNames.length - 1) {
+          if (classNames.indexOf(className) === 0) {
             regex = new RegExp(className + ' ');
           } else {
             regex = new RegExp(' ' + className);
@@ -87,6 +85,7 @@
   $.prototype.first = function() {
     return this.collection.length ? this.collection[0] : null;
   };
+  
   $.prototype.last = function() {
     return this.collection.length ? this.collection[this.collection.length - 1] : null;
   };
@@ -227,7 +226,7 @@
       for (var i in arguments) {
         arg = arguments[i];
         output.innerHTML += arg + "\n";
-        // console.log(arg);
+        console.log(arg);
       }
     };
   });

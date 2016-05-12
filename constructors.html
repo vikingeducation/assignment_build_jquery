@@ -43,26 +43,38 @@
       <pre id="output"></pre>
 
       <script>
-        // Constructos
+        // Constructors
 
         $.ready(function() {
           
           var FooConstructor = function() {
             this.fooProp = 'foo!';
-            this.fooMethod = function() {return this.fooProp;};
+            this.fooMethod = function() { return this.fooProp; };
           };
 
           var BarConstructor = function() {
             this.barProp = 'bar!';
-            this.barMethod = function() {return this.barProp;};
+            this.barMethod = function() { return this.barProp; };
 
             if (!(this instanceof BarConstructor)) {
               return new BarConstructor();
             }
           };
 
+          var FizConstructor = function() {
+            if (!(this instanceof FizConstructor)) {
+              return new FizConstructor();
+            } else {
+              return {
+                fizProp: 'fiz!',
+                fizMethod: function() { return this.fizProp; }
+              };
+            }
+          };
+
           puts(new FooConstructor());
           puts(BarConstructor());
+          puts(FizConstructor());
 
         });
       </script>
