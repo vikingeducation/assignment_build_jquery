@@ -66,7 +66,7 @@ jQuery = function( searched ) {
 	  // hasClass()
 	  // Description: Determine whether any of the matched elements are assigned the given class.
 	  // So we want to go through all of the different items in the collection and see if they have this class in them.
-	  this.hasClass = function(className){
+	  this.hasClass = function( className ){
 	  	// I want to go through the collection and for each element, see if the class has the right element in it.
 	  	var answer = false;
 	  	// Have to use a for loop because you can't use a forEach in this situation...
@@ -74,6 +74,12 @@ jQuery = function( searched ) {
 	  	  this.collection[i].classList.forEach( function(c){ if (c === className){ answer = true }; } );
 	  	};
 	  	return answer;
+	  };
+
+	  this.addClass = function( classNameToAdd ){
+	    for (i = 0; i < this.length; i++) {
+	  	  this.collection[i].className = ( this.collection[i].className + " " + classNameToAdd )
+	  	};
 	  };
 	};
 
