@@ -70,16 +70,31 @@ jQuery = function( searched ) {
 	  	// I want to go through the collection and for each element, see if the class has the right element in it.
 	  	var answer = false;
 	  	// Have to use a for loop because you can't use a forEach in this situation...
-	  	for (i = 0; i < this.length; i++) {
+	  	for (var i = 0; i < this.length; i++) {
 	  	  this.collection[i].classList.forEach( function(c){ if (c === className){ answer = true }; } );
 	  	};
 	  	return answer;
 	  };
 
 	  this.addClass = function( classNameToAdd ){
-	    for (i = 0; i < this.length; i++) {
+	    for (var i = 0; i < this.length; i++) {
 	  	  this.collection[i].className = ( this.collection[i].className + " " + classNameToAdd )
 	  	};
+	  	return ( new jQueryObject(collection) );
+	  };
+
+	  this.removeClass = function( classNamesToRemove ){
+	  	// First we need to split up this string into an array...
+	  	var splitClasses = classNamesToRemove.split(" ");
+
+	  	// Now we need to go through each of items in the collection...
+	  	// I think there are errors because things are getting wiped out per go...
+	  	for (var i = (this.length - 1); i >= 0; i--) {
+	  	  for (var j = 0; j < splitClasses.length; j++) {
+	  	    this.collection[i].classList.remove(splitClasses[j])
+	  	  };
+	  	};
+	  	return ( new jQueryObject(collection) );
 	  };
 	};
 
