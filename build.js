@@ -58,7 +58,8 @@ jQuery = function( searched ) {
 	// So I think the whole point of the jQuery object is that you can chain other methods to it...
 	jQueryObject = function( collection ){
 	  this.collection = collection;
-	  // so currently this object doesn't have a length function right...
+	  this.length = collection.length;
+	  this.idx = function( id ){ return collection[id] };
 	};
 
 	return ( new jQueryObject(results) );
