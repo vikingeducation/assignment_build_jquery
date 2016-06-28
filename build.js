@@ -45,11 +45,21 @@ jQuery = function( searched ) {
 	};
 
 	// returning an array of found items depending on searched type.
+	// will set it to the variable results
+	var results = [];
 	if ( searchedType === "class" ) {
-	  return document.getElementsByClassName(searched);
+	  results = document.getElementsByClassName(searched);
 	} else if ( searchedType === "id" ) {
-	  return document.getElementById(searched);
+	  results = document.getElementById(searched);
 	} else {
-	  return document.getElementsByTagName(searched);
+	  results = document.getElementsByTagName(searched);
 	};
+
+	// So I think the whole point of the jQuery object is that you can chain other methods to it...
+	jQueryObject = function( collection ){
+	  this.collection = collection;
+	  // so currently this object doesn't have a length function right...
+	};
+
+	return ( new jQueryObject(results) );
 }
