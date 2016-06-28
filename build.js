@@ -30,14 +30,25 @@ jQuery = function( searched ) {
 	// 1. classes
 	// 2. ids
 	// 3. elements
-	// Will get rid of that first character after we've determined what sort of type we've found, using substr method.
+
+	// Determining the searched type and setting a variable to represent it. 
 	var searchedType = "element";
 	if ( searched[0] === "." ) {
 	  searchedType = "class";
-	  return document.getElementsByClassName(searched.substr(1));
 	} else if ( searched[0] === "#" ) {
 	  searchedType = "id";
-	  return document.getElementById(searched.substr(1));
+	};
+
+	// getting rid of the first character if the searched is a class or id search.
+	if ( searchedType === "class" || searchedType === "id" ) {
+	  searched = searched.substr(1);
+	};
+
+	// returning an array of found items depending on searched type.
+	if ( searchedType === "class" ) {
+	  return document.getElementsByClassName(searched);
+	} else if ( searchedType === "id" ) {
+	  return document.getElementById(searched);
 	} else {
 	  return document.getElementsByTagName(searched);
 	};
