@@ -103,8 +103,24 @@ jQuery = function( searched ) {
 	  // 3 - Without any arguments, all of selected items classes are toggled off... 
 	  // From the notes: "..to be toggled in the class attribute of each element in the matched set."
 	  this.toggleClass = function( classNamesToToggle, trueOrFalse ){
+	  	// First argument is a string
 	  	if ( typeof(classNamesToToggle) === "string" ) {
-	  	  console.log("string detected")
+	  	  // First need to get our array of different class names...
+	  	  var splitClasses = classNamesToToggle.split(" ");
+	  	  // We're gonna have to work backwards in terms of our jQueryObject because toggling can remove classes and therefore actively change the array (it's destructive)
+	  	  for (var i = (this.length - 1); i >= 0; i--) {
+	  	    for (var j = 0; j < splitClasses.length; j++) {
+	  	      var included = false;
+	  	      // First we need to figure out if the current item's classes include the class we're trying to toggle
+	  	      this.collection[i].classList.forEach( function(cl){
+	  	      														if (cl === splitClasses[j]){ included = true };
+	  	      													}
+	  	      			  					   );
+	  	      // Now that we've figured out whether this item is included or not.
+	  	      // We can either remove it or add it to the class.
+	  	      if (included === false ) { this.collection[i].className = ( this.collection[i].className + " " + splitClasses[j] ) } else { this.collection[i].classList.remove(splitClasses[j]) };
+	  	    };
+	  	  };
 
 	  	// No arguments
 	  	// I'm just gonna set it so that all the elements that are passed in will have all their classes removed. It should be easy enough to chance once I got this figured out.
