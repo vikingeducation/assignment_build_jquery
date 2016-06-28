@@ -30,16 +30,16 @@ jQuery = function( searched ) {
 	// 1. classes
 	// 2. ids
 	// 3. elements
-	// Will get rid of that first character after we've determined what sort of type we've found
+	// Will get rid of that first character after we've determined what sort of type we've found, using substr method.
 	var searchedType = "element";
 	if ( searched[0] === "." ) {
 	  searchedType = "class";
-	  searched.substr(1);
+	  return document.getElementsByClassName(searched.substr(1));
 	} else if ( searched[0] === "#" ) {
 	  searchedType = "id";
-	  searched.substr(1);
+	  return document.getElementbyId(searched.substr(1));
+	} else {
+	  return document.getElementsByTagName(searched);
 	};
 
-	// Testing the function up until now..
-	return searchedType;
 }
