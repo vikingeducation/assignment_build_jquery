@@ -37,9 +37,8 @@ jQuery = function( searched ) {
 	  return document.getElementsByClassName(searched.substr(1));
 	} else if ( searched[0] === "#" ) {
 	  searchedType = "id";
-	  return document.getElementbyId(searched.substr(1));
+	  return document.getElementById(searched.substr(1));
 	} else {
 	  return document.getElementsByTagName(searched);
 	};
-
 }
