@@ -63,4 +63,11 @@ jQuery = function( searched ) {
 	};
 
 	return ( new jQueryObject(results) );
-}
+};
+
+// Aliasing to the dollar sign
+// Not too sure if this should be a var or just a global thing...
+$ = function( searched ){
+  return( jQuery( searched ) );
+};
+
