@@ -133,6 +133,20 @@ jQuery = function( searched ) {
 
 	  	return ( new jQueryObject(collection) );
 	  };
+
+	  // 1. Return value if no argument is provided (of the first item)
+	  // 2. Set value if an argument is provided (of all elements in the collection)
+	  this.val = function( newValue ){
+	  	if ( newValue === undefined ) {
+	  		// Going to assume that user is going to only provide one item to set the value to, otherwise we'll have to think about how to present multiple values legibly...
+	  		return this.collection[0].value;
+	  	} else {
+	  		for (var i = 0; i < this.length; i++) {
+	  		  this.collection[i].value = newValue;
+	  		}
+	  	  // Not too sure if we should return anything when just setting a value...
+	  	};
+	  };
 	};
 
 	return ( new jQueryObject(results) );
