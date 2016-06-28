@@ -96,6 +96,27 @@ jQuery = function( searched ) {
 	  	};
 	  	return ( new jQueryObject(collection) );
 	  };
+
+	  // Method takes one or more class names as its parameter
+	  // 1 - If an element in the matched set of elements already has the class, then it is removed. If an element does have the class, then it is added.
+	  // 2 - The second version uses the second parameter for determining whether the class should be added or removed. True = add, False = remove.
+	  // 3 - Without any arguments, all of selected items classes are toggled off... 
+	  // From the notes: "..to be toggled in the class attribute of each element in the matched set."
+	  this.toggleClass = function( classNamesToToggle, trueOrFalse ){
+	  	if ( typeof(classNamesToToggle) === "string" ) {
+	  	  console.log("string detected")
+
+	  	// No arguments
+	  	// I'm just gonna set it so that all the elements that are passed in will have all their classes removed. It should be easy enough to chance once I got this figured out.
+	  	} else if (classNamesToToggle === undefined) {
+	  	  // I wonder if you can just set the class list to an empty array and it'll work...
+	  	  for (var i = (this.length - 1); i >= 0; i--) {
+		    this.collection[i].className = "";
+		  };
+	  	};
+
+	  	return ( new jQueryObject(collection) );
+	  };
 	};
 
 	return ( new jQueryObject(results) );
