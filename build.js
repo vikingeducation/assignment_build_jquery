@@ -80,7 +80,7 @@ jQuery = function( searched ) {
 	    for (var i = 0; i < this.length; i++) {
 	  	  this.collection[i].className = ( this.collection[i].className + " " + classNameToAdd )
 	  	};
-	  	return ( new jQueryObject(collection) );
+	  	return ( new jQueryObject(this.collection) );
 	  };
 
 	  this.removeClass = function( classNamesToRemove ){
@@ -94,7 +94,7 @@ jQuery = function( searched ) {
 	  	    this.collection[i].classList.remove(splitClasses[j])
 	  	  };
 	  	};
-	  	return ( new jQueryObject(collection) );
+	  	return ( new jQueryObject(this.collection) );
 	  };
 
 	  // Method takes one or more class names as its parameter
@@ -131,7 +131,7 @@ jQuery = function( searched ) {
 		  };
 	  	};
 
-	  	return ( new jQueryObject(collection) );
+	  	return ( new jQueryObject(this.collection) );
 	  };
 
 	  // 1. Return value if no argument is provided (of the first item)
@@ -163,6 +163,7 @@ jQuery = function( searched ) {
 	  	  	var elementToSet = this.collection[i];
 	  	  	elementToSet.style[propertyName] = value;
 	  	  };
+	  	  return ( new jQueryObject(this.collection) );
 
 	  	// When an argument hasn't been given - aka the getter
 	  	// You have to use different terms from the setter for the css values which is annoying, you could key them in later but still annoying.
@@ -204,6 +205,28 @@ jQuery = function( searched ) {
 	  		var element = this.collection[i];
 	  		element.setAttribute(attributeName, value);
 	  	  };
+	  	  return ( new jQueryObject(this.collection) );
+	  	};
+	  };
+
+	  // 1. Get the HTML contents of the first element in the set of matched elements
+	  // 2. Set the HTML contents of every matched element.
+	  // "This method uses the browser's innerHTML property."
+	  this.html = function( htmlString ){
+	  	// if htmlSTRING is undefined (no arg provided)
+	  	// return the innerHTML of the first item in the collection
+	  	if (htmlString === undefined) {
+		  var element = this.collection[0];
+		  return element.innerHTML;
+	  	// arg provided
+	  	// set the innerHTML of all items in that collection
+	  	// Going to have to work backwards on this one in case elements with the same class are nested...
+	  	} else {
+	  	  for (var i = (this.length - 1); i >= 0; i--) {
+	  	    var element = this.collection[i];
+	  	    element.innerHTML = htmlString;
+	  	  };
+	  	  return ( new jQueryObject(this.collection) );
 	  	};
 	  };
 
