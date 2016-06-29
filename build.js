@@ -147,6 +147,27 @@ jQuery = function( searched ) {
 	  	  // Not too sure if we should return anything when just setting a value...
 	  	};
 	  };
+
+	  // 1. Get the value of a computed style property for the first element in the set of matched elements
+	  // e.g. .css( "background-color" ) would return the value for that
+	  // 1.5 - You can get send in an array of css properties which will return an array of items but I might leave that for the meanwhile as I think it's going a step too far the point of this exercise.
+	  // 2. Or set one or more CSS properties for every matched element.
+	  // e.g. .css( "background-color", stringOrNumber )
+	  this.css = function( propertyName, value ){
+	  	// 2. Gonna do the setter first... Not too sure about this but it looks like this is a bit of a confusing rough method because setting seems to use different terms from which the getter uses...
+
+	  	// When an argument has been given for value - the setter
+	  	if ( value !== undefined ) {
+	  	  // First off we are going to set a variable for the element...
+	  	  var element = this.collection[0];
+	  	  element.style[propertyName] = value;
+
+	  	// When an argument hasn't been given - aka the getter
+	  	} else {
+	  	  console.log( "Searching.... psych" )
+	  	};
+	  };
+
 	};
 
 	return ( new jQueryObject(results) );
