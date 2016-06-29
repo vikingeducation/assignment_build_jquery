@@ -158,13 +158,18 @@ jQuery = function( searched ) {
 
 	  	// When an argument has been given for value - the setter
 	  	if ( value !== undefined ) {
-	  	  // First off we are going to set a variable for the element...
-	  	  var element = this.collection[0];
-	  	  element.style[propertyName] = value;
+	  	  for (var i = 0; i < this.length; i++) {
+	  	  	// First off we are going to set a variable for the element...
+	  	  	var elementToSet = this.collection[i];
+	  	  	elementToSet.style[propertyName] = value;
+	  	  };
 
 	  	// When an argument hasn't been given - aka the getter
+	  	// You have to use different terms from the setter for the css values which is annoying, you could key them in later but still annoying.
 	  	} else {
-	  	  console.log( "Searching.... psych" )
+	  	  // First off we are going to set a variable for the element...
+	  	  var element = this.collection[0];
+	  	  return getComputedStyle(element)[propertyName];
 	  	};
 	  };
 
