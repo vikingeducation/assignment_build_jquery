@@ -185,6 +185,28 @@ jQuery = function( searched ) {
 	  	return ( this.css( "width", value ) )
 	  };
 
+	  // 1. Get the value of an attribute for the first element in the set of matched elements
+	  // 2. or set one or more attributes for every matched elment.
+	  // e.g. <em title="huge, gigantic">large</em>
+	  // var title = $( "em" ).attr( "title" );
+	  // $( "div" ).text( title );
+
+	  // So it looks like we're getting the value of an attribute of a tag...
+	  this.attr = function( attributeName, value ){
+	  	// If there's no value, then we're gonna get the attribute value of the first item in the collection.
+	  	if ( value === undefined ) {
+	  	  var element = this.collection[0];
+	  	  return element.attributes[attributeName];
+
+	  	// A value is provided, so we're gonna set the attribute value for all items in that collection.
+	  	} else {
+	  	  for (var i = 0; i < this.length; i++) {
+	  		var element = this.collection[i];
+	  		element.setAttribute(attributeName, value);
+	  	  };
+	  	};
+	  };
+
 	};
 
 	return ( new jQueryObject(results) );
