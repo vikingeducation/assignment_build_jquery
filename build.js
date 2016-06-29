@@ -173,6 +173,12 @@ jQuery = function( searched ) {
 	  	};
 	  };
 
+	  // 1. If no argument, get the current computed height for the first element in the set of matched elements
+	  // 2. Set the height of every matched element.
+	  this.height = function( value ){
+	  	return ( this.css( "height", value ) )
+	  };
+
 	};
 
 	return ( new jQueryObject(results) );
