@@ -175,8 +175,14 @@ jQuery = function( searched ) {
 
 	  // 1. If no argument, get the current computed height for the first element in the set of matched elements
 	  // 2. Set the height of every matched element.
+
+	  // ** gonna call the css function for this and the width one below...
 	  this.height = function( value ){
 	  	return ( this.css( "height", value ) )
+	  };
+
+	  this.width = function( value ){
+	  	return ( this.css( "width", value ) )
 	  };
 
 	};
