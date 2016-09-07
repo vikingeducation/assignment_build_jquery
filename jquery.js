@@ -106,6 +106,30 @@ function jQuery(selector) {
     }
   }
 
+  this.attr = function(attrName, attrValue) {
+    if (typeof(attrName) === 'object') {
+      iterate(function(ele) {
+        for (var attrKey in attrName) {
+          ele.setAttribute(attrKey, attrName[attrKey]);
+        }
+      }, this.collection);
+      return this;
+
+    } else if (attrValue) {
+      iterate(function(ele) {
+        ele.setAttribute(attrName, attrValue);
+      }, this.collection)
+      return this;
+
+    } else {
+      return this.collection[0].getAttribute(attrName);
+    }
+
+  }
+
+  this.html = function() {
+    return this.collection[0].innerHTML;
+  }
 
   function iterate(func, collection) {
     for (var i = 0; i < collection.length; i++) {
