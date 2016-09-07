@@ -70,12 +70,49 @@ function jQuery(selector){
         return this.idx(0).value;
       }
     }
-  }
+  };
 
   this.css = function(property, value){
-    // putting property parameter returns the value of the property
     // putting in both property and value replaces the value of the property
-  }
+      if(value){
+        for(var i = 0; i < this.results.length; i++){
+          this.results[i].style[property] = value;
+        }
+      }
+      else{
+        return this.results[0].style[property];
+      }
+  };
+
+  this.height = function(value){
+    return this.css("height",value);
+  };
+
+  this.width = function(value){
+    return this.css("width", value);
+  };
+
+  this.attr = function(attrName, value){
+    if(value){
+      for(var i = 0; i < this.results.length; i++){
+        this.results[i].setAttribute(attrName, value);
+      }
+    }
+    else{
+      return this.results[0].getAttribute(attrName);
+    }
+  };
+
+  this.html = function(htmlString){
+    if(htmlString){
+      for(var i = 0; i < this.results.length; i++){
+        this.results[i].innerHTML = htmlString;
+      }
+    }
+    else{
+      return this.results[0].innerHTML;
+    }
+  };
 }
 
 function $(selector){ return jQuery(selector);}
