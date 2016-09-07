@@ -44,6 +44,23 @@ function jQuery(input) {
   this.idx = function(num) {
     return this.collection[num];
   };
+
+  this.hasClass = function(input) {
+    for(var i = 0; i < this.collection.length; i++) {
+      for(var j = 0; j < this.collection[i].classList.length; j++) {
+        if(this.collection[i].classList[j] === input) {
+          return true;
+        }
+      }
+    }  
+    return false; 
+  };
+
+  this.addClass = function(input) {
+    for(var i = 0; i < this.collection.length; i++) {
+      this.collection[i].className + " " + input;
+    };
+  };
 }
 
 var $ = jQuery;
