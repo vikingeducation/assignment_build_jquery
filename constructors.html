@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Assignment Build jQuery</title>
+
+    <script src="/my-jquery.js"></script>
+  </head>
+  <body>
+    <header>
+        <h1>
+          <a href="/">
+            Assignment Build jQuery
+          </a>
+        </h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="/constructors.html">
+                Constructors
+              </a>
+            </li>
+            <li>
+              <a href="/anonymous-functions.html">
+                Anonymous Functions
+              </a>
+            </li>
+            <li>
+              <a href="/build-jquery.html">
+                Build jQuery
+              </a>
+            </li>
+          </ul>
+        </nav>    
+    </header>
+
+    <main>
+
+      <h1>Constructors</h1>
+
+      <pre id="output"></pre>
+
+      <script>
+        // Constructors
+
+        $.ready(function() {
+          
+          var Foo = function() {
+            this.fooProp = 'foo!';
+            this.fooMethod = function() { return this.fooProp; };
+          };
+
+          var Bar = function() {
+            if (!(this instanceof Bar)) {
+              return new Bar();
+            } else {
+              return {
+                barProp: 'bar!',
+                barMethod: function() { return this.barProp; }
+              };
+            }
+          };
+
+          var Baz = function() {
+            if (!(this instanceof Baz)) {
+              return new Baz();
+            }
+
+            this.bazProp = 'baz!';
+            this.bazMethod = function() { return this.bazProp; };
+          };
+
+          puts(new Foo());
+          puts(Bar());
+          puts(Baz());
+          puts(new Baz());
+
+          puts('---');
+
+          puts(typeof new Foo() === 'object');
+          puts(new Foo() instanceof Object);
+          puts(new Foo() instanceof Foo);
+
+          puts('---');
+
+          puts(typeof new Bar() === 'object');
+          puts(new Bar() instanceof Object);
+          puts(new Bar() instanceof Bar);
+          puts(Bar() instanceof Object);
+          puts(Bar() instanceof Bar);
+
+          puts('---');
+
+          puts(typeof Baz() === 'object');
+          puts(Baz() instanceof Object);
+          puts(Baz() instanceof Baz);
+
+          puts('---');
+
+          puts(typeof new Baz() === 'object');
+          puts(new Baz() instanceof Object);
+          puts(new Baz() instanceof Baz);
+
+        });
+      </script>
+
+    </main>
+
+  </body>
+</html>
+

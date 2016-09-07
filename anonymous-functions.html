@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Assignment Build jQuery</title>
+
+    <script src="/my-jquery.js"></script>
+  </head>
+  <body>
+    <header>
+        <h1>
+          <a href="/">
+            Assignment Build jQuery
+          </a>
+        </h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="/constructors.html">
+                Constructors
+              </a>
+            </li>
+            <li>
+              <a href="/anonymous-functions.html">
+                Anonymous Functions
+              </a>
+            </li>
+            <li>
+              <a href="/build-jquery.html">
+                Build jQuery
+              </a>
+            </li>
+          </ul>
+        </nav>    
+    </header>
+
+    <main>
+
+      <h1>Anonymous Functions</h1>
+
+      <pre id="output"></pre>
+
+      <script>
+        // Anonymous Functions
+
+        $.ready(function() {
+
+          var SimpleObject = function(collection) {
+            this.collection = collection || [];
+          };
+
+          SimpleObject.each = function(collection, func) {
+            for (var i = 0; i < collection.length; i++) {
+              func(collection[i], i);
+            }
+          };
+
+          SimpleObject.prototype.each = function(func) {
+            for (var i = 0; i < this.collection.length; i++) {
+              func(this.collection[i], i);
+            }
+          };
+          
+          var myObject = new SimpleObject([1, 'foo', 3, 'bar', 5, 'fiz']);
+
+          myObject.each(function(item, i) {
+            puts('Item ' + i + ': ' + item);
+          });
+
+        });
+      </script>
+    </main>
+
+  </body>
+</html>
+
