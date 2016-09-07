@@ -2,19 +2,22 @@ function jQuery(selector) {
   if (!(this instanceof jQuery)) return new jQuery(selector);
 
   this.selector = selector;
-  this.collection = parseSelector(this.selector);
+  this.collection = document.querySelectorAll(selector);
 
-  function parseSelector(selector) {
-    if (selector[0] === "#") {
-      return document.getElementById(selector.substring(1))
-    } else if (selector[0] === ".") {
-      return document.getElementsByClassName(selector.substring(1))
-    } else if (typeof(selector) === 'object') {
-      return [selector];
-    } else {
-      return document.getElementsByTagName(selector)
-    };
-  };
+
+  // this.collection = parseSelector(this.selector);
+
+  // function parseSelector(selector) {
+  //   if (selector[0] === "#") {
+  //     return document.getElementById(selector.substring(1))
+  //   } else if (selector[0] === ".") {
+  //     return document.getElementsByClassName(selector.substring(1))
+  //   } else if (typeof(selector) === 'object') {
+  //     return [selector];
+  //   } else {
+  //     return document.getElementsByTagName(selector)
+  //   };
+  // };
 
   this.length = this.collection.length;
 
@@ -120,15 +123,21 @@ function jQuery(selector) {
         ele.setAttribute(attrName, attrValue);
       }, this.collection)
       return this;
-
     } else {
       return this.collection[0].getAttribute(attrName);
     }
 
   }
 
-  this.html = function() {
-    return this.collection[0].innerHTML;
+  this.html = function(text) {
+    if (text) {
+      iterate(function(ele) {
+        ele.innerHTML = attrValue;
+      }, this.collection);
+      return this;
+    } else {
+      return this.collection[0].innerHTML;
+    }
   }
 
   function iterate(func, collection) {
