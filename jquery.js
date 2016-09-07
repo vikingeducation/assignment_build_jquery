@@ -48,6 +48,59 @@ var jQuery = function(ele) {
     return this.matches[index];
   };
 
+  this.hasClass = function(klass) {
+    for (var i = 0; i < this.matches.length; i++) {
+      if (this.matches[i].classList.contains(klass)){
+        return true;
+      }
+    };
+    return false;
+  };
+
+  this.addClass = function(klass) {
+    for (var i = 0; i < this.matches.length; i++) {
+      this.matches[i].classList.add(klass);
+    }
+  };
+
+  this.removeClass = function(klass) {
+    for (var i = 0; i < this.matches.length; i++) {
+      this.matches[i].classList.remove(klass);
+    }
+  };
+
+  this.toggleClass = function(klass) {
+    for (var i = 0; i < this.matches.length; i++) {
+      this.matches[i].classList.toggle(klass);
+    }
+  };
+
+  this.val = function(input) {
+    if (input) {
+      for (var i = 0; i < this.matches.length; i++) {
+        this.matches[i].value = input;
+      }
+    }
+    else {
+      return this.matches[0].value;
+    }
+  };
+
+  this.css = function(property, value) {
+    if (value) {
+      for (var i = 0; i < this.matches.length; i++) {
+        this.matches[i].style[property] = value;
+      }
+
+    }
+    else {
+      return this.matches[0].style[property];
+    }
+  };
+
+
+
+
 }
 
 var $ = jQuery;
