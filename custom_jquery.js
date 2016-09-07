@@ -16,23 +16,26 @@
 
 function jQuery(input) {
   if (!(this instanceof jQuery)) return new jQuery(input);
-  var jquery_object = document;
+  var jquery_object = [document];
 
   if (typeof input === "object") {
     jquery_object = [input];
   } else {
-    input = input.split(" ");
+    var inputArray = input.split(" ");
     var counter = 0;
-    while (counter < input.length) {
-      switch(input[counter]) {
+    while (counter < inputArray.length) {
+      switch(inputArray[counter]) {
         case ".":
-          jquery_object = jquery_object.getElementsByClassName(input[counter].slice(1));
+          jquery_object = jquery_object.getElementsByClassName(inputArray[counter].slice(1));
+          counter++;
           break;
         case "#":
-          jquery_object = jquery_object.getElementById(input[counter].slice(1));
+          jquery_object = jquery_object.getElementById(inputArray[counter].slice(1));
+          counter++;
           break;
         default:
-          jquery_object = jquery_object.getElementsByTagName(input[counter]);
+          jquery_object = jquery_object.getElementsByTagName(inputArray[counter]);
+          counter++;
           break;
         }
       }
@@ -94,7 +97,7 @@ function jQuery(input) {
       return this.collection[0].attributes.value;
     }
   }
-
+  
   this.css = function(style, value) {
     if (value) {
       for(var i = 0; i < this.collection.length; i++) {
