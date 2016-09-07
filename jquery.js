@@ -32,6 +32,40 @@ function jQuery(selector) {
     return boolean;
   }
 
+  this.addClass = function(klass) {
+    iterate(function(ele) {
+      ele.classList.add(klass)
+    }, this.collection)
+    return this
+  };
+
+  this.removeClass = function(klass) {
+    iterate(function(ele) {
+      ele.classList.remove(klass)
+    }, this.collection)
+
+    return this
+  }
+
+  this.toggleClass = function(klass) {
+    iterate(function(ele) {
+      ele.classList.toggle(klass);
+    }, this.collection);
+    return this
+  }
+
+  this.val = function(value) {
+
+    if(value) {
+      iterate( function(ele) {
+        ele.value = value
+      }, this.collection)
+      return this
+
+    } else {
+      return this.collection[0].value();
+    }
+  }
 
   function iterate(func, collection) {
     for (var i = 0; i < collection.length; i++) {
