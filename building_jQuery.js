@@ -55,6 +55,27 @@ function jQuery(selector){
       this.addClass(klass);
     }
   };
+
+  this.val = function(arguments){
+    //checks if can hold value
+    if (this.results[0].value != undefined){
+      // setter
+      if (arguments){
+        for (var i = 0; i < this.results.length; i++){
+          this.results[i].value = arguments
+        }
+      } 
+      // getter
+      else {
+        return this.idx(0).value;
+      }
+    }
+  }
+
+  this.css = function(property, value){
+    // putting property parameter returns the value of the property
+    // putting in both property and value replaces the value of the property
+  }
 }
 
 function $(selector){ return jQuery(selector);}
