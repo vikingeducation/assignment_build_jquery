@@ -32,7 +32,7 @@ var jQuery = function(ele) {
   this.length = matches.length;
 
   this.idx = function(index){
-    return collection[index];
+    return matches[index];
   }
 
   query(ele);
