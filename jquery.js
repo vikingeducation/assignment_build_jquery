@@ -67,7 +67,7 @@ function jQuery(selector) {
   this.css = function(property, newValue) {
     if (typeof(property) === 'object') {
       iterate(function(ele) {
-        for(var attr in property){
+        for (var attr in property) {
           ele.style[attr] = property[attr];
         }
       }, this.collection);
@@ -91,6 +91,18 @@ function jQuery(selector) {
       return this;
     } else {
       return this.collection[0].style.height;
+    }
+  }
+
+  this.width = function(num) {
+    str_num = num + "px"
+    if (num) {
+      iterate(function(ele) {
+        ele.style.width = str_num;
+      }, this.collection)
+      return this;
+    } else {
+      return this.collection[0].style.width;
     }
   }
 
