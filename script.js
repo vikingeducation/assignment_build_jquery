@@ -29,6 +29,11 @@ SimpleObject.each = function (collection, func) {
   }
 };
 
+function jQuerySelector(selector) {
+  var collection = document.querySelectorAll(selector);
+  return new jQueryCollection(collection);
+};
+
 function jQuery (cssSelector) {
 
   if (cssSelector[0] === ".") {
@@ -162,6 +167,18 @@ function jQueryCollection (collection) {
     } else {
       return this.idx(0).innerHTML;
     }
+  };
+
+  this.parent = function() {
+    return this.idx(0).parentNode;
+  };
+
+  this.prev = function() {
+    return this.idx(0).previousSibling;
+  };
+
+  this.next = function() {
+    return this.idx(0).nextSibling;
   };
 
 };
