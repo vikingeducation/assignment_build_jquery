@@ -1,5 +1,5 @@
 var jQuery = function(ele) {
-  
+
   if (!(this instanceof jQuery)) {
     return new jQuery(ele);
   }
@@ -17,7 +17,15 @@ var jQuery = function(ele) {
     }
   };
 
-  if ( ele[0] == "#"){
+  if( typeof ele !== 'string' ){
+    if (ele instanceof HTMLCollection){
+      this.matches = (ele);
+    }
+    else {
+      this.matches.push(ele)
+    }
+  }
+  else if ( ele[0] == "#"){
     var search = ele.slice(1);
     var matchedElements = document.getElementById(search);
     populateCollection(this, matchedElements);
@@ -41,3 +49,5 @@ var jQuery = function(ele) {
   };
 
 }
+
+var $ = jQuery;
