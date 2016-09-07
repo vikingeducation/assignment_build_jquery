@@ -31,3 +31,14 @@ SimpleObject.each = function(coll, func) {
         func(coll[i], i);
     }
 }
+
+
+function jQuery(selector) {
+    if (selector[0] === ".") {
+        return document.getElementsByClassName(selector.slice(1));
+    } else if (selector[0] === '#') {
+        return document.getElementById(selector.slice(1));
+    } else {
+        return document.getElementsByTagName(selector);
+    }
+}
