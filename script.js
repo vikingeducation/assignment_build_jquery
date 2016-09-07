@@ -40,7 +40,7 @@ function jQuery (cssSelector) {
     return new jQueryCollection(collection);
 
   } else if (stringify(cssSelector)[0] === "<") {
-    var collection = [stringify(cssSelector)];
+    var collection = [(cssSelector)];
     return new jQueryCollection(collection);
 
   } else {
@@ -77,15 +77,25 @@ function jQueryCollection (collection) {
 
   this.addClass = function(newName) {
     this.each(function(node) {
-      node.className += newName;
+      node.className += " " + newName;
     });
   };
 
-  // this.addClass = function(newName) {
-  //   for (var i = 0; i < this.length; i++) {
-  //     this.idx(i).className += newName;
-  //   };
-  // };
+  this.removeClass = function(classToRemove) {
+    this.each(function(node) {
+      if (classToRemove.length) {
+        // use classList to get array of classes
+        // use getIndexOf to get index of class to be removed
+        // delete that class from the array
+        // join the array
+        // set class to that
+        var classes = node.classList();
+        var indexToRemove = classes.getIndexOf(classToRemove);
+        classes.splice(indexToRemove, 1);
+        node.className = classes.join(" ");
+      }
+    })
+  }
 
 };
 
