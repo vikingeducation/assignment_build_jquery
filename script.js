@@ -32,13 +32,40 @@ SimpleObject.each = function(coll, func) {
     }
 }
 
+function JQueryObject(collection) {
+    this.collection = collection;
+    this.length = this.collection.length;
+    this.idx = function(index) {
+        return this.collection[index];
+    }
+    this.each = function(func) {
+        for (var i = 0; i < this.collection.length; i++) {
+            func(this.collection[i], i);
+        }
+    }
+    this.hasClass = function(class_name) {
+        classes = this.collection[0].className.split(' ');
+        for (var i = 0; i < classes.length; i++) {
+            if (classes[i] === class_name) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
 
 function jQuery(selector) {
     if (selector[0] === ".") {
-        return document.getElementsByClassName(selector.slice(1));
+        return new JQueryObject(document.getElementsByClassName(selector.slice(1)));
     } else if (selector[0] === '#') {
-        return document.getElementById(selector.slice(1));
+        return new JQueryObject(document.getElementById(selector.slice(1)))
+    } else if (selector instanceof HTMLElement) {
+        return new JQueryObject([selector]);
     } else {
-        return document.getElementsByTagName(selector);
+        return new JQueryObject(document.getElementsByTagName(selector));
     }
+}
+
+function $(selector) {
+    return jQuery(selector);
 }
