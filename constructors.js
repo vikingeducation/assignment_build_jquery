@@ -6,8 +6,18 @@ function FooConstructor() {
 
 function BarConstructor() {
   if (!(this instanceof BarConstructor)) return new BarConstructor();
-  return {
-    barMethod: function() {},
-    barProp: "bar!"
-  }
+
+  this.barMethod = function() {};
+  this.barProp = "bar!";
 }
+
+function SimpleObject() {
+
+
+  this.each = function(collection, func) {
+
+    for(var i=0; i < collection.length; i++) {
+      func(collection[i], i);
+    };
+  };
+};
