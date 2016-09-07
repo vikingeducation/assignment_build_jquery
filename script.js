@@ -66,16 +66,19 @@ function JQueryObject(collection) {
 
         this.each(function (element, index) {
             var element_classes = element.className.split(' ');
-            var newElementClasses = [];
+            var new_class_name = "";
 
             if (class_name) {
                 for (var i = 0; i < element_classes.length; i++) {
-                    if class_removal_list.includes(element_classes[i]) {
-                        
+                    if (!class_removal_list.includes(element_classes[i])) {
+                        new_class_name += " " + element_classes[i];
                     }
                 }
             }
+
+            element.className = new_class_name;
         });
+        return this;
     };
 }
 
