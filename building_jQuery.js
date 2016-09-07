@@ -27,31 +27,34 @@ function jQuery(selector){
 
   this.hasClass = function(klass){
     for (var i = 0; i < this.results.length; i++){
-      if (this.results[i].className === klass) {
+      if (this.results[i].className.includes(klass)) {
         return true;
       }
     }
     return false
-  }
+  };
 
   this.addClass = function(klass){
     for (var i = 0; i < this.results.length; i++){
       this.results[i].className += " " + klass;
     }
-  }
+  };
 
   this.removeClass = function(klass){
+    var klassToRemove = new RegExp(klass);
     for (var i = 0; i < this.results.length; i++){
-      this.results[i].className.
-      
-    //   var spaces = new RegExp(/\W+/);
-    // while (str.match(spaces)) {
-    //   str = str.replace(spaces, "_");
-    // };
-
-      
+      this.results[i].className = this.results[i].className.replace(klassToRemove,"");
     }
-  }
+  };
+
+  this.toggleClass = function(klass){
+    if (this.hasClass(klass)){
+      this.removeClass(klass);
+    }
+    else{
+      this.addClass(klass);
+    }
+  };
 }
 
 function $(selector){ return jQuery(selector);}
