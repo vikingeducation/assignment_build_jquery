@@ -98,9 +98,49 @@ var jQuery = function(ele) {
     }
   };
 
+  this.height = function(value){
+    if(value){
+      for (var i = 0; i < this.matches.length; i++) {
+        this.matches[i].style.height = value;
+      }
+    }
+    else{
+      return this.matches[0].style.height;
+    }
+  }
 
+  this.width = function(value){
+    if(value){
+      for (var i = 0; i < this.matches.length; i++) {
+        this.matches[i].style.width = value;
+      }
+    }
+    else{
+      return this.matches[0].style.width;
+    }
+  }
 
+  this.attr = function(attrName, value){
+    if (value){
+      for (var i = 0; i < this.matches.length; i++) {
+        this.matches[i].attributes[attrName] = value;
+      }
+    }
+    else {
+      return this.matches[0].attributes[attrName];
+    }
+  }
 
+  this.html = function(value){
+    if(value){
+      for (var i = 0; i < this.matches.length; i++) {
+        this.matches[i].innerHTML = value;
+      }
+    }
+    else{
+      return this.matches[0].innerHTML;
+    }
+  }
 }
 
 var $ = jQuery;
