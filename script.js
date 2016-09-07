@@ -71,8 +71,13 @@ function jQueryCollection (collection) {
     }
   };
 
-  this.hasClass = function() {
-    return this.idx(0).className;
+  this.hasClass = function(classSearch) {
+    var classes = this.idx(0).classList;
+    if (classes.indexOf(classSearch) > -1) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   this.addClass = function(newName) {
@@ -100,10 +105,63 @@ function jQueryCollection (collection) {
   this.val = function(newValue) {
     if (newValue === undefined) {
       return this.idx(0).value;
-    } else
+    } else {
       this.each(function(node) {
         node.value = newValue;
       })
+    }
+  };
+
+  this.css = function(propertyName, value) {
+    if (value) {
+      this.each(function(node) {
+        node.style[propertyName] = value;
+      });
+    } else {
+      return this.idx(0).style[propertyName];
+    }
+  };
+
+  this.height = function(newHeight) {
+    if (newHeight) {
+      this.each(function(node) {
+        node.style.height = newHeight;
+      })
+    } else {
+      return this.idx(0).style.height;
+    }
+  };
+
+  this.width = function(newWidth) {
+    if (newWidth) {
+      this.each(function(node) {
+        node.style.width = newWidth;
+      })
+    } else {
+      return this.idx(0).style.width;
+    }
+  }
+
+  this.attr = function(attrName, value) {
+    if (value) {
+      this.each(function(node) {
+        var att = document.createAttribute(attrName);
+        att.value = value;
+        node.setAttributeNode(att);
+      });
+    } else {
+      return this.idx(0).getAttributeNode(attrName).value;
+    }
+  };
+
+  this.html = function(newHtml) {
+    if (newHtml) {
+      this.each(function(node) {
+        node.innerHTML = newHtml;
+      })
+    } else {
+      return this.idx(0).innerHTML;
+    }
   };
 
 };
