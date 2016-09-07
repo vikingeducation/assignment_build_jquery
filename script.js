@@ -33,7 +33,7 @@ SimpleObject.each = function(coll, func) {
 }
 
 function JQueryObject(collection) {
-    this.collection = collection;
+    this.collection = Array.prototype.slice.call( collection );
     this.length = this.collection.length;
     this.idx = function(index) {
         return this.collection[index];
@@ -77,6 +77,18 @@ function JQueryObject(collection) {
             }
 
             element.className = new_class_name;
+        });
+        return this;
+    };
+
+    this.toggleClass = function(class_name) {
+        this.each(function(element, index){
+            var $element = jQuery(element);
+            if ($element.hasClass(class_name)) {
+                $element.removeClass(class_name);
+            } else {
+                $element.addClass(class_name);
+            }
         });
         return this;
     };
