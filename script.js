@@ -39,7 +39,7 @@ function jQuery (cssSelector) {
     var collection = [document.getElementById(cssSelector.substring(1))]; 
     return new jQueryCollection(collection);
 
-  } else if (stringify(cssSelector)[0] === "<") {
+  } else if (typeof cssSelector !== "string" && stringify(cssSelector)[0] === "<") {
     var collection = [(cssSelector)];
     return new jQueryCollection(collection);
 
@@ -77,26 +77,38 @@ function jQueryCollection (collection) {
 
   this.addClass = function(newName) {
     this.each(function(node) {
-      node.className += " " + newName;
+      node.classList.add(newName);
     });
   };
 
   this.removeClass = function(classToRemove) {
     this.each(function(node) {
-      if (classToRemove.length) {
-        // use classList to get array of classes
-        // use getIndexOf to get index of class to be removed
-        // delete that class from the array
-        // join the array
-        // set class to that
-        var classes = node.classList();
-        var indexToRemove = classes.getIndexOf(classToRemove);
-        classes.splice(indexToRemove, 1);
-        node.className = classes.join(" ");
+      if (classToRemove !== undefined) {
+        node.classList.remove(classToRemove);
+      } else {
+        node.classList = [];
       }
     })
-  }
+  };
+
+  this.toggleClass = function(classToToggle) {
+    this.each(function(node) {
+      node.classList.toggle(classToToggle);
+    })
+  };
+
+  this.val = function(newValue) {
+    if (newValue === undefined) {
+      return this.idx(0).value;
+    } else
+      this.each(function(node) {
+        node.value = newValue;
+      })
+  };
 
 };
 
-
+var test_div = jQuery(".div-man");
+var test_id = jQuery("#monster-div");
+var test_header = jQuery("h1");
+var test_form = jQuery(".div-woman");
