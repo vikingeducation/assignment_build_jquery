@@ -2,23 +2,31 @@ function jQuery(selector){
   if(!(this instanceof jQuery)){
     return new jQuery(selector);
   }
-  this.results = [];
-    if(selector[0] === "."){
-      //look for class
-      this.results = document.getElementsByClassName(selector.slice(1));
-    }
-    else if (selector[0] === "#"){
-      //look for id 
-      this.results.push(document.getElementById(selector.slice(1)));
-    }
-    else if (selector[0] === "<"){
-      this.results.push(selector);
-    }
-    else{
-      //look for element
-      this.results = document.getElementsByTagName(selector);
-    }
-  
+  //this.results = document;
+  //var selectors = selector.split(" ");
+  //for(var i = 0; i < selectors.length; i++){
+    //if i == 0, run filters on document
+    //else look for selector in all children of elements in results
+    //keep doing this until there are no more children
+  this.results = document.querySelectorAll(selector);
+    // if(i === 0){
+    //   if(selector[0] === "."){
+    //     //look for class
+    //     this.results = document.getElementsByClassName(selector.slice(1));
+    //   }
+    //   else if (selector[0] === "#"){
+    //     //look for id 
+    //     this.results.push(document.getElementById(selector.slice(1)));
+    //   }
+    //   else if (selector[0] === "<"){
+    //     this.results.push(selector);
+    //   }
+    //   else{
+    //     //look for element
+    //     this.results = document.getElementsByTagName(selector);
+    //   }
+    // }
+  //}
   this.length = this.results.length;
 
   this.idx = function(index){
