@@ -78,6 +78,7 @@ function jQueryCollection (collection) {
 
   this.hasClass = function(classSearch) {
     var classes = this.idx(0).classList;
+    console.log(typeof classes);
     if (classes.indexOf(classSearch) > -1) {
       return true;
     } else {
@@ -169,6 +170,8 @@ function jQueryCollection (collection) {
     }
   };
 
+  //new methods
+
   this.parent = function() {
     return this.idx(0).parentNode;
   };
@@ -180,6 +183,22 @@ function jQueryCollection (collection) {
   this.next = function() {
     return this.idx(0).nextSibling;
   };
+
+  this.text = function(newText) {
+    return this.html(newText);
+  }
+
+  /*
+  this.children = 
+
+  this.replaceWith = 
+
+  this.after = 
+
+  this.append
+
+  this.last = 
+  */
 
 };
 
