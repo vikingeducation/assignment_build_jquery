@@ -1,18 +1,31 @@
 function jQuery(selector){
-  var results = []
-  if(selector[0] === "."){
-    //look for class
-    results = document.getElementsByClassName(selector.slice(1));
+  if(!(this instanceof jQuery)){
+    return new jQuery(selector);
   }
-  else if (selector[0] === "#"){
-    //look for id
-    results = document.getElementById(selector.slice(1));
+  this.results = [];
+    if(selector[0] === "."){
+      //look for class
+      this.results = document.getElementsByClassName(selector.slice(1));
+    }
+    else if (selector[0] === "#"){
+      //look for id 
+      this.results.push(document.getElementById(selector.slice(1)));
+    }
+    else if (selector[0] === "<"){
+      this.results.push(selector);
+    }
+    else{
+      //look for element
+      this.results = document.getElementsByTagName(selector);
+    }
+  
+  this.length = this.results.length;
+  this.idx = function(index){
+    return this.results[index];
+  };
+  this.hasClass = function(class){
+    
   }
-  else{
-    //look for element
-    results = document.getElementsByTagName(selector);
-  }
-
-  return results;
 }
 
+function $(selector){ return jQuery(selector);}
