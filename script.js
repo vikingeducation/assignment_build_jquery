@@ -78,12 +78,7 @@ function jQueryCollection (collection) {
 
   this.hasClass = function(classSearch) {
     var classes = this.idx(0).classList;
-    console.log(typeof classes);
-    if (classes.indexOf(classSearch) > -1) {
-      return true;
-    } else {
-      return false;
-    }
+    return classes.contains(classSearch);
   };
 
   this.addClass = function(newName) {
@@ -195,7 +190,7 @@ function jQueryCollection (collection) {
 
   this.after = 
 
-  this.append
+  this.append = 
 
   this.last = 
   */
