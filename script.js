@@ -37,12 +37,12 @@ function JQueryObject(collection) {
     this.length = this.collection.length;
     this.idx = function(index) {
         return this.collection[index];
-    }
+    };
     this.each = function(func) {
         for (var i = 0; i < this.collection.length; i++) {
             func(this.collection[i], i);
         }
-    }
+    };
     this.hasClass = function(class_name) {
         classes = this.collection[0].className.split(' ');
         for (var i = 0; i < classes.length; i++) {
@@ -51,7 +51,32 @@ function JQueryObject(collection) {
             }
         }
         return false;
-    }
+    };
+
+    this.addClass = function(class_name) {
+        this.each(function (element, index) {
+            element.className = element.className + " " + class_name;
+        });
+
+        return this;
+    };
+
+    this.removeClass = function(class_name) {
+        var class_removal_list = class_name.split(' ');
+
+        this.each(function (element, index) {
+            var element_classes = element.className.split(' ');
+            var newElementClasses = [];
+
+            if (class_name) {
+                for (var i = 0; i < element_classes.length; i++) {
+                    if class_removal_list.includes(element_classes[i]) {
+                        
+                    }
+                }
+            }
+        });
+    };
 }
 
 function jQuery(selector) {
