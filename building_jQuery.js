@@ -12,4 +12,7 @@ function jQuery(selector){
     //look for element
     results = document.getElementsByTagName(selector);
   }
+
+  return results;
 }
+
