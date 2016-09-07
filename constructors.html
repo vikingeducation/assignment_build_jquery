@@ -52,29 +52,29 @@
             this.fooMethod = function() { return this.fooProp; };
           };
 
-          var BarConstructor = function() {
-            this.barProp = 'bar!';
-            this.barMethod = function() { return this.barProp; };
+          var FizConstructor = function() {
+            this.fizProp = 'fiz!';
+            this.fizMethod = function() { return this.fizProp; };
 
-            if (!(this instanceof BarConstructor)) {
-              return new BarConstructor();
+            if (!(this instanceof FizConstructor)) {
+              return new FizConstructor();
             }
           };
 
-          var FizConstructor = function() {
-            if (!(this instanceof FizConstructor)) {
-              return new FizConstructor();
+          var BarConstructor = function() {
+            if (!(this instanceof BarConstructor)) {
+              return new BarConstructor();
             } else {
               return {
-                fizProp: 'fiz!',
-                fizMethod: function() { return this.fizProp; }
+                barProp: 'bar!',
+                barMethod: function() { return this.barProp; }
               };
             }
           };
 
           puts(new FooConstructor());
-          puts(BarConstructor());
           puts(FizConstructor());
+          puts(BarConstructor());
 
         });
       </script>
