@@ -52,15 +52,53 @@ function jQuery(input) {
           return true;
         }
       }
-    }  
-    return false; 
+    }
+    return false;
   };
 
   this.addClass = function(input) {
     for(var i = 0; i < this.collection.length; i++) {
-      this.collection[i].className + " " + input;
+      this.collection[i].className += " " + input;
     };
   };
+
+  this.removeClass = function(input) {
+    input = input.split(" ");
+    for(var i = 0; i < this.collection.length; i++) {
+      for(var j = 0; j < input.length; j++) {
+        this.collection[i].className = this.collection[i].className.replace(input[j], "");
+      }
+    };
+  }
+
+  this.toggleclass = function(input) {
+    input = input.split(" ");
+    for(var i = 0; i < this.collection.length; i++) {
+      for(var j = 0; j < input.length; j++) {
+        if (this.collection[i].className.includes(input[j])) {
+          this.collection[i].className = this.collection[i].className.replace(input[j], "");
+        } else {
+          this.collection[i].className += " " + input;
+        }
+      }
+    };
+  };
+
+  this.val = function(input) {
+    if (input) {
+      return this.collection[0].attributes.value = input;
+    } else {
+      return this.collection[0].attributes.value;
+    }
+  }
+
+  this.css = function(style, value) {
+    if (value) {
+      return this.collection[0].style[style] = value;
+    } else {
+      return this.collection[0].style[style];
+    }
+  }
 }
 
 var $ = jQuery;
