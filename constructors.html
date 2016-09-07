@@ -47,23 +47,14 @@
 
         $.ready(function() {
           
-          var FooConstructor = function() {
+          var Foo = function() {
             this.fooProp = 'foo!';
             this.fooMethod = function() { return this.fooProp; };
           };
 
-          var FizConstructor = function() {
-            this.fizProp = 'fiz!';
-            this.fizMethod = function() { return this.fizProp; };
-
-            if (!(this instanceof FizConstructor)) {
-              return new FizConstructor();
-            }
-          };
-
-          var BarConstructor = function() {
-            if (!(this instanceof BarConstructor)) {
-              return new BarConstructor();
+          var Bar = function() {
+            if (!(this instanceof Bar)) {
+              return new Bar();
             } else {
               return {
                 barProp: 'bar!',
@@ -72,9 +63,45 @@
             }
           };
 
-          puts(new FooConstructor());
-          puts(FizConstructor());
-          puts(BarConstructor());
+          var Baz = function() {
+            if (!(this instanceof Baz)) {
+              return new Baz();
+            }
+
+            this.bazProp = 'baz!';
+            this.bazMethod = function() { return this.bazProp; };
+          };
+
+          puts(new Foo());
+          puts(Bar());
+          puts(Baz());
+          puts(new Baz());
+
+          puts('---');
+
+          puts(typeof new Foo() === 'object');
+          puts(new Foo() instanceof Object);
+          puts(new Foo() instanceof Foo);
+
+          puts('---');
+
+          puts(typeof new Bar() === 'object');
+          puts(new Bar() instanceof Object);
+          puts(new Bar() instanceof Bar);
+          puts(Bar() instanceof Object);
+          puts(Bar() instanceof Bar);
+
+          puts('---');
+
+          puts(typeof Baz() === 'object');
+          puts(Baz() instanceof Object);
+          puts(Baz() instanceof Baz);
+
+          puts('---');
+
+          puts(typeof new Baz() === 'object');
+          puts(new Baz() instanceof Object);
+          puts(new Baz() instanceof Baz);
 
         });
       </script>
