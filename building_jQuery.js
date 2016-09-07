@@ -20,11 +20,37 @@ function jQuery(selector){
     }
   
   this.length = this.results.length;
+
   this.idx = function(index){
     return this.results[index];
   };
-  this.hasClass = function(class){
-    
+
+  this.hasClass = function(klass){
+    for (var i = 0; i < this.results.length; i++){
+      if (this.results[i].className === klass) {
+        return true;
+      }
+    }
+    return false
+  }
+
+  this.addClass = function(klass){
+    for (var i = 0; i < this.results.length; i++){
+      this.results[i].className += " " + klass;
+    }
+  }
+
+  this.removeClass = function(klass){
+    for (var i = 0; i < this.results.length; i++){
+      this.results[i].className.
+      
+    //   var spaces = new RegExp(/\W+/);
+    // while (str.match(spaces)) {
+    //   str = str.replace(spaces, "_");
+    // };
+
+      
+    }
   }
 }
 
