@@ -18,28 +18,37 @@ function jQuery(input) {
   if (!(this instanceof jQuery)) return new jQuery(input);
   var jquery_object = [document];
 
+  var getChildren = function(element, selector) {
+    var children;
+    switch(selector[0]) {
+      case ".":
+        children = element.getElementsByClassName(selector.slice(1));
+        break;
+      case "#":
+        children = element.getElementById(selector.slice(1));
+        break;
+      default:
+        children = element.getElementsByTagName(selector);
+        break;
+      }
+    return children;
+  }
+
   if (typeof input === "object") {
     jquery_object = [input];
   } else {
     var inputArray = input.split(" ");
     var counter = 0;
     while (counter < inputArray.length) {
-      switch(inputArray[counter]) {
-        case ".":
-          jquery_object = jquery_object.getElementsByClassName(inputArray[counter].slice(1));
-          counter++;
-          break;
-        case "#":
-          jquery_object = jquery_object.getElementById(inputArray[counter].slice(1));
-          counter++;
-          break;
-        default:
-          jquery_object = jquery_object.getElementsByTagName(inputArray[counter]);
-          counter++;
-          break;
-        }
+      item = jquery_object.pop();
+      //console.log(item);
+      children = getChildren(item, inputArray[counter]);
+      for(var i = 0; i < children.length; i++) {
+        jquery_object.push(children[i]);
       }
+      counter++;
     }
+  }
 
   this.collection = jquery_object;
 
