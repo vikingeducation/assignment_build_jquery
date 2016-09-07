@@ -24,8 +24,8 @@ function jQuery(selector) {
 
   this.hasClass = function(klass) {
     var boolean = false;
-    iterate(function(ele){
-      if (ele.className.split(' ').indexOf(klass) > -1 ) {
+    iterate(function(ele) {
+      if (ele.className.split(' ').indexOf(klass) > -1) {
         boolean = true;
       }
     }, this.collection)
@@ -36,36 +36,64 @@ function jQuery(selector) {
     iterate(function(ele) {
       ele.classList.add(klass)
     }, this.collection)
-    return this
+    return this;
   };
 
   this.removeClass = function(klass) {
     iterate(function(ele) {
       ele.classList.remove(klass)
     }, this.collection)
-
-    return this
+    return this;
   }
 
   this.toggleClass = function(klass) {
     iterate(function(ele) {
       ele.classList.toggle(klass);
     }, this.collection);
-    return this
+    return this;
   }
 
-  this.val = function(value) {
-
-    if(value) {
-      iterate( function(ele) {
-        ele.value = value
+  this.val = function(content) {
+    if (content) {
+      iterate(function(ele) {
+        ele.setAttribute('value', content);
       }, this.collection)
-      return this
-
+      return this;
     } else {
       return this.collection[0].value();
     }
   }
+
+  this.css = function(property, newValue) {
+    if (typeof(property) === 'object') {
+      iterate(function(ele) {
+        for(var attr in property){
+          ele.style[attr] = property[attr];
+        }
+      }, this.collection);
+      return this;
+    } else if (newValue) {
+      iterate(function(ele) {
+        ele.style[property] = newValue;
+      }, this.collection)
+      return this;
+    } else {
+      return this.collection[0].style[property];
+    }
+  }
+
+  this.height = function(num) {
+    str_num = num + "px"
+    if (num) {
+      iterate(function(ele) {
+        ele.style.height = str_num;
+      }, this.collection)
+      return this;
+    } else {
+      return this.collection[0].style.height;
+    }
+  }
+
 
   function iterate(func, collection) {
     for (var i = 0; i < collection.length; i++) {
