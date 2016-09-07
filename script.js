@@ -29,15 +29,7 @@ SimpleObject.each = function (collection, func) {
   }
 };
 
-function jQueryCollection (collection) {
-  this.length = collection.length;
-  this.idx = function (index) {
-    return collection[index];
-  };
-};
-
 function jQuery (cssSelector) {
-  console.log(typeof cssSelector);
 
   if (cssSelector[0] === ".") {
     var collection = document.getElementsByClassName(cssSelector.substring(1));
@@ -47,9 +39,8 @@ function jQuery (cssSelector) {
     var collection = [document.getElementById(cssSelector.substring(1))]; 
     return new jQueryCollection(collection);
 
-  } else if (cssSelector[0] === "<") {
-    var collection = [cssSelector];
-    console.log(collection);
+  } else if (stringify(cssSelector)[0] === "<") {
+    var collection = [stringify(cssSelector)];
     return new jQueryCollection(collection);
 
   } else {
@@ -57,4 +48,45 @@ function jQuery (cssSelector) {
     return new jQueryCollection(collection);
   };
 }
+
+function stringify (node) {
+  var tmp = document.createElement("div");
+  tmp.appendChild(node);
+  return tmp.innerHTML;
+}
+
+function $ (cssSelector) {
+  return jQuery.call(undefined, cssSelector);
+}
+
+function jQueryCollection (collection) {
+  this.length = collection.length;
+  this.idx = function (index) {
+    return collection[index];
+  };
+
+  this.each = function(method){
+    for (var i = 0; i < this.length; i++) {
+      method(this.idx(i), i);
+    }
+  };
+
+  this.hasClass = function() {
+    return this.idx(0).className;
+  };
+
+  this.addClass = function(newName) {
+    this.each(function(node) {
+      node.className += newName;
+    });
+  };
+
+  // this.addClass = function(newName) {
+  //   for (var i = 0; i < this.length; i++) {
+  //     this.idx(i).className += newName;
+  //   };
+  // };
+
+};
+
 
