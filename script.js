@@ -92,13 +92,60 @@ function JQueryObject(collection) {
         });
         return this;
     };
+
+    this.val = function(value) {
+        if (value) {
+            this.each(function(element) {
+                element.value = value;
+            })
+        } else {
+            return this.collection[0].value
+        }
+    }
+
+    this.css = function(attr, val) {
+        if (val) {
+            this.each(function(element) {
+                element.style[attr] = val;
+            });
+        } else {
+            return this.collection[0].style[attr];
+        }
+    }
+    this.height = function(val) {
+        if (val) {
+            this.each(function(element) {
+                element.style.height = val + 'px';
+            });
+        } else {
+            if (this.collection[0].style.height) {
+                return parseInt(this.collection[0].style.height);
+            } else {
+                return undefined
+            }
+        }
+    }
+
+    this.width = function(val) {
+        if (val) {
+            this.each(function(element) {
+                element.style.width = val + 'px';
+            });
+        } else {
+            if (this.collection[0].style.width) {
+                return parseInt(this.collection[0].style.width);
+            } else {
+                return undefined
+            }
+        }
+    }
 }
 
 function jQuery(selector) {
     if (selector[0] === ".") {
         return new JQueryObject(document.getElementsByClassName(selector.slice(1)));
     } else if (selector[0] === '#') {
-        return new JQueryObject(document.getElementById(selector.slice(1)))
+        return new JQueryObject(document.getElementById(selector.slice(1)));
     } else if (selector instanceof HTMLElement) {
         return new JQueryObject([selector]);
     } else {
