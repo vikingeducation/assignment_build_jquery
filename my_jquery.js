@@ -1,4 +1,4 @@
-//Build jQueyry
+//Build jQuery
 var jQuery;
 jQuery = function jQuery(selector) {
 
@@ -67,5 +67,71 @@ function jQueryObject() {
       }
     }
     return this;
+  }
+
+  this.val = function(setVal) {
+    if (setVal === undefined) {
+      return this.collection[0].value;
+    }  else {
+      for(var i = 0; i < this.collection.length; i++ ){
+        this.collection[i].value = setVal;
+      }
+      return true;
+    }
+  }
+
+  this.css = function(propertyName, setVal) {
+    if (setVal === undefined) {
+      return this.collection[0].style[propertyName];
+    }  else {
+      for(var i = 0; i < this.collection.length; i++ ){
+        this.collection[i].style[propertyName] = setVal;
+      }
+      return true;
+    }
+  }
+
+  this.height = function(setVal) {
+    if (setVal === undefined) {
+      return this.collection[0].clientHeight;
+    }  else {
+      for(var i = 0; i < this.collection.length; i++ ){
+        this.collection[i].style['height'] = setVal;
+      }
+      return true;
+    }
+  }
+
+  this.width = function(setVal) {
+    if (setVal === undefined) {
+      return this.collection[0].clientWidth;
+    }  else {
+      for(var i = 0; i < this.collection.length; i++ ){
+        this.collection[i].style['width'] = setVal;
+      }
+      return true;
+    }
+  }
+
+  this.attr = function(attrName, setVal) {
+    if (setVal === undefined) {
+      return this.collection[0][attrName];
+    }  else {
+      for(var i = 0; i < this.collection.length; i++ ){
+        this.collection[i][attrName] = setVal;
+      }
+      return true;
+    }
+  }
+
+  this.html = function(htmlString) {
+    if (htmlString === undefined) {
+      return this.collection[0].innerHTML;
+    }  else {
+      for(var i = 0; i < this.collection.length; i++ ){
+        this.collection[i].innerHTML = htmlString;
+      }
+      return true;
+    }
   }
 }
