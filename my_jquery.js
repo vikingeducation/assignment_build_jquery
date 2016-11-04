@@ -25,14 +25,47 @@ function jQueryObject() {
   this.collection = [];
   this.length = 0;
 
-  this.idx = function(idx){
+  this.idx = function(idx) {
     return this.collection[idx]
   };
 
-  this.insert = function(arr){
+  this.insert = function(arr) {
     for(var i = 0; i < arr.length; i++ ){
       this.collection.push(arr[i]);
       this.length += 1;
     }
   };
+
+  this.hasClass = function(classQ) {
+    for(var i = 0; i < this.collection.length; i++ ){
+      if (this.collection[i].className.split(" ").indexOf(classQ) !== -1)
+        return true;
+    }
+    return false;
+  }
+
+  this.addClass = function(classQ) {
+    for(var i = 0; i < this.collection.length; i++ ){
+      this.collection[i].className += " " + classQ;
+      return this;
+    }
+  }
+
+  this.removeClass = function(classQ) {
+    for(var i = 0; i < this.collection.length; i++ ){
+      this.collection[i].className = this.collection[i].className.replace(classQ, "") ;
+      return this;
+    }
+  }
+
+  this.toggleClass = function(classQ) {
+    for(var i = 0; i < this.collection.length; i++ ){
+      if (this.collection[i].className.split(" ").indexOf(classQ) === -1) {
+        jQuery(this.collection[i]).addClass(classQ);
+      } else {
+        jQuery(this.collection[i]).removeClass(classQ);
+      }
+    }
+    return this;
+  }
 }
