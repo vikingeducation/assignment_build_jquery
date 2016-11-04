@@ -1,18 +1,38 @@
 //Build jQueyry
+var jQuery;
+jQuery = function jQuery(selector) {
 
-var jQuery = function(options) {
+  var jQ = new jQueryObject();
 
-  if (options == undefined) return {};
-
-
-  selector = options.charAt(0)
-  if (selector === ".") {
-    return document.getElementsByClassName(options.slice(1));
+  if (typeof(selector) === "string") {
+    if (selector[0] === ".") {
+      jQ.insert(document.getElementsByClassName(selector.slice(1)));
+    }
+    else if (selector[0] === "#") {
+      jQ.insert([document.getElementById(selector.slice(1))]);
+    }
+    else {
+      jQ.insert(document.getElementsByTagName(selector));
+    }
+  } else {
+      jQ.insert([selector]);
   }
-  else if (selector === "#") {
-    return document.getElementById(options.slice(1));
-  }
-  else {
-    return document.getElementsByTagName(options);
-  }
+  return jQ;
+ }
+
+function jQueryObject() {
+
+  this.collection = [];
+  this.length = 0;
+
+  this.idx = function(idx){
+    return this.collection[idx]
+  };
+
+  this.insert = function(arr){
+    for(var i = 0; i < arr.length; i++ ){
+      this.collection.push(arr[i]);
+      this.length += 1;
+    }
+  };
 }
