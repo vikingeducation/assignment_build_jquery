@@ -59,7 +59,14 @@ function $(input) {
   this.parseInput(input);
 
 
+
   // METHODS
+
+  this.$object = function() {
+    if ( !(this instanceof $) ) {
+      return new $(input);
+    }
+  };
 
   this.idx = function(number) {
     return this.collection[number];
@@ -71,25 +78,35 @@ function $(input) {
     }
   };
 
-  this.hasClass = function(className) {
+  this.hasClass = function(klassName) {
     // returns true if at least one element has the class
     var hasClass = false;
     this.each(function(element) {
-      if (element.classList.contains(className)) {
+      if (element.classList.contains(klassName)) {
         hasClass = true;
       }
     });
     return hasClass;
   };
 
+  this.addClass = function(klassName) {
+    console.log("this.addclass " + this);
+    this.each(function(element) {
+      console.log("this.each " + this);
+      if (element.className) {
+        element.className += " " + klassName;
+      } else {
+        element.className = klassName;
+      }
+    });
+    return $object();
+  };
 
 
 
   // RETURN OBJECT
 
-  if ( !(this instanceof $) ) {
-    return new $(input);
-  }
+  return this.$object();
 }
 var jQuery = $;
 
