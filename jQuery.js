@@ -146,6 +146,17 @@ function $(input) {
       return this.collection[0].value;
     }
   };
+
+  this.css = function(propertyName, value) {
+    if (value) { // setter
+      this.each(function(element) {
+        element.style[propertyName] = value;
+      })
+      return this; 
+    } else { // getter
+      return this.collection[0].style[propertyName];
+    }
+  };
 }
 var jQuery = $;
 
