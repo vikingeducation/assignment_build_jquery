@@ -26,16 +26,23 @@
     collection.forEach( iterate_func );
   };
 
-  var jQuery = function(str) {
-    if (typeof str === 'string')
-      var search = jQuery.searchTypes[str[0]];
-
+  var jQuery = function(input) {
+    if (typeof input === 'string') {
+      var search = jQuery.searchTypes[input[0]];
       if ( search ) {
-        return JQueryObject( search(str.substr(1)) );
+        return JQueryObject( search(input.substr(1)) );
       }
       else {
-        return JQueryObject( document.getElementsByTagName(str) );
+        return JQueryObject( document.getElementsByTagName(input) );
       }
+    } else if ('nodeType' in input) {
+      return JQueryObject( input );
+    }
+    // TODO Add functionality for array of nodes
+  }
+
+  var $ = function(input) {
+    return jQuery(input);
   }
 
   jQuery.searchTypes = {
@@ -53,6 +60,8 @@
     };
     this.length = this.collection.length;
     this.idx = function(index) { return this.collection[index]; };
-    // this.filter = ;
-    // this.find = ;
+    
+    this.hasClass = function(classQuery) {
+      return this.collection[0].classList.contains(classQuery);
+    }
   }
