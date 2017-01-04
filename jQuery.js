@@ -1,8 +1,18 @@
 function $(input) {
+  if ( !(this instanceof $) ) {
+    return new $(input);
+  }
+
   this.collection = [];
   this.selector = "";
   this.length = undefined;
 
+
+  // UTILITY
+
+  this.arrayify = function(collection) { // takes any kind of collection and turns it into an array
+    return [].slice.call(collection);
+  }
 
 
   // SETTERS
@@ -12,7 +22,7 @@ function $(input) {
   };
 
   this.setProperties = function(query) {
-    this.collection = query;
+    this.collection = this.arrayify(query);
     this.setLength();
   };
 
@@ -62,12 +72,6 @@ function $(input) {
 
   // METHODS
 
-  this.$object = function() {
-    if ( !(this instanceof $) ) {
-      return new $(input);
-    }
-  };
-
   this.idx = function(number) {
     return this.collection[number];
   };
@@ -99,14 +103,8 @@ function $(input) {
         element.className = klassName;
       }
     });
-    return $object();
+    return this;
   };
-
-
-
-  // RETURN OBJECT
-
-  return this.$object();
 }
 var jQuery = $;
 
