@@ -12,7 +12,15 @@ function $(input) {
 
   this.arrayify = function(collection) { // takes any kind of collection and turns it into an array
     return [].slice.call(collection);
-  }
+  };
+
+  this.stripSelector = function(selector) {
+    if (selector[0] === '.' || selector[0] === '#') {
+      return selector.substr(1);
+    } else {
+      return selector;
+    }
+  };
 
 
   // SETTERS
@@ -44,7 +52,7 @@ function $(input) {
   // PARSERS
 
   this.parseSelector = function(input) {
-    var inputText = input.slice(1);
+    var inputText = this.stripSelector(input);
     if (input[0] === '#') {
       this.selector = inputText;
       this.findById();
@@ -94,9 +102,7 @@ function $(input) {
   };
 
   this.addClass = function(klassName) {
-    console.log("this.addclass " + this);
     this.each(function(element) {
-      console.log("this.each " + this);
       if (element.className) {
         element.className += " " + klassName;
       } else {
@@ -104,6 +110,41 @@ function $(input) {
       }
     });
     return this;
+  };
+
+  this.removeClass = function(klassName) {
+    klassName = this.stripSelector(klassName);
+    this.each(function(element) {
+      if (element.className === klassName) {
+        element.className = "";
+      } else if ( element.classList.contains(klassName) ){
+        var classArray = element.className.split(' ');
+        var klassIndex = classArray.indexOf(klassName);
+        classArray.splice(klassIndex, 1);
+        element.className = classArray.join(' ');
+      }
+    });
+  };
+
+  this.toggleClass = function(klassName) {
+    this.each(function(element) {
+      if ( $(element).hasClass(klassName) ) {
+        $(element).removeClass(klassName);
+      } else {
+        $(element).addClass(klassName);
+      }
+    });
+  };
+
+  this.val = function(input) {
+    if (input) { // setter
+      this.each(function(element) {
+        element.value = input;
+      })
+      return this;
+    } else { // getter
+      return this.collection[0].value;
+    }
   };
 }
 var jQuery = $;
