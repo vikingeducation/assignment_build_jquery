@@ -1,9 +1,19 @@
 function $(input) {
-  this.collection = [];
+  this.collection = [1];
   this.selector = "";
+  this.length = undefined;
+
+  this.setLength = function() {
+    this.length = this.collection.length;
+  }
+
+  this.setProperties = function(query) {
+    this.collection = query;
+    this.setLength();
+  }
 
   this.findById = function() {
-    this.collection = document.getElementById(this.selector);
+    this.setProperties(document.getElementById(this.selector));
   };
   this.findByClass = function() {
     this.collection = document.getElementsByClassName(this.selector);
@@ -24,10 +34,24 @@ function $(input) {
       this.selector = input;
       this.findByTag();
     }
-  };
-  this.parseSelector(input);
+  }
 
-  return this.collection;
+  this.parseInput = function(input) {
+    if (input.nodeType === undefined) {
+      this.parseSelector(input);
+    } else if (input.nodeType === 1) {
+      this.collection = [input];
+    }
+  };
+  this.parseInput(input);
+
+  this.idx = function(number) {
+    return this.collection[number];
+  }
+
+  if ( !(this instanceof $) ) {
+    return new $(input);
+  }
 }
 
 $('#ul');
