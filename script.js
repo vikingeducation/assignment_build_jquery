@@ -76,7 +76,10 @@ jQuery.object = function JQueryObject(collection) {
   // Value passed in can be string, number, or array
   this.val = function (value) {
     if (value) {
-      this.collection[0].value = value;
+      this.each ( function(el) {
+        el.value = value;
+      })
+      
       return this;
     } else {
       return this.collection[0].value;
@@ -94,7 +97,7 @@ jQuery.object = function JQueryObject(collection) {
     return this;
     }
   }
- 
+
   this.height = function(value) {
     if (!value) {
       return parseInt(this.css('height').slice(0,-2));
@@ -116,6 +119,30 @@ jQuery.object = function JQueryObject(collection) {
         console.log(value);
       }
       return this.css('width', value);
+    }
+  }
+
+  this.attr = function (attributeName, value) {
+    if (attributeName && !value) {
+      return this.collection[0].getAttribute(attributeName);
+    } else if (attributeName && value) {
+      this.each( function(el) {
+        el.setAttribute(attributeName, value);
+      });
+
+      return this;
+    }
+  }
+
+  this.html = function (input) {
+    if (!input) {
+      return this.collection[0].innerHTML
+    } else {
+      this.each( function(el) {
+        el.innerHTML = (typeof input === 'function') ? input() : input;
+      });
+
+      return this;
     }
   }
 }
