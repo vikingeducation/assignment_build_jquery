@@ -28,7 +28,7 @@ SimpleObject.each = function( collection, iterate_func ) {
 var jQuery = function(str) {
   var search = jQuery.searchTypes[str[0]]
   if ( search ) {
-    return document.search.call(_, str)
+    return search(str.substr(1))
   }
   else {
     return document.getElementsByTagName(str)
@@ -36,6 +36,6 @@ var jQuery = function(str) {
 }
 
 jQuery.searchTypes = {
-  '#': getElementById,
-  '.': getElementsByClassName
-}
+  '#': function(id) { return document.getElementById(id); },
+  '.': function(klazz) { return document.getElementsByClassName(klazz); }
+};
