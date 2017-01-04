@@ -56,12 +56,57 @@
 
     this.collection = collection.length ? collection : [collection];
     this.each = function( iterate_func ) {
-      this.collection.forEach( iterate_func );
+      for (i = 0; i < this.collection.length; i++) {
+        iterate_func( this.collection[i] );
+      }
     };
     this.length = this.collection.length;
     this.idx = function(index) { return this.collection[index]; };
-    
+
     this.hasClass = function(classQuery) {
       return this.collection[0].classList.contains(classQuery);
+    }
+
+    this.addClass = function(klazz) {
+      if (klazz) {
+        this.each( function(element) { element.className += " " + klazz; } );
+      }
+      return this;
+    }
+
+    this.removeClass = function(klazz) {
+      if (klazz) {
+        klazzes = klazz.split(" ")
+
+        this.each( function(element) {
+          for (index in klazzes) {
+            element.classList.remove(klazzes[index]);
+          }
+        });
+      }
+      return this;
+    }
+
+    this.toggleClass = function(klazz) {
+      if (klazz) {
+        klazzes = klazz.split(" ");
+
+        this.each( function(element) {
+          for (index in klazzes) {
+            element.classList.toggle(klazzes[index]);
+          }
+        });
+      }
+      return this;
+    }
+
+    // Value passed in can be string, number, or array
+    this.val = function (value) {
+      if (value) {
+        this.collection[0].value = value;
+        return this;
+      } else {
+        return this.collection[0].value;
+      }
     }
   }
