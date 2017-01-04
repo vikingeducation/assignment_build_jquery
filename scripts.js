@@ -19,3 +19,23 @@ function Baz() {
     return new Baz();
   }
 }
+
+function SimpleObject() {
+  this.collection = undefined;
+  this.each = function(func) {
+    for (var i = 0; i < this.collection.length; i++) {
+      console.log("this is this.each");
+      func(this.collection[i], i);
+    }
+  };
+  // how do we add a (non-instance) method directly to SimpleObject
+  // this.each and SimpleObject.each aren't overwriting each other?
+    // SimpleObject.each is a 'class' method? and this.each is an 'instance' method?
+}
+
+SimpleObject.each = function(collection, func) {
+  for (var i = 0; i < collection.length; i++) {
+    console.log("this is each");
+    func(collection[i], i);
+  }
+};
