@@ -20,3 +20,22 @@ function SimpleObject() {
     this.collection.forEach( iterate_func );
   };
 }
+
+SimpleObject.each = function( collection, iterate_func ) {
+  collection.forEach( iterate_func );
+};
+
+var jQuery = function(str) {
+  var search = jQuery.searchTypes[str[0]]
+  if ( search ) {
+    return document.search.call(_, str)
+  }
+  else {
+    return document.getElementsByTagName(str)
+  }
+}
+
+jQuery.searchTypes = {
+  '#': getElementById,
+  '.': getElementsByClassName
+}
