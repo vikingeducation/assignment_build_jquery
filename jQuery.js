@@ -140,7 +140,7 @@ function $(input) {
     if (input) { // setter
       this.each(function(element) {
         element.value = input;
-      })
+      });
       return this;
     } else { // getter
       return this.collection[0].value;
@@ -151,10 +151,32 @@ function $(input) {
     if (value) { // setter
       this.each(function(element) {
         element.style[propertyName] = value;
-      })
-      return this; 
+      });
+      return this;
     } else { // getter
       return this.collection[0].style[propertyName];
+    }
+  };
+
+  this.height = function(input) {
+    if (input) { // setter
+      this.each(function(element) {
+        element.style["height"] = input;
+      });
+      return this;
+    } else { // getter
+      return this.collection[0].style["height"];
+    }
+  };
+
+  this.width = function(input) {
+    if (input) { // setter
+      this.each(function(element) {
+        element.style["width"] = input;
+      });
+      return this;
+    } else { // getter
+      return this.collection[0].style["width"];
     }
   };
 }
