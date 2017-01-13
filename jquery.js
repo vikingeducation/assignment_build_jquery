@@ -5,16 +5,27 @@ function jQuery(selector) {
       this.collection = document.getElementsByClassName(selector);
   } else if (selector[0] === '#') {
       selector = selector.substring(1);
-      this.collection = document.getElementById(selector);
+      this.collection = [document.getElementById(selector)];
+  } else if (selector instanceof Element) {
+      this.collection = [selector];
   } else {
       this.collection = document.getElementsByTagName(selector);
     }
-    // return this.collection 
   } else {
     return new jQuery(selector);
   }
+
+  this.length = this.collection.length;
+  this.idx = function(index) {
+    return this.collection[index];
+  }
 }
 
+//alias
+var $ = jQuery;
+
+
+//
 var a = jQuery(".header")
 console.log(a)
 
@@ -26,3 +37,9 @@ console.log(c)
 
 var d = jQuery("asdf")
 console.log(d)
+
+var some = document.getElementById("example");
+var e = jQuery(some)
+
+var all = [a,b,c,d,e]
+all.forEach(function(element){console.log(element.collection)})
