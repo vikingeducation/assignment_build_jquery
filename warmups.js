@@ -1,31 +1,20 @@
-//Warmup: Constructors
-
-
 function Foo(){
   this.message = "Welcome to the jungle";
   this.yell = function(){
     return this.message.toUpperCase();
   };
+  // return this;
 }
 
 function Bar(){
-  var anonObj = { message: "Welcome to the jungle",
-  yell: function(){
-    return this.message.toUpperCase();
-    }
-  }
+  var anonObj = {};
+  Foo.call({});
   return anonObj;
+  // return Foo.call({}};
 }
 
 function Baz(){
-  if (this instanceof Baz) {
-    this.message = "Welcome to the jungle";
-    this.yell = function(){
-      return this.message.toUpperCase();
-    };
-  } else {
-  return new Baz();
-    }
+  return (this instanceof Baz) ? this : new Baz();
 }
 
 

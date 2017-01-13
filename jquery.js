@@ -19,7 +19,54 @@ function jQuery(selector) {
   this.idx = function(index) {
     return this.collection[index];
   }
-}
+  //
+  // this.eachDo = function(callback) {
+  //   var elements = this.collection;
+  //
+  //   for (var i = 0; i < elements.length; i++){
+  //     callback(elements[i]);
+  //   }
+  // }
+  //
+
+
+
+
+  this.each = function(callback){
+    var elements = this.collection;
+
+    for (var i = 0; i < elements.length; i++){
+      callback(elements[i]);
+    }
+  }
+
+  this.dance = function(input){return input + 'dance'}
+
+  this.hazClass = this.dance()
+
+
+
+
+  this.hasClass = function(input) {
+    var elements = this.collection;
+
+    for (var i = 0; i < elements.length; i++){
+      var element = elements[i];
+      var classes = element.classList;
+      if (classes.contains(input)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // this.addClass = function(input) {
+  //
+  // }
+
+}//end
+
+
 
 //alias
 var $ = jQuery;
@@ -32,7 +79,7 @@ console.log(a)
 var b = jQuery("#title")
 console.log(b)
 
-var c = jQuery("h1")
+var c = jQuery("p")
 console.log(c)
 
 var d = jQuery("asdf")
@@ -40,6 +87,7 @@ console.log(d)
 
 var some = document.getElementById("example");
 var e = jQuery(some)
+console.log(e)
 
 var all = [a,b,c,d,e]
 all.forEach(function(element){console.log(element.collection)})
