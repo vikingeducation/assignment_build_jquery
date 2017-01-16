@@ -8,7 +8,7 @@ function Foo(){
 
 function Bar(){
   var anonObj = {};
-  Foo.call({});
+  Foo.call(anonObj);
   return anonObj;
   // return Foo.call({}};
 }
@@ -17,11 +17,9 @@ function Baz(){
   return (this instanceof Baz) ? this : new Baz();
 }
 
-
-//Warmup: Anonymous Functions
-
-
 function SimpleObject(){
+  this.collection = [];
+
   this.each = function(callback){
     var elements = this.collection;
 

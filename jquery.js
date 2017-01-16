@@ -1,25 +1,42 @@
+//leaf node
+//nodeList v.s. Node
+
+//elNode
+
 function jQuery(selector) {
   if (this instanceof jQuery) {
-    if (selector[0] === '.') {
-      selector = selector.substring(1);
-      this.collection = document.getElementsByClassName(selector);
-  } else if (selector[0] === '#') {
-      selector = selector.substring(1);
-      this.collection = [document.getElementById(selector)];
-  } else if (selector instanceof Element) {
-      this.collection = [selector];
-  } else {
-      this.collection = document.getElementsByTagName(selector);
+    this.collection = (function() {
+      if (selector[0] === '.') {
+        return document.getElementsByClassName(selector.substring(1));
+      } else if (selector[0] === '#') {
+          return [document.getElementById(selector.substring(1))];
+      } else if (selector instanceof Element) {
+        return [selector];
+      } else {
+        return document.getElementsByTagName(selector);
+      }
+    })();
+    this.length = this.collection.length;
+    this.idx = function(index) {
+      return this.collection[index];
     }
   } else {
     return new jQuery(selector);
   }
+}
+//
+// jQuery.prototype.domQuery = function(selector) {
+//   if (selector[0] === '.') {
+//     return document.getElementsByClassName(selector.substring(1));
+//   } else if (selector[0] === '#') {
+//       return document.getElementById(selector.substring(1));
+//   } else if (selector instanceof Element) {
+//       return [selector];
+//   } else {
+//     return document.getElementsByTagName(selector);
+//   }
+// }
 
-  this.length = this.collection.length;
-  this.idx = function(index) {
-    return this.collection[index];
-  }
-  //
   // this.eachDo = function(callback) {
   //   var elements = this.collection;
   //
@@ -29,43 +46,43 @@ function jQuery(selector) {
   // }
   //
 
-
-
-
-  this.each = function(callback){
-    var elements = this.collection;
-
-    for (var i = 0; i < elements.length; i++){
-      callback(elements[i]);
-    }
-  }
-
-  this.dance = function(input){return input + 'dance'}
-
-  this.hazClass = this.dance()
-
-
-
-
-  this.hasClass = function(input) {
-    var elements = this.collection;
-
-    for (var i = 0; i < elements.length; i++){
-      var element = elements[i];
-      var classes = element.classList;
-      if (classes.contains(input)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // this.addClass = function(input) {
-  //
-  // }
-
-}//end
-
+//
+//
+//
+//   this.each = function(callback){
+//     var elements = this.collection;
+//
+//     for (var i = 0; i < elements.length; i++){
+//       callback(elements[i]);
+//     }
+//   }
+//
+//   this.dance = function(input){return input + 'dance'}
+//
+//   this.hazClass = this.dance()
+//
+//
+//
+//
+//   this.hasClass = function(input) {
+//     var elements = this.collection;
+//
+//     for (var i = 0; i < elements.length; i++){
+//       var element = elements[i];
+//       var classes = element.classList;
+//       if (classes.contains(input)) {
+//         return true;
+//       }
+//     }
+//     return false;
+//   }
+//
+//   // this.addClass = function(input) {
+//   //
+//   // }
+//
+// }//end
+//
 
 
 //alias

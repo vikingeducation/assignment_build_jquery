@@ -1,5 +1,3 @@
 # assignment_build_jquery
 Build your tools!  [A JavaScript project from the Viking Code School](http://www.vikingcodeschool.com)
 Kenny Kottenstette
-
--use window.onload for "unobstrusive JavaScript"
