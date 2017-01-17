@@ -1,11 +1,3 @@
-//leaf node
-//nodeList v.s. Node
-
-// var jQuery = function(selectors) {
-//
-// };
-
-
 function jQuery(selector) {
   if (this instanceof jQuery) {
     this.collection = (function() {
@@ -77,16 +69,52 @@ function jQuery(selector) {
     this.css = function(cssProperty, cssValue) {
       if (cssValue) {
         this.each(function(el) {
-          el[cssProperty] = cssValue;
+          el.style[cssProperty] = cssValue;
         })
       } else {
-        return this.idx(0).getAttribute(cssProperty)
+        return this.idx(0).style[cssProperty] || getComputedStyle(this.idx(0), null)[cssProperty];
       }
     };
 
+    this.height = function(pxHeight) {
+      if (pxHeight) {
+        this.each(function(el) {
+          el.style.height = pxHeight + 'px';
+        })
+      } else {
+        return this.idx(0).style.height || getComputedStyle(this.idx(0), null).height;
+      }
+    };
 
+    this.width = function(pxWidth) {
+      if (pxWidth) {
+        this.each(function(el) {
+          el.style.width = pxWidth + 'px';
+        })
+      } else {
+        return this.idx(0).style.width || getComputedStyle(this.idx(0), null).width;
+      }
+    };
 
+    this.attr = function(attributeName, value) {
+      if (value) {
+        this.each(function(el) {
+          el.setAttribute(attributeName, value);
+        })
+      } else {
+        return this.idx(0).getAttribute(attributeName);
+      }
+    };
 
+    this.html = function(htmlString) {
+      if (htmlString) {
+        this.each(function(el) {
+          el.innerHTML = htmlString;
+        })
+      } else {
+        return this.idx(0).innerHTML;
+      }
+    };
 
     // return this.collection
   } else {
@@ -94,68 +122,6 @@ function jQuery(selector) {
   }
 }
 
-// jQuery.prototype.length = function(){return this.collection.length;}
-
-
-//
-// jQuery.prototype.domQuery = function(selector) {
-//   if (selector[0] === '.') {
-//     return document.getElementsByClassName(selector.substring(1));
-//   } else if (selector[0] === '#') {
-//       return document.getElementById(selector.substring(1));
-//   } else if (selector instanceof Element) {
-//       return [selector];
-//   } else {
-//     return document.getElementsByTagName(selector);
-//   }
-// }
-
-  // this.eachDo = function(callback) {
-  //   var elements = this.collection;
-  //
-  //   for (var i = 0; i < elements.length; i++){
-  //     callback(elements[i]);
-  //   }
-  // }
-  //
-
-//
-//
-//
-//   this.each = function(callback){
-//     var elements = this.collection;
-//
-//     for (var i = 0; i < elements.length; i++){
-//       callback(elements[i]);
-//     }
-//   }
-//
-//   this.dance = function(input){return input + 'dance'}
-//
-//   this.hazClass = this.dance()
-//
-//
-//
-//
-//   this.hasClass = function(input) {
-//     var elements = this.collection;
-//
-//     for (var i = 0; i < elements.length; i++){
-//       var element = elements[i];
-//       var classes = element.classList;
-//       if (classes.contains(input)) {
-//         return true;
-//       }
-//     }
-//     return false;
-//   }
-//
-//   // this.addClass = function(input) {
-//   //
-//   // }
-//
-// }//end
-//
 
 
 //alias
