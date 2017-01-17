@@ -1,7 +1,10 @@
 //leaf node
 //nodeList v.s. Node
 
-//elNode
+// var jQuery = function(selectors) {
+//
+// };
+
 
 function jQuery(selector) {
   if (this instanceof jQuery) {
@@ -20,10 +23,80 @@ function jQuery(selector) {
     this.idx = function(index) {
       return this.collection[index];
     }
+
+    this.each = function(callback){
+      var len = this.length
+
+      for (var i = 0; i < len; i++) {
+        callback(this.collection[i]);
+      }
+    };
+
+    this.hasClass = function(input) {
+      var match = false;
+      this.each(function(el) {
+        var classes = el.classList;
+        if (classes.contains(input)) {
+          match = true;
+        }
+      })
+      return match;
+    };
+
+    this.addClass = function(input) {
+      this.each(function(el) {
+        el.classList.add(input);
+      })
+      return this;
+    };
+
+    this.removeClass = function(input) {
+      this.each(function(el) {
+        el.classList.remove(input);
+      })
+      return this;
+    };
+
+    this.toggleClass = function(input) {
+      this.each(function(el) {
+        el.classList.toggle(input);
+      })
+      return this;
+    };
+
+    this.val = function(input) {
+      if (input) {
+        this.each(function(el) {
+          el.value = input;
+        })
+      } else {
+        return this.idx(0);
+      }
+    };
+
+    this.css = function(cssProperty, cssValue) {
+      if (cssValue) {
+        this.each(function(el) {
+          el[cssProperty] = cssValue;
+        })
+      } else {
+        return this.idx(0).getAttribute(cssProperty)
+      }
+    };
+
+
+
+
+
+    // return this.collection
   } else {
     return new jQuery(selector);
   }
 }
+
+// jQuery.prototype.length = function(){return this.collection.length;}
+
+
 //
 // jQuery.prototype.domQuery = function(selector) {
 //   if (selector[0] === '.') {
