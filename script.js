@@ -56,7 +56,8 @@ SimpleObject.each(collection, function(el, index) {
 //Build jQuery
 
 
-var jQuery = function(myInput) {
+function jQuery(myInput) {
+  if (!(this instanceof jQuery)) return new jQuery(myInput);
   var collection = [];
   if (typeof myInput == 'string') {
     if (myInput[0] === '.') {
@@ -69,14 +70,12 @@ var jQuery = function(myInput) {
   } else if (myInput instanceof HTMLElement){
     collection = [myInput];
   }
-  return {
-    jCollection: collection,
-    length: collection.length,
-    idx: function(index) {
-      return collection[index];
-    }
+  this.collection = collection;
+  this.length = collection.length;
+  this.idx = function(index) {
+    return collection[index];
   };
-};
+}
 
 var $ = jQuery.bind();
 
