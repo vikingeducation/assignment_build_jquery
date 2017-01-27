@@ -140,7 +140,24 @@ function jQuery(myInput) {
       });
       return this;
     }
-  }
+  };
+  this.attr = function(attributeName, value) {
+    if (value === undefined && typeof attributeName !== 'object') {
+      return this.idx(0).getAttribute(attributeName);
+    } else if (value === undefined && typeof attributeName === 'object') {
+      jQuery.each(this.collection, function(el) {
+        for (var attribute in attributeName) {
+          el.setAttribute(attribute, attributeName[attribute]);
+        }
+      });
+      return this;
+    } else {
+      jQuery.each(this.collection, function(el) {
+        el.setAttribute(attributeName, value);
+      });
+      return this;
+    }
+  };
 }
 jQuery.each = function(collection, someFunc) {
   for (var i = 0; i < collection.length; i++) {
