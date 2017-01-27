@@ -176,8 +176,7 @@ jQuery.each = function(collection, someFunc) {
 };
 
 var $ = jQuery.bind();
-var jCol = jQuery('.some');
-console.log(jCol);
+
 
 
 
