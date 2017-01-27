@@ -158,6 +158,16 @@ function jQuery(myInput) {
       return this;
     }
   };
+  this.html = function(value) {
+    if (value === undefined) {
+      return this.idx(0).outerHTML;
+    } else {
+      jQuery.each(this.collection, function(el) {
+        el.outerHTML = value;
+      });
+    }
+    return this;
+  };
 }
 jQuery.each = function(collection, someFunc) {
   for (var i = 0; i < collection.length; i++) {
