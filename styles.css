@@ -1,0 +1,48 @@
+#big-header {
+  font-size: 72px;
+}
+
+#lil-header {
+  font-size: 24px;
+}
+
+.header {
+  font-family: Verdana;
+}
+
+.text {
+  line-height: 1.5em;
+}
+
+.pink {
+  background: pink;
+}
+
+input {
+  height: 20px;
+  padding: 2px 5px;
+}
+
+ul {
+  padding: 50px 50px;
+}
+
+.list {
+  list-style-type: square;
+}
+
+.black {
+  background: black;
+}
+
+li {
+  color: white;
+}
+
+.active {
+  font-weight: 800;
+}
+
+footer {
+  float: right;
+}
