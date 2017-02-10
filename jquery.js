@@ -1,6 +1,6 @@
 var jQuery = function(selector) {
   if (!(this instanceof jQuery)) return new jQuery(selector);
-  
+
   this.selector = selector;
 
   if (selector instanceof Object) {
@@ -22,13 +22,9 @@ var jQuery = function(selector) {
   };
 
   this.hasClass = function(name) {
-    var collection = this.collection;
+    collection = this.collection;
     for (var i = 0; i < collection.length; i++) {
-      var classes = collection[i].className
-                                 .split(/\s+/);
-      for (var j = 0; j < classes.length; j++) {
-        if (name === classes[j]) return true;
-      };
+      if (collection[i].classList.contains(name)) return true;
     };
     return false;
   };
