@@ -15,6 +15,7 @@ function Baz() {
   if (!(this instanceof Baz)) return new Baz();
 }
 
+
 // anonymous functions
 
 function SimpleObject() {
