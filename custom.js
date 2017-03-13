@@ -8,16 +8,15 @@ var jQuery = function(input) {
   if (typeof input === "string") {
     if (input.charAt(0).match(/\w/)) {
       this.collections = document.getElementsByTagName(input)
+    } else if (input.includes(" ")) {
+      this.collections = [document.querySelector(input)]
     } else if (input.startsWith("#")) {
       let idName = input.slice(1);
       this.collections.push(document.getElementById(idName))
     } else if (input.startsWith(".")) {
       let className = input.slice(1);
       this.collections = document.getElementsByClassName(className)
-    } else {
-      let elementName = input.slice(1).slice(0, -1);
-      this.collections.push(document.createElement(elementName))
-    }
+    } 
   }
   else if (input instanceof Object) {
     if (input.length) {
@@ -80,7 +79,6 @@ var jQuery = function(input) {
 
   // Value
   this.val = function(input) {
-    console.log(this.collections.length)
     if (this.collections.length)
       if (input) {
         this.first().setAttribute("value", input);
@@ -109,28 +107,55 @@ var jQuery = function(input) {
     }
   }
 
+  // Height
+  this.height = function(value) {
+    if (this.collections.length) {
+      if (value) {
+        this.first().style.height = value;
+        return this
+      } else {
+        return this.first().offsetHeight 
+      }      
+    }
+  }
+ 
+  // Width
+  this.width = function(value) {
+    if (this.collections.length) {
+      if (value) {
+        this.first().style.width = value;
+        return this
+      } else {
+        return this.first().offsetWidth
+      }
+    }
+  }
+  
 
-
+  // Attribute
+  this.attr = function(attrName, value) {
+    if (this.collections.length) {
+      if (value) {
+        this.first().setAttribute(attrName, value);
+        return this
+      } else {
+        return this.first().getAttribute(attrName);
+      }
+    }
+  }
+ 
+  // HTML
+  this.html = function(value) {
+    if (this.collections.length) {
+      if (value) {
+        this.first().innerHTML = value
+        return this
+      } else {
+        return this.first().innerHTML
+      }
+    }
+  }
   return this
 }
 
 $ = jQuery;
-
-
-
-// if (input == null) {
-//     return this
-//   }
-
-//   if (input.charAt(0).match(/\w/)) {
-//     elements = document.getElementsByTagName(input)
-//   }
-//   if (input.startsWith("#")) {
-//     let idName = input.slice(1)
-//     elements.push(document.getElementById(idName))
-//   }
-//   if (input.startsWith(".")) {
-//     let className = input.slice(1)
-//     elements = document.getElementsByClassName(className)
-//   } 
-//   return this
