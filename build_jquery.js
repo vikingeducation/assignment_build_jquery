@@ -29,5 +29,38 @@ function $(str){
 
 // jQuery Object constructor (for jQuery methods)
 function jObj(){
-
+	this.hasClass = function(className){
+		for (var i=0; i<this.col.length; i++) {
+			if (this.col[i].classList.contains(className)) {
+				return true;
+			}
+		}
+		return false;		
+	};
+	this.addClass = function(className){
+		for (var i=0; i<this.col.length; i++) {
+			this.col[i].classList.add(className);
+		}
+		return this;		
+	};
+	this.removeClass = function(classNames){
+		for (var i=0; i<this.col.length; i++) {
+			this.col[i].classList.remove(classNames);
+		}
+		return this;		
+	};
+	this.toggleClass = function(className){
+		for (var i=0; i<this.col.length; i++) {
+			if (this.col[i].classList.contains(className)) {
+				this.col[i].classList.remove(className);
+			} else {
+				this.col[i].classList.add(className);
+			}
+		}
+		return this;
+	};
 };
+
+
+
+
