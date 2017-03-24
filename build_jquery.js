@@ -59,6 +59,66 @@ function jObj(){
 		}
 		return this;
 	};
+	this.val = function(value){
+		if (value) {
+			for (var i=0; i<this.col.length; i++){
+				this.col[i].setAttribute("value", value);
+			}
+		} else {
+			return this.col[0].getAttribute("value");
+		}
+		return this;
+	};
+	this.css = function(propertyName, value){
+		if (value) {
+			for (var i=0; i<this.col.length; i++){
+				this.col[i].style.propertyName = value;
+			}
+		} else {
+			return this.col[0].style.propertyName;
+		}
+		return this;
+	};
+	this.height = function(value){
+		if (value) {
+			for (var i=0; i<this.col.length; i++){
+				this.col[i].style.height = value.toString() + "px";
+			}
+		} else {
+			return parseInt(this.col[0].style.height, 10);
+		}
+		return this;
+	};
+	this.width = function(value){
+		if (value) {
+			for (var i=0; i<this.col.length; i++){
+				this.col[i].style.width = value.toString() + "px";
+			}
+		} else {
+			return parseInt(this.col[0].style.width, 10);
+		}
+		return this;
+	};	
+	this.attr = function(attributeName, value){
+		if (value) {
+			for (var i=0; i<this.col.length; i++){
+				this.col[i].setAttribute(attributeName, value);
+			}
+		} else {
+			return this.col[0].getAttribute(attributeName);
+		}
+		return this;
+	};
+	this.html = function(htmlString){
+		if (htmlString) {
+			for (var i=0; i<this.col.length; i++) {
+				this.col[i].innerHTML = htmlString;
+			}
+		} else {
+			return this.col[0].innerHTML;
+		}
+		return this;
+	};
 };
 
 
