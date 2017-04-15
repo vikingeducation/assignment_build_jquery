@@ -69,13 +69,21 @@ function jQuery(selector) {
 
   var determineSearchLogic = (selectorString) => {
     if (!selectorString) return;
-    if (CLASS_REGEX.test(selectorString)) {
-      performSearch = searchByClass;
-    } else if (ID_REGEX.test(selectorString)) {
-      performSearch = searchById;
+    if (typeof(selectorString) == 'object' && selectorString instanceof HTMLElement) {
+        performSearch = searchByNode;
     } else {
-      performSearch = searchByElement;
+      if (CLASS_REGEX.test(selectorString)) {
+        performSearch = searchByClass;
+      } else if (ID_REGEX.test(selectorString)) {
+        performSearch = searchById;
+      } else {
+        performSearch = searchByElement;
+      }
     }
+  }
+
+  var searchByNode = () => {
+    collection = [selector];
   }
 
   var searchByClass = () => {
@@ -104,7 +112,10 @@ function jQuery(selector) {
   this.length = collection.length;
 
   // Helper methods
-
+  this.idx = (index) => {
+    if (index > this.length) return undefined;
+    return this.collection[index];
+  }
 }
 
 function $(selector) {
