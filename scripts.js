@@ -64,56 +64,31 @@ function jQuery(selector) {
   const CLASS_REGEX = /^\./,
         ID_REGEX = /^#/g;
 
+  var collection = [];
   var performSearch;
-  this.collection = [];
-  this.length = 0;
 
   var determineSearchLogic = (selectorString) => {
     if (!selectorString) return;
     if (CLASS_REGEX.test(selectorString)) {
       performSearch = searchByClass;
-      selector = selector.slice(1);
     } else if (ID_REGEX.test(selectorString)) {
       performSearch = searchById;
-      selector = selector.slice(1);
     } else {
       performSearch = searchByElement;
     }
   }
 
   var searchByClass = () => {
-    this.collection = (function() {
-      var col = [];
-      var elements = document.getElementsByClassName(selector);
-      for (var i = 0; i < elements.length; i++) {
-        col.push(elements[i]);
-      }
-      return col;
-    })();
-    console.log(this.collection);
-    this.length = this.collection.length;
+    collection = document.getElementsByClassName(selector.slice(1));
   }
 
   var searchById = () => {
-    this.collection = (function() {
-      var el = document.getElementById(selector);
-      return el == null ? []:[el];
-    })();
-    console.log(this.collection);
-    this.length = this.collection.length;
+    var el;
+    collection = ((el = document.getElementById(selector.slice(1))) == null ? []:[el]);
   }
 
   var searchByElement = () => {
-    this.collection = (function() {
-      var col = [];
-      var elements = document.getElementsByTagName(selector);
-      for (var i = 0; i < elements.length; i++) {
-        col.push(elements[i]);
-      }
-      return col;
-    })();
-    console.log(this.collection);
-    this.length = this.collection.length;
+    collection = document.getElementsByTagName(selector);
   }
 
   // Determine the search type and perform the search.
@@ -123,6 +98,10 @@ function jQuery(selector) {
   } else {
     console.error("You must enter a selector to search by!");
   }
+
+  // Search complete
+  this.collection = collection;
+  this.length = collection.length;
 
   // Helper methods
 
