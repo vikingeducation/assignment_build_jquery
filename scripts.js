@@ -67,7 +67,8 @@ function jQuery(selector) {
 
     // Errors
     ERROR_SELECTOR_NOT_PRESENT: "You must enter a selector to search by!",
-    ERROR_CLASSNAME_NOT_STRING: "Class name must be a string!",
+    ERROR_CLASSNAME_NOT_STRING: "className must be a non-empty string!",
+    ERROR_CLASSNAME_NOT_VALID: "className must be a string or function!",
     ERROR_ELEMENT_NOT_VALID: "Element must be an HTMLElement node!"
   }
 
@@ -124,6 +125,7 @@ function jQuery(selector) {
     return this.collection[index];
   };
 
+  // Check single element for class.
   jQuery.hasClass = (className, element) => {
     if (!validateStringArg(className))
       return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
@@ -138,43 +140,100 @@ function jQuery(selector) {
     if (!validateStringArg(className))
       return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
 
+    // Check for any occurence in the collection that contains this class.
     return [].some.call(this.collection, (el) => {
       return el.hasAttribute('class') && el.classList.contains(className);
     });
-    return this;
   };
 
   // Add Class
-  this.addClass = (className) => {
-    if (!validateStringArg(className))
-      return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
+  this.addClass = (classNameOrFunc) => {
+    // Make sure we only have a string or function as per the docs.
+    if (validateStringArg(classNameOrFunc) || validateFunctionArg(classNameOrFunc)) {
+      var classNameToAdd;
 
-    [].forEach.call(this.collection, (el) => {
-      if (jQuery.hasClass(className, el)) return;
-      el.classList.add(className);
-    });
+      // Iterate through our collection of elements and add the class
+      // name either by string or supplied function.
+      [].forEach.call(this.collection, (el) => {
+        if (validateStringArg(classNameOrFunc)) // Supplied string.
+          classNameToAdd = classNameOrFunc;
+        else // Supplied function.
+          classNameToAdd = classNameOrFunc.call(el);
+
+        // Make sure the result is a valid string to add.
+        if (validateStringArg(classNameToAdd)) {
+          if (hasWhiteSpaces(classNameToAdd)) {
+            // Multiple names were passed, split it and iterate again.
+            classNameToAdd.split(' ').forEach((className) => {
+                if (!jQuery.hasClass(className, el))
+                  el.classList.add(className);
+            });
+          } else {
+            if (!jQuery.hasClass(classNameToAdd, el))
+              el.classList.add(classNameToAdd);
+          }
+        }
+      });
+    } else // Invalid argument.
+      return console.error("addClass: " + CONSTANTS.ERROR_CLASSNAME_NOT_VALID);
+
+    // Return for chaining.
     return this;
   };
 
   // Remove Class
-  this.removeClass = (className) => {
-    if (!validateStringArg(className))
-      return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
+  this.removeClass = (classNameOrFunc) => {
+    // Make sure we only have a string or function as per the docs.
+    if (validateStringArg(classNameOrFunc) || validateFunctionArg(classNameOrFunc)) {
+      var classNameToRemove;
 
-    [].forEach.call(this.collection, (el) => {
-      if (!jQuery.hasClass(className, el)) return;
-      el.classList.remove(className);
-    });
+      // Iterate through our collection of elements and remove the class
+      // name either by string or supplied function.
+      [].forEach.call(this.collection, (el) => {
+        if (validateStringArg(classNameOrFunc)) // Supplied string.
+          classNameToRemove = classNameOrFunc;
+        else // Supplied function.
+          classNameToRemove = classNameOrFunc.call(el);
+
+          // Make sure the result is a valid string to remove.
+          if (validateStringArg(classNameToRemove)) {
+            if (hasWhiteSpaces(classNameToRemove)) {
+              // Multiple names were passed, split it and iterate again.
+              classNameToRemove.split(' ').forEach((className) => {
+                  if (jQuery.hasClass(className, el))
+                    el.classList.remove(className);
+              });
+            } else {
+              if (jQuery.hasClass(classNameToRemove, el))
+                el.classList.remove(classNameToRemove);
+            }
+          }
+      });
+    } else // Invalid argument.
+      return console.error("removeClass: " + CONSTANTS.ERROR_CLASSNAME_NOT_VALID);
     return this;
+  }
+
+  // Toggle Class
+  this.toggleClass = (className) => {
+
   }
 
   // Other helpers
   var validateStringArg = (str) => {
-    return str && typeof(str) == 'string' && str.length > 0;
+    return str && typeof(str) === 'string' && str.length > 0;
+  }
+
+  var hasWhiteSpaces = (str) => {
+    return str.indexOf(' ') >= 0;
   }
 
   var validateElementArg = (ele) => {
     return ele && (ele instanceof HTMLElement);
+  }
+
+  var validateFunctionArg = (obj) => {
+    return obj && typeof(obj) === 'function';
   }
 }
 
