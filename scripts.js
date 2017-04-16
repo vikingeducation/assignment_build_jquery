@@ -68,7 +68,7 @@ function jQuery(selector) {
     // Errors
     ERROR_SELECTOR_NOT_PRESENT: "You must enter a selector to search by!",
     ERROR_CLASSNAME_NOT_STRING: "Must be a string!",
-    ERROR_CLASSNAME_NOT_VALID: "Must be a string or function!",
+    ERROR_ARGUMENT_NOT_VALID: "Must be a string or function!",
     ERROR_VALUE_NOT_VALID: "Must be a string, number, array, or function!",
     ERROR_NEED_STRING_OR_NUMBER: "Must be a string or number!",
     ERROR_ELEMENT_NOT_VALID: "Element must be an HTMLElement node!"
@@ -175,7 +175,7 @@ function jQuery(selector) {
         }
       });
     } else // Invalid argument.
-      return console.error("addClass: " + CONSTANTS.ERROR_CLASSNAME_NOT_VALID);
+      return console.error("addClass: " + CONSTANTS.ERROR_ARGUMENT_NOT_VALID);
 
     // Return for chaining.
     return this;
@@ -207,7 +207,7 @@ function jQuery(selector) {
           }
       });
     } else // Invalid argument.
-      return console.error("removeClass: " + CONSTANTS.ERROR_CLASSNAME_NOT_VALID);
+      return console.error("removeClass: " + CONSTANTS.ERROR_ARGUMENT_NOT_VALID);
 
     // Return for chaining.
     return this;
@@ -244,7 +244,7 @@ function jQuery(selector) {
         }
       });
     } else // Invalid argument. // Technically according to the docs, this is valid with no arguments. TODO: FIX LATER
-      return console.error("toggleClass: " + CONSTANTS.ERROR_CLASSNAME_NOT_VALID);
+      return console.error("toggleClass: " + CONSTANTS.ERROR_ARGUMENT_NOT_VALID);
 
     // Return for chaining.
     return this;
@@ -444,6 +444,164 @@ function jQuery(selector) {
 
       // Invalid argument.
       return undefined;
+  }
+
+  // height
+  this.height = (valueOrFunc) => {
+    // Check if we're getting or setting.
+    if (valueOrFunc == undefined) { // Getting.
+      var firstElement = this.idx(0);
+      return parseFloat(getComputedStyle(firstElement).height);
+    } else { // Setting.
+      // String or function?
+      if (validateStringArg(valueOrFunc)
+        || validateNumberArg(valueOrFunc)
+        || validateFunctionArg(valueOrFunc)) {
+        // Iterate through the collection and apply the height values.
+        [].forEach.call(this.collection, (el, index) => {
+          // Check if we got passed a function.
+          if (validateFunctionArg(valueOrFunc))
+            valueOrFunc = valueOrFunc.call(el, index, $(el).height());
+
+          // Make sure we still have something valid.
+          if (validateStringArg(valueOrFunc) || validateNumberArg(valueOrFunc)) {
+            // Set the value.
+            el.style.height = valueOrFunc;
+          }
+        });
+      } else
+        return console.log('height: ' + CONSTANTS.ERROR_ARGUMENT_NOT_VALID);
+
+      // Return for chaining.
+      return this;
+    }
+
+    // Invalid argument.
+    return undefined;
+  }
+
+  // width
+  this.width = (valueOrFunc) => {
+    // Check if we're getting or setting.
+    if (valueOrFunc == undefined) { // Getting.
+      var firstElement = this.idx(0);
+      return parseFloat(getComputedStyle(firstElement).width);
+    } else { // Setting.
+      // String or function?
+      if (validateStringArg(valueOrFunc)
+        || validateNumberArg(valueOrFunc)
+        || validateFunctionArg(valueOrFunc)) {
+        // Iterate through the collection and apply the width values.
+        [].forEach.call(this.collection, (el, index) => {
+          // Check if we got passed a function.
+          if (validateFunctionArg(valueOrFunc))
+            valueOrFunc = valueOrFunc.call(el, index, $(el).width());
+
+          // Make sure we still have something valid.
+          if (validateStringArg(valueOrFunc) || validateNumberArg(valueOrFunc)) {
+            // Set the value.
+            el.style.width = valueOrFunc;
+          }
+        });
+      } else
+        return console.log('width: ' + CONSTANTS.ERROR_ARGUMENT_NOT_VALID);
+
+      // Return for chaining.
+      return this;
+    }
+
+    // Invalid argument.
+    return undefined;
+  }
+
+  // attr
+  this.attr = (nameOrArrayOrObject, valueOrFunc) => {
+    // Check if we're getting or setting.
+    if ((validateStringArg(nameOrArrayOrObject)
+      ^ validateArrayArg(nameOrArrayOrObject)
+      && valueOrFunc === undefined)) { // Getting.
+        var firstElement = this.idx(0);
+        // Was a single attribute or an array passed?
+        if (validateStringArg(nameOrArrayOrObject)) {
+          // Return the attribute.
+          return firstElement.getAttribute(nameOrArrayOrObject);
+        } else { // Array of attributes.
+          var returnObject = {};
+          nameOrArrayOrObject.forEach((att) => {
+            var attrValue = firstElement.getAttribute(att);
+            if (attrValue)
+              returnObject[att] = attrValue;
+          });
+          return returnObject;
+        }
+      } else { // Setting.
+        // Determine whether we're setting one value or multiple
+        // values from an object set.
+        if (validateStringArg(nameOrArrayOrObject)) { // String
+          // Iterate through the collection and apply the attr values.
+          [].forEach.call(this.collection, (el) => {
+            // Check if we got passed a function.
+            if (validateFunctionArg(valueOrFunc))
+              valueOrFunc = valueOrFunc.call(el, index, $(el).attr(nameOrArrayOrObject));
+
+            // Check if we still have something valid.
+            if (validateStringArg(valueOrFunc) || validateNumberArg(valueOrFunc)) {
+              // Set the value.
+              el.setAttribute(nameOrArrayOrObject, valueOrFunc);
+            } else
+              return console.log("attr: " + CONSTANTS.ERROR_NEED_STRING_OR_NUMBER);
+          });
+        } else { // Object.
+          // Iterate through the collection and apply the
+          // attributes supplied in the object.
+          [].forEach.call(this.collection, (el) => {
+            // Iterate through the object.
+            for (var key in nameOrArrayOrObject) {
+              if (!nameOrArrayOrObject.hasOwnProperty(key)) continue;
+              el.setAttribute(key, nameOrArrayOrObject[key]);
+            }
+          });
+        }
+
+        // Return for chaining.
+        return this;
+      }
+
+      // Invalid argument.
+      return undefined;
+  }
+
+  // html
+  this.html = (valueOrFunc) => {
+    // Check if we're getting or setting.
+    if (valueOrFunc == undefined) { // Getting.
+      var firstElement = this.idx(0);
+      return firstElement.innerHTML;
+    } else { // Setting.
+      // String or function?
+      if (validateStringArg(valueOrFunc)
+        || validateFunctionArg(valueOrFunc)) {
+        // Iterate through the collection and apply the width values.
+        [].forEach.call(this.collection, (el, index) => {
+          // Check if we got passed a function.
+          if (validateFunctionArg(valueOrFunc))
+            valueOrFunc = valueOrFunc.call(el, index, $(el).html());
+
+          // Make sure we still have something valid.
+          if (validateStringArg(valueOrFunc)) {
+            // Set the value.
+            el.innerHTML = valueOrFunc;
+          }
+        });
+      } else
+        return console.log('width: ' + CONSTANTS.ERROR_ARGUMENT_NOT_VALID);
+
+      // Return for chaining.
+      return this;
+    }
+
+    // Invalid argument.
+    return undefined;
   }
 
   // Other helpers
