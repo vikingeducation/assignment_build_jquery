@@ -154,11 +154,11 @@ function jQuery(selector) {
 
       // Iterate through our collection of elements and add the class
       // name either by string or supplied function.
-      [].forEach.call(this.collection, (el) => {
-        if (validateStringArg(classNameOrFunc)) // Supplied string.
+      [].forEach.call(this.collection, (el, index) => {
+        if (validateStringArg(classNameOrFunc)) // Supplied string or array of strings.
           classNameToAdd = classNameOrFunc;
         else // Supplied function.
-          classNameToAdd = classNameOrFunc.call(el);
+          classNameToAdd = classNameOrFunc.call(el, index, el.className);
 
         // Make sure the result is a valid string to add.
         if (validateStringArg(classNameToAdd)) {
@@ -189,11 +189,11 @@ function jQuery(selector) {
 
       // Iterate through our collection of elements and remove the class
       // name either by string or supplied function.
-      [].forEach.call(this.collection, (el) => {
-        if (validateStringArg(classNameOrFunc)) // Supplied string.
+      [].forEach.call(this.collection, (el, index) => {
+        if (validateStringArg(classNameOrFunc)) // Supplied string or array of strings.
           classNameToRemove = classNameOrFunc;
         else // Supplied function.
-          classNameToRemove = classNameOrFunc.call(el);
+          classNameToRemove = classNameOrFunc.call(el, index, el.className);
 
           // Make sure the result is a valid string to remove.
           if (validateStringArg(classNameToRemove)) {
@@ -215,8 +215,41 @@ function jQuery(selector) {
   }
 
   // Toggle Class
-  this.toggleClass = (className) => {
+  this.toggleClass = (classNameOrFunc, state) => {
+    // Make sure we only have a string or function as per the docs.
+    if (validateStringArg(classNameOrFunc) || validateFunctionArg(classNameOrFunc)) {
+      var classNameToToggle;
 
+      // Iterate through our collection of elements and toggle the class
+      // name either by string or supplied function.  Adding or Removing
+      // is determined by state flag, if present.
+      [].forEach.call(this.collection, (el, index) => {
+        if (validateStringArg(classNameOrFunc)) // Supplied string or array of strings.
+          classNameToToggle = classNameOrFunc;
+        else
+          classNameToToggle = classNameOrFunc.call(el, index, el.className, state);
+
+        // Make sure the result is a valid string to toggle.
+        if (validateStringArg(classNameToToggle)) {
+          if (hasWhiteSpaces(classNameToToggle)) {
+            // Multiple names were pased, split it and iterate again.
+            classNameToToggle.split(' ').forEach((className) => {
+              if ((undefined === state ^ true === state) && !jQuery.hasClass(className, el))
+                el.classList.add(className);
+              else if ((undefined === state ^ false === state) && jQuery.hasClass(className, el))
+                el.classList.remove(className);
+            });
+          } else {
+            if ((undefined === state ^ true === state) && !jQuery.hasClass(classNameToToggle, el))
+              el.classList.add(classNameToToggle);
+            else if ((undefined === state ^ false === state) && jQuery.hasClass(classNameToToggle, el))
+              el.classList.remove(classNameToToggle);
+          }
+        }
+      });
+    } else // Invalid argument.
+      return console.error("toggleClass: " + CONSTANTS.ERROR_CLASSNAME_NOT_VALID);
+    return this;
   }
 
   // Other helpers
