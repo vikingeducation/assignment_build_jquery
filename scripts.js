@@ -61,8 +61,15 @@ SimpleObject.each(collection, function(el, index) {
  */
 function jQuery(selector) {
   if (!(this instanceof jQuery)) return new jQuery(selector);
-  const CLASS_REGEX = /^\./,
-        ID_REGEX = /^#/g;
+  const CONSTANTS = {
+    CLASS_REGEX: /^\./,
+    ID_REGEX: /^#/g,
+
+    // Errors
+    ERROR_SELECTOR_NOT_PRESENT: "You must enter a selector to search by!",
+    ERROR_CLASSNAME_NOT_STRING: "Class name must be a string!",
+    ERROR_ELEMENT_NOT_VALID: "Element must be an HTMLElement node!"
+  }
 
   var collection = [];
   var performSearch;
@@ -72,9 +79,9 @@ function jQuery(selector) {
     if (typeof(selectorString) == 'object' && selectorString instanceof HTMLElement) {
         performSearch = searchByNode;
     } else {
-      if (CLASS_REGEX.test(selectorString)) {
+      if (CONSTANTS.CLASS_REGEX.test(selectorString)) {
         performSearch = searchByClass;
-      } else if (ID_REGEX.test(selectorString)) {
+      } else if (CONSTANTS.ID_REGEX.test(selectorString)) {
         performSearch = searchById;
       } else {
         performSearch = searchByElement;
@@ -104,7 +111,7 @@ function jQuery(selector) {
   if (performSearch) {
     performSearch();
   } else {
-    console.error("You must enter a selector to search by!");
+    console.error(CONSTANTS.ERROR_SELECTOR_NOT_PRESENT);
   }
 
   // Search complete
@@ -113,8 +120,61 @@ function jQuery(selector) {
 
   // Helper methods
   this.idx = (index) => {
-    if (index > this.length) return undefined;
+    if (index < 0 || index > this.length) return undefined;
     return this.collection[index];
+  };
+
+  jQuery.hasClass = (className, element) => {
+    if (!validateStringArg(className))
+      return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
+    if (!validateElementArg(element))
+      return console.error(CONSTANTS.ERROR_ELEMENT_NOT_VALID);
+
+    return element.classList.contains(className);
+  };
+
+  // Has Class
+  this.hasClass = (className) => {
+    if (!validateStringArg(className))
+      return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
+
+    return [].some.call(this.collection, (el) => {
+      return el.hasAttribute('class') && el.classList.contains(className);
+    });
+    return this;
+  };
+
+  // Add Class
+  this.addClass = (className) => {
+    if (!validateStringArg(className))
+      return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
+
+    [].forEach.call(this.collection, (el) => {
+      if (jQuery.hasClass(className, el)) return;
+      el.classList.add(className);
+    });
+    return this;
+  };
+
+  // Remove Class
+  this.removeClass = (className) => {
+    if (!validateStringArg(className))
+      return console.error(CONSTANTS.ERROR_CLASSNAME_NOT_STRING);
+
+    [].forEach.call(this.collection, (el) => {
+      if (!jQuery.hasClass(className, el)) return;
+      el.classList.remove(className);
+    });
+    return this;
+  }
+
+  // Other helpers
+  var validateStringArg = (str) => {
+    return str && typeof(str) == 'string' && str.length > 0;
+  }
+
+  var validateElementArg = (ele) => {
+    return ele && (ele instanceof HTMLElement);
   }
 }
 
