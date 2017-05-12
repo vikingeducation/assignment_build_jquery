@@ -11,10 +11,6 @@ var jQuery = function(input) {
   }
 
   this.collection = function() {
-    // chained selectors
-    if (this.input.split(' ').length > 1 || this.input.match(/\[|\]|\=|\:/g)) {
-      return [document.querySelector(this.input)];
-    }
     // single selectors
     var term = this.input.slice(1, this.input.length);
     switch (this.input[0]) {
@@ -24,9 +20,13 @@ var jQuery = function(input) {
         return document.getElementById(term);
       case '<':
         return [this.input];
-      default:
-        return document.getElementsByTagName(this.input);
     }
+    // chained selectors
+    if (this.input.split(/\ |\.|\#|\[\:|\=/g).length > 1) {
+      return [document.querySelector(this.input)];
+    }
+    // plain old tag name
+    return document.getElementsByTagName(this.input);
   }
 
   this.idx = function(i) {
