@@ -1,6 +1,15 @@
 var jQuery = function(input) {
+
   if (!(this instanceof jQuery)) return new jQuery(input);
+
   this.input = input;
+
+  this.each = function(func) {
+    for (var i = 0; i < this.length; i++) {
+      func(this.idx(i), i);
+    }
+  }
+
   this.collection = function() {
     // chained selectors
     if (this.input.split(' ').length > 1 || this.input.match(/\[|\]|\=|\:/g)) {
@@ -18,44 +27,41 @@ var jQuery = function(input) {
       default:
         return document.getElementsByTagName(this.input);
     }
-  };
+  }
+
   this.idx = function(i) {
     return this.collection()[i];
   };
+
   this.length = this.collection().length;
+
   this.hasClass = function(name) {
     for (var i = 0; i < this.length; i++) {
-      if (this.idx(i).className.split(' ').indexOf(name) > 0) {
+      if (this.idx(i).classList.contains(name)) {
         return true;
       }
     }
     return false;
-  };
+  }
+
   this.addClass = function(name) {
-    for (var i = 0; i < this.length; i++) {
-      this.idx(i).className += ' ' + name;
-    }
+    this.each(function(el) {
+      el.classList.add(name);
+    });
   }
+
   this.removeClass = function(name) {
-    for (var i = 0; i < this.length; i++) {
-      var classes = this.idx(i).className.split(' ');
-      if (classes.indexOf(name) > 0) {
-        classes.splice(classes.indexOf(name), 1);
-      }
-      this.idx(i).className = classes.join(' ');
-    }
+    this.each(function(el) {
+      el.classList.remove(name);
+    });
   }
+
   this.toggleClass = function(name) {
-    for (var i = 0; i < this.length; i++) {
-      var classes = this.idx(i).className.split(' ');
-      if (classes.indexOf(name) > 0) {
-        classes.splice(classes.indexOf(name), 1);
-      } else {
-        classes.push(name);
-      }
-      this.idx(i).className = classes.join(' ');
-    }
+    this.each(function(el) {
+      el.classList.toggle(name);
+    });
   }
+
   this.val = function(name) {
     if (this.length === 0) {
       return undefined;
@@ -66,8 +72,7 @@ var jQuery = function(input) {
     }
     // SET
     else {
-      for (var i = 0; i < this.length; i++) {
-        var el = this.idx(i);
+      this.each(function(el) {
         switch (el.tagName.toLowerCase()) {
           case 'input':
             switch (el.type) {
@@ -84,12 +89,13 @@ var jQuery = function(input) {
             el.selected = el.value === name ? true : false;
             break;
           default:
-            this.idx(i).value = name;
+            el.value = name;
             break;
         }
-      }
+      });
     }
   }
+
   this.css = function(props, vals) {
     // just return undefined if props missing
     if (props === undefined) {
@@ -98,56 +104,60 @@ var jQuery = function(input) {
     if (vals === undefined) {
       // GETTER : .css('height')
       if (typeof props === 'string') {
-        return getPropValue(this.idx(0), props);
+        return window.getComputedStyle(this.idx(0), null).getPropertyValue(props);
       }
       // GETTER : .css(['height', 'width'])
       else if (props instanceof Array) {
         var values = {};
-        for (var i = 0; i < props.length; i++) {
-          values[props[i]] = getPropValue(this.idx(0), props[i]);
-        };
+        this.each(function(el, i) {
+          values[props[i]] = window.getComputedStyle(el, null).getPropertyValue(props[i]);
+        })
         return values;
       }
       // SETTER : .css({height: x, width: y})
       if (typeof props === 'object') {
-        for (var i = 0; i < this.length; i++) {
+        this.each(function(el) {
           for (var key in props) {
-            this.idx(i).style.setProperty(key, props[key])
+            el.style.setProperty(key, props[key])
           }
-        }
+        });
       }
     } else {
       // SETTER : .css('height', '45px')
-      if (typeof props === 'string' && typeof vals !== 'function') {
+      if (typeof props === 'string' && typeof vals === 'string') {
         // relative values
         if (vals.match(/(\-\=|\+\=)/)) {
-          for (var i = 0; i < this.length; i++) {
-            var curr = parseInt(getPropValue(this.idx(0), props));
+          this.each(function(el, i) {
+            var curr = parseInt(window.getComputedStyle(el, null).getPropertyValue(props));
             var num = parseInt(vals.match(/[\d]+/)[0]);
-            vals[0] === '-' ? this.idx(i).style.setProperty(props, curr - num + 'px') : this.idx(i).style.setProperty(props, curr + num + 'px');
-          }
+            vals[0] === '-' ? el.style.setProperty(props, curr - num + 'px') : el.style.setProperty(props, curr + num + 'px');
+          });
         }
         // definite values
         else {
-          for (var i = 0; i < this.length; i++) {
-            this.idx(i).style.setProperty(props, vals);
-          }
+          this.each(function(el) {
+            el.style.setProperty(props, vals);
+          });
         }
       }
       // SETTER : .css('height', function(i){...})
       else if (typeof props === 'string' && typeof vals === 'function') {
-        for (var i = 0; i < this.length; i++) {
+        this.each(function(el, i) {
           vals(i, this.idx(i));
-        }
+        });
+
       }
     }
   }
+
   this.height = function(height) {
-    return width === undefined ? this.css('height') : this.css('height', height);
+    return this.css('height', height);
   }
+
   this.width = function(width) {
-    return width === undefined ? this.css('width') : this.css('width', width);
+    return this.css('width', width);
   }
+
   this.attr = function(attr, val) {
     if (attr === undefined) {
       return;
@@ -159,42 +169,41 @@ var jQuery = function(input) {
       }
       // SETTER : .attr({class: 'x', data-v: 'y'})
       if (typeof attr === object && !attr instanceof Array) {
-        for (var i = 0; i < this.length; i++) {
+        this.each(function(el) {
           for (var key in attr) {
-            this.idx(i).setAttribute(key, attr[key]);
+            el.setAttribute(key, attr[key]);
           }
-        }
+        });
       }
     } else {
       // SETTER: .attr('something', null)
       if (val === null) {
-        for (var i = 0; i < this.length; i++) {
-          this.idx(i).removeAttribute(attr);
-        }
-        // SETTER: .attr('something', function(x, y){...})
+        this.each(function(el) {
+            this.idx(i).removeAttribute(attr);
+          })
+          // SETTER: .attr('something', function(x, y){...})
       } else if (typeof val === 'function') {
-        for (var i = 0; i < this.length; i++) {
-          vals(i, this, idx(i));
-        }
+        this.each(function(el, i) {
+          vals(i, el);
+        })
+
         // SETTER : .attr('attr', 'val')
       } else {
-        for (var i = 0; i < this.length; i++) {
-          this.idx(i).setAttribute(attr, val);
-        }
+        this.each(function(el) {
+          el.setAttribute(attr, val);
+        })
       }
     }
   }
+
   this.html = function(html) {
     if (html === undefined) {
       return this.idx(0).innerHTML;
-    } else {
-      for (var i = 0; i < this.length; i++) {
-        this.idx(0).innerHTML = html;
-      }
     }
+    this.each(function(el) {
+      el.innerHTML = html;
+    });
   }
-  this.getPropValue = function(element, prop) {
-    return window.getComputedStyle(element, null).getPropertyValue(prop);
-  }
+
 }
 var $ = jQuery;
