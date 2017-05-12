@@ -3,7 +3,7 @@ var jQuery = function(input) {
   this.input = input;
   this.collection = function() {
     // chained selectors
-    if (this.input.split(' ').length > 1) {
+    if (this.input.split(' ').length > 1 || this.input.match(/\[|\]|\=|\:/g)) {
       return [document.querySelector(this.input)];
     }
     // single selectors
@@ -60,16 +60,33 @@ var jQuery = function(input) {
     if (this.length === 0) {
       return undefined;
     }
-    // SET 
-    if (name == undefined) {
-      for (var i = 0; i < this.length; i++) {
-        this.idx(i).value = name;
-      }
+    // GET
+    if (name === undefined) {
+      return this.idx(0).value;
     }
-    // GET 
+    // SET
     else {
-      if (this.length === 1) {
-        return this.idx(0).value;
+      for (var i = 0; i < this.length; i++) {
+        var el = this.idx(i);
+        switch (el.tagName.toLowerCase()) {
+          case 'input':
+            switch (el.type) {
+              case 'checkbox':
+              case 'radio':
+                el.checked = el.value === name ? true : false;
+                break;
+              case 'text':
+                el.value = name;
+                break;
+            }
+            break;
+          case 'option':
+            el.selected = el.value === name ? true : false;
+            break;
+          default:
+            this.idx(i).value = name;
+            break;
+        }
       }
     }
   }
