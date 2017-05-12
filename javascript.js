@@ -1,13 +1,13 @@
-function jQuery(input) {
+var jQuery = function(input) {
   if (!(this instanceof jQuery)) return new jQuery(input);
   this.input = input;
   this.collection = function() {
-    var term = this.input.slice(1, this.input.length);
     // chained selectors
     if (this.input.split(' ').length > 1) {
       return [document.querySelector(this.input)];
     }
     // single selectors
+    var term = this.input.slice(1, this.input.length);
     switch (this.input[0]) {
       case '.':
         return document.getElementsByClassName(term);
@@ -81,13 +81,13 @@ function jQuery(input) {
     if (vals === undefined) {
       // GETTER : .css('height')
       if (typeof props === 'string') {
-        return window.getComputedStyle(this.idx(0), null).getPropertyValue(props);
+        return getPropValue(this.idx(0), props);
       }
       // GETTER : .css(['height', 'width'])
       else if (props instanceof Array) {
         var values = {};
         for (var i = 0; i < props.length; i++) {
-          values[props[i]] = window.getComputedStyle(this.idx(0), null).getPropertyValue(props[i])
+          values[props[i]] = getPropValue(this.idx(0), props[i]);
         };
         return values;
       }
@@ -105,7 +105,7 @@ function jQuery(input) {
         // relative values
         if (vals.match(/(\-\=|\+\=)/)) {
           for (var i = 0; i < this.length; i++) {
-            var curr = parseInt(window.getComputedStyle(this.idx(i), null).getPropertyValue(props));
+            var curr = parseInt(getPropValue(this.idx(0), props));
             var num = parseInt(vals.match(/[\d]+/)[0]);
             vals[0] === '-' ? this.idx(i).style.setProperty(props, curr - num + 'px') : this.idx(i).style.setProperty(props, curr + num + 'px');
           }
@@ -180,5 +180,4 @@ function jQuery(input) {
     return window.getComputedStyle(element, null).getPropertyValue(prop);
   }
 }
-
-var divs = jQuery('a .title');
+var $ = jQuery;
