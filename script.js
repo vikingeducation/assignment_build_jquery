@@ -16,10 +16,11 @@ Bar = function(test){
 }
 
 function Baz(test) {
-  if (!(this instanceof Baz)) return new Baz();
-  this.test = test;
-  this.print = (content) => {
-    console.log(content)
+  if (!(this instanceof Baz)) {
+    return new Baz();
+  } else {
+    this.test = test;
+    this.print = () => { return this.test; }
   }
 }
 
