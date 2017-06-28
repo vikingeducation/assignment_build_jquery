@@ -24,8 +24,8 @@ function jQuery(selector) {
     this.selection = document.getElementsByTagName(selector);
   }
 
-  // ensure we store something
-  if (!this.selection) {
+  // replace list with null with empty list
+  if (this.selection[0] === null) {
     this.selection = []
   }
 
