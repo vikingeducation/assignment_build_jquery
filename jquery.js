@@ -16,10 +16,16 @@ function jQuery(selector) {
     this.selection = document.getElementsByTagName(selector);
   }
 
-  // ensure we return something
+  // ensure we store something
   if (!this.selection) {
     this.selection = []
   }
 
+  // length property
   this.length = this.selection.length;
+
+  // index method
+  this.idx = function(index) {
+    return this.selection[index];
+  }
 }
