@@ -62,24 +62,30 @@ function jQuery(selector) {
   }
 
   // add a class
-  this.addClass = function(className) {
-    this.each(function(index, element) {
-      element.classList.add(className);
-    })
+  this.addClass = function(selector) {
+    for (let className of selector.split(' ')) {
+      this.each(function(index, element) {
+        element.classList.add(className);
+      })
+    }
   }
 
   // remove a class
-  this.removeClass = function(className) {
-    this.each(function(index, element) {
-      element.classList.remove(className);
-    })
+  this.removeClass = function(selector) {
+    for (let className of selector.split(' ')) {
+      this.each(function(index, element) {
+        element.classList.remove(className);
+      })
+    }
   }
 
   // toggle a class
-  this.toggleClass = function(className) {
-    this.each(function(index, element) {
-      element.classList.toggle(className);
-    })
+  this.toggleClass = function(selector) {
+    for (let className of selector.split(' ')) {
+      this.each(function(index, element) {
+        element.classList.toggle(className);
+      })
+    }
   }
 }
 
