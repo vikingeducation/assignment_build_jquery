@@ -50,3 +50,5 @@ function jQuery(selector) {
   }
 
 }
+
+$ = jQuery;
