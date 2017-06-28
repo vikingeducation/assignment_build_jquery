@@ -7,9 +7,19 @@ function Foo() {
 }
 
 var Bar = function() {
-  return { myProp: 'I am a property of foo',
+  return { myProp: 'I am a property of bar',
     myFunc: function() {
-      console.log('I am a function in foo');
+      console.log('I am a function in bar');
     }
+  }
+}
+
+function Baz() {
+  if (!(this instanceof Baz)) {
+    return new Baz();
+  }
+  this.myProp = 'I am a property of baz';
+  this.myFunc = function() {
+    console.log('I am a function in baz');
   }
 }
