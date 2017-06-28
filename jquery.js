@@ -28,4 +28,11 @@ function jQuery(selector) {
   this.idx = function(index) {
     return this.selection[index];
   }
+
+  // each method
+  this.each = function( toApply ) {
+    for (let index = 0; index < this.selection.length; index++) {
+      toApply(index, this.selection[index]);
+    }
+  }
 }
