@@ -75,6 +75,12 @@ function jQuery(selector) {
     })
   }
 
+  // toggle a class
+  this.toggleClass = function(className) {
+    this.each(function(index, element) {
+      element.classList.toggle(className);
+    })
+  }
 }
 
 $ = jQuery;
