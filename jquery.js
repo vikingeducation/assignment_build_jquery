@@ -50,15 +50,22 @@ function jQuery(selector) {
   }
 
   // do any selected elements have a given class?
-  this.hasClass = function(selector) {
+  this.hasClass = function(className) {
     let classFound = false
     this.each(function(index, element) {
       if (classFound) {
         return;
       }
-      classFound = classFound || element.classList.contains(selector);
+      classFound = classFound || element.classList.contains(className);
     })
     return classFound;
+  }
+
+  // add a class
+  this.addClass = function(className) {
+    this.each(function(index, element) {
+      element.classList.add(className);
+    })
   }
 
 }
