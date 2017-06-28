@@ -52,15 +52,12 @@ function jQuery(selector) {
   // do any selected elements have a given class?
   this.hasClass = function(selector) {
     let classFound = false
-
     this.each(function(index, element) {
-      element.classList.forEach(function(elementClass) {
-        if (elementClass === selector) {
-          classFound = true;
-        }
-      })
+      if (classFound) {
+        return;
+      }
+      classFound = classFound || element.classList.contains(selector);
     })
-
     return classFound;
   }
 
