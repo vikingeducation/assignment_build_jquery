@@ -106,6 +106,28 @@ function jQuery(selector) {
       }
     }
   }
+
+  // get/set css properties
+  this.css = function(property, value) {
+    if (value) {
+      this.each(function(index, element) {
+        element.style.setProperty(property, value);
+      })
+      return this;
+    } else if (typeof property == 'object') {
+      for (let key in property) {
+        this.css(key, property[key]);
+      }
+      return this;
+    } else {
+      if (this.selection[0] && this.selection[0].style.getPropertyValue(property)) {
+        return this.selection[0].style.getPropertyValue(property);
+      } else {
+        return undefined;
+      }
+    }
+  }
+
 }
 
 $ = jQuery;
