@@ -3,7 +3,7 @@ function jQuery(selector) {
     return new jQuery(selector);
   }
 
-  if (selector instanceof HTMLCollection) {
+  if (selector instanceof HTMLCollection || selector instanceof NodeList) {
     // handle multiple DOM nodes
     this.selection = selector;
 
