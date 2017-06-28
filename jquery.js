@@ -135,8 +135,27 @@ function jQuery(selector) {
         value += 'px'
       }
       this.css('height', value);
+      return this;
     } else {
       unitsHeight = this.css('height');
+      if (unitsHeight === undefined) {
+        return undefined;
+      } else {
+        return parseFloat(unitsHeight);
+      }
+    }
+  }
+
+  // get/set element widths
+  this.width = function(value) {
+    if (value !== undefined) {
+      if (typeof value === 'number') {
+        value += 'px'
+      }
+      this.css('width', value);
+      return this;
+    } else {
+      unitsHeight = this.css('width');
       if (unitsHeight === undefined) {
         return undefined;
       } else {
