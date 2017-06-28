@@ -90,6 +90,22 @@ function jQuery(selector) {
     }
     return this;
   }
+
+  // get/set the value of the first/all element(s)
+  this.val = function(value) {
+    if (value) {
+      this.each(function(index, element) {
+        element.value = value;
+      })
+      return this;
+    } else {
+      if (this.selection[0] && this.selection[0].value) {
+        return this.selection[0].value;
+      } else {
+        return '';
+      }
+    }
+  }
 }
 
 $ = jQuery;
