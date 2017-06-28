@@ -1,27 +1,23 @@
 function jQuery(selector) {
-  let selection
-  console.log(selector);
+  if (!(this instanceof jQuery)) {
+    return new jQuery(selector);
+  }
 
-   if (selector[0] === '.') {
-     // select on class
-     selection = document.getElementsByClassName(selector.substring(1));
-     console.log('class');
+  if (selector[0] === '.') {
+    // select on class
+    this.selection = document.getElementsByClassName(selector.substring(1));
 
-   } else if (selector[0] === '#') {
-     // select on id
-     selection = [ document.getElementById(selector.substring(1)) ];
-     console.log('id');
+  } else if (selector[0] === '#') {
+    // select on id
+    this.selection = [ document.getElementById(selector.substring(1)) ];
 
-   } else {
-     // select on element
-     selection = document.getElementsByTagName(selector);
-     console.log('element');
-   }
+  } else {
+    // select on element
+    this.selection = document.getElementsByTagName(selector);
+  }
 
-   // ensure we return something
-   if (!selection) {
-     selection = []
-   }
-
-   return selection;
+  // ensure we return something
+  if (!this.selection) {
+    this.selection = []
+  }
 }
