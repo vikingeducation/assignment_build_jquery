@@ -109,7 +109,7 @@ function jQuery(selector) {
 
   // get/set css properties
   this.css = function(property, value) {
-    if (value) {
+    if (value !== undefined) {
       this.each(function(index, element) {
         element.style.setProperty(property, value);
       })
@@ -120,10 +120,27 @@ function jQuery(selector) {
       }
       return this;
     } else {
-      if (this.selection[0] && this.selection[0].style.getPropertyValue(property)) {
-        return this.selection[0].style.getPropertyValue(property);
+      if (this.selection[0]) {
+        return getComputedStyle(this.selection[0]).getPropertyValue(property);
       } else {
         return undefined;
+      }
+    }
+  }
+
+  // get/set element heights
+  this.height = function(value) {
+    if (value !== undefined) {
+      if (typeof value === 'number') {
+        value += 'px'
+      }
+      this.css('height', value);
+    } else {
+      unitsHeight = this.css('height');
+      if (unitsHeight === undefined) {
+        return undefined;
+      } else {
+        return parseFloat(unitsHeight);
       }
     }
   }
