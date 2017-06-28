@@ -3,7 +3,15 @@ function jQuery(selector) {
     return new jQuery(selector);
   }
 
-  if (selector[0] === '.') {
+  if (selector instanceof HTMLCollection) {
+    // handle multiple DOM nodes
+    this.selection = selector;
+
+  } else if (selector instanceof Element) {
+    // handle single DOM nodes
+    this.selection = [ selector ];
+
+  } else if (selector[0] === '.') {
     // select on class
     this.selection = document.getElementsByClassName(selector.substring(1));
 
