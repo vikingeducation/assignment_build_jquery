@@ -9,7 +9,7 @@ function jQuery(selector) {
 
    } else if (selector[0] === '#') {
      // select on id
-     selection = document.getElementById(selector.substring(1));
+     selection = [ document.getElementById(selector.substring(1)) ];
      console.log('id');
 
    } else {
@@ -18,6 +18,10 @@ function jQuery(selector) {
      console.log('element');
    }
 
+   // ensure we return something
+   if (!selection) {
+     selection = []
+   }
 
    return selection;
 }
