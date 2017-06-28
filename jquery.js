@@ -20,4 +20,6 @@ function jQuery(selector) {
   if (!this.selection) {
     this.selection = []
   }
+
+  this.length = this.selection.length;
 }
