@@ -68,6 +68,13 @@ function jQuery(selector) {
     })
   }
 
+  // remove a class
+  this.removeClass = function(className) {
+    this.each(function(index, element) {
+      element.classList.remove(className);
+    })
+  }
+
 }
 
 $ = jQuery;
