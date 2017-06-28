@@ -68,6 +68,7 @@ function jQuery(selector) {
         element.classList.add(className);
       })
     }
+    return this;
   }
 
   // remove a class
@@ -77,6 +78,7 @@ function jQuery(selector) {
         element.classList.remove(className);
       })
     }
+    return this;
   }
 
   // toggle a class
@@ -86,6 +88,7 @@ function jQuery(selector) {
         element.classList.toggle(className);
       })
     }
+    return this;
   }
 }
 
