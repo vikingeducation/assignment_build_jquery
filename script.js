@@ -30,6 +30,7 @@ function Baz() {
 
 // Warmup: Anonymous Functions
 
+// Construct object with .each instance method
 function SimpleObject() {
   this.collection = [];
   this.each = function( toApply ) {
@@ -37,4 +38,11 @@ function SimpleObject() {
       toApply(element, index);
     } )
   }
+}
+
+// Add .each function method
+SimpleObject.each = function( collection, toApply ){
+  collection.forEach( function( element, index ) {
+    toApply(element, index);
+  } )
 }
