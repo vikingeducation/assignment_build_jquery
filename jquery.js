@@ -29,10 +29,16 @@ function jQuery(selector) {
     return this.selection[index];
   }
 
+  // get method
+  this.get = function() {
+    return this.selection;
+  }
+
   // each method
-  this.each = function( toApply ) {
+  this.each = function(toApply) {
     for (let index = 0; index < this.selection.length; index++) {
       toApply(index, this.selection[index]);
     }
   }
+
 }
