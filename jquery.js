@@ -11,6 +11,11 @@ function jQuery(selector) {
     // handle single DOM nodes
     this.selection = [ selector ];
 
+  } else if (selector.split(' ').length > 1
+    || selector.split('.').length > 1
+    || selector.split('#').length > 1) {
+    // we have multiple selectors
+    this.selection = document.querySelectorAll(selector);
   } else if (selector[0] === '.') {
     // select on class
     this.selection = document.getElementsByClassName(selector.substring(1));
