@@ -69,20 +69,46 @@ function jQuery(selector) {
 
   // add a class
   this.addClass = function(selector) {
-    for (let className of selector.split(' ')) {
+    if (typeof selector === 'function') {
+      // we got a function selector
       this.each(function(index, element) {
-        element.classList.add(className);
+        let newClasses = selector(index, element.className);
+        if (newClasses){
+          for (let newClass of newClasses.split(' ')) {
+            element.classList.add(newClass)
+          }
+        }
       })
+    } else {
+      // we got classes
+      for (let newClass of selector.split(' ')) {
+        this.each(function(index, element) {
+          element.classList.add(newClass);
+        })
+      }
     }
     return this;
   }
 
   // remove a class
   this.removeClass = function(selector) {
-    for (let className of selector.split(' ')) {
+    if (typeof selector === 'function') {
+      // we got a function selector
       this.each(function(index, element) {
-        element.classList.remove(className);
+        let cutClasses = selector(index, element.className);
+        if (cutClasses){
+          for (let cutClass of cutClasses.split(' ')) {
+            element.classList.remove(cutClass)
+          }
+        }
       })
+    } else {
+      // we got classes
+      for (let className of selector.split(' ')) {
+        this.each(function(index, element) {
+          element.classList.remove(className);
+        })
+      }
     }
     return this;
   }
