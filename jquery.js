@@ -182,7 +182,7 @@ function jQuery(selector) {
   // get/set attribute properties
   this.attr = function(attribute, value) {
     if ((value === false) || (value === '')) {
-      // delete the attribute if value is falsy
+      // delete the attribute if value is false or empty string
       this.each(function(index, element) {
         element.removeAttribute(attribute);
       })
@@ -205,6 +205,25 @@ function jQuery(selector) {
       }
     }
     return this;
+  }
+
+  // get/set element html
+  this.html = function(htmlString) {
+    if (htmlString !== undefined){
+      // we're a setter
+      this.each(function(index, element) {
+        element.innerHTML = htmlString;
+      })
+      return this;
+    } else {
+      // we're a getter
+      if (this.selection[0] && this.selection[0].innerHTML) {
+        return this.selection[0].innerHTML;
+      } else {
+        // match the real jQuery API
+        return '';
+      }
+    }
   }
 
 }
