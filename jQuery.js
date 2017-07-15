@@ -68,37 +68,55 @@ var jQuery = function( selector_string ){
     //properties
     selection: dom_objs,
     length: dom_objs.length,
+      //methods
     idx: function( index ){
       return dom_objs[index]
     },
     each: function( collection, passed_function ){
       collection.forEach( passed_function );
     },
-    hasClass: function( class_name ){
+    hasClass: function( class_name, collection = this.selection ){
       //returns true if ANY of the objs have the class
-      var answer = dom_objs.some( function( element, index ){
+        //allow passing in collections
+      var answer = collection.some( function( element, index ){
         var class_list = element.classList.value;
         return class_list.includes( class_name )
       })
       return answer;
     },
-    addClass: function( class_name ){
-
-      this.each( this.selection, function( element ){
-        var s = element.className || " "
-
-        element.className = s.concat( class_name );
-        //element.className.concat( ` ${class_name}` );
+    addClass: function( class_name, collection = this.selection ){
+      this.each( collection, function( element ){
+        var classes = element.className.split(" ")
+        classes.push( class_name )
+        var c_name = classes.join(" ");
+        element.className = c_name;
       })
     },
-    removeClass: function(){
-
+    removeClass: function( class_name, collection = this.selection ){
+      this.each( collection, function( element ){
+        var classes = element.className.split(" ")
+        classes = classes.filter( function( word ){
+          return class_name != word
+        })
+        var c_name = classes.join(" ");
+        element.className = c_name;
+      })
     },
-    toggleClass: function( class_name ){
+    toggleClass: function( class_name, collection = this.selection ){
+      var has = this.hasClass;
+      var add = this.addClass;
+      var remove = this.removeClass;
 
+      this.each( collection, function( element ){
+        if ( has( class_name, [element] ) ){
+          add( class_name, element );
+        }else{
+          remove( class_name, element );
+        }
+      })
     }
 
-    //methods
+
 
 
   };
