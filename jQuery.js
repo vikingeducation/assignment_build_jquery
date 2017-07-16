@@ -114,6 +114,21 @@ var jQuery = function( selector_string ){
           remove( class_name, element );
         }
       })
+    },
+    val: function(){
+
+    },
+    height: function(){
+
+    },
+    width: function(){
+
+    },
+    attr: function(){
+
+    },
+    html: function(){
+      
     }
 
 
