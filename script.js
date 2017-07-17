@@ -22,14 +22,28 @@ $(document).ready(function(){
     return this;
   }
 
-  var bar = Bar();
-  console.log(bar instanceof Object);
-  console.log(bar instanceof Bar);
+  // var bar = Bar();
+  // console.log(bar instanceof Object);
+  // console.log(bar instanceof Bar);
 
 
+  // Create a constructor function Baz that returns an instance of Baz when invoked with and without the new keyword.
 
+  function Baz() {
+    this.someProp = "value!";
+    this.someMethod = function(){ return "I'm a method!"; } ;
+    return this;
+  }
 
+  var cat = new Baz();
+  console.log(cat instanceof Object);
+  console.log(cat instanceof Baz);
 
+  var dog = Baz.call({});
+  console.log(dog instanceof Object);
+  console.log(dog instanceof Baz);
+
+  // I really could use more discussion on this point.
 
 
 
