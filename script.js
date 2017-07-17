@@ -35,15 +35,36 @@ $(document).ready(function(){
     return this;
   }
 
-  var cat = new Baz();
-  console.log(cat instanceof Object);
-  console.log(cat instanceof Baz);
+  // var cat = new Baz();
+  // console.log(cat instanceof Object);
+  // console.log(cat instanceof Baz);
 
-  var dog = Baz.call({});
-  console.log(dog instanceof Object);
-  console.log(dog instanceof Baz);
+  // var dog = Baz.call({});
+  // console.log(dog instanceof Object);
+  // console.log(dog instanceof Baz);
 
   // I really could use more discussion on this point.
+
+
+  // Build a SimpleObject constructor which:
+      // makes an object that contains a collection inside of it
+      // a method called 'each' which allows you to iterate over that collection using a passed-in function
+
+  function SimpleObject(){
+    this.collection = [];
+    this.each = function(inputFunction){
+      this.collection.forEach(function(item, index){
+        inputFunction(item, index);
+      });
+    };
+  }
+
+  myObj = new SimpleObject();
+  myObj.collection = [1,"foo",3];
+  console.log(myObj.collection);
+  myObj.each( function( el, index ) {
+    console.log( "Item " + index + " is " + el);
+  })
 
 
 
