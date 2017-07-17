@@ -79,14 +79,37 @@ $(document).ready(function(){
 
   }
 
-  var collection = ['foo', 'bar', 'fiz', 'baz'];
+  // var collection = ['foo', 'bar', 'fiz', 'baz'];
 
-  SimpleObject2.each(collection, function(el, index) {
-    console.log( "Item " + index + " is " + el);
-  });
+  // SimpleObject2.each(collection, function(el, index) {
+  //   console.log( "Item " + index + " is " + el);
+  // });
 
   // ^^ Incomplete
 
+
+
+  //
+  // BUILD JQUERY
+  // https://www.vikingcodeschool.com/dashboard#/falling-in-love-with-javascript/optional-building-jquery
+  //
+
+  function jQuery(input){
+    var firstChar = input[0];
+    console.log(firstChar);
+    switch(firstChar){
+      case "#":
+        console.log(input + " is an id");  break;
+      case ".":
+        console.log(input + " is a class"); break;
+      default:
+        console.log(input + " is an element");
+    }
+
+
+  }
+
+  console.log(jQuery(".testy"));
 
 
 })
