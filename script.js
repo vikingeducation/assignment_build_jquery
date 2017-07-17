@@ -14,6 +14,18 @@ $(document).ready(function(){
   // console.log(foo instanceof Foo);
 
 
+// Create your own "constructor" called Bar which returns a simple anonymous object which is otherwise the same as the one you created using Foo above but doesn't need to be called using new.
+
+  function Bar() {
+    this.someProp = "value!";
+    this.someMethod = function(){ return "I'm a method!"; } ;
+    return this;
+  }
+
+  var bar = Bar();
+  console.log(bar instanceof Object);
+  console.log(bar instanceof Bar);
+
 
 
 
