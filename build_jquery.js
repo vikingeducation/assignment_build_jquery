@@ -96,17 +96,26 @@ var jQuery = function(selector) {
 
   this.attr = function(attributeName, value) {
     if (!value) { return this.collection[0].getAttribute(attributeName) };
-    if (typeof(value) === "function") {
-      each(this.collection, function(node) {
+    each(this.collection, function(node) {
+      if (typeof(value) === "function") {
         node.setAttribute(attributeName, value());
-      });
-      return this;
-    }
+      } else {
+        node.setAttribute(attributeName, value);
+      }
+    });
+    return this;
   };
 
   this.html = function(content) {
-    if (!value) { return this.collection[0].innerHTML };
-
+    if (!content) { return this.collection[0].innerHTML };
+    each(this.collection, function(node) {
+      if (typeof(content) === "function") {
+        node.innerHTML = content(node.innerHTML);
+      } else {
+        node.innerHTML = content;
+      }
+    });
+    return this;
   }
 
   if (!(this instanceof jQuery)) { return new jQuery(selector) };
