@@ -30,9 +30,6 @@ var Baz = function() {
 };
 
 var SimpleObject = function() {
-	
-
-	
 	this.collection = [];
 	this.each = function(funct){
 		var i = 0; 
@@ -60,19 +57,22 @@ SimpleObject.each= function(collection, funct){
 	};
 
 	function jQuery(string){
-		if(string[0] == ".") { 
-			 this.collection = document.getElementsByClassName(string.slice(1))} else if (
+		     this.collection = [];
+		if (!(this instanceof jQuery)) return new jQuery(string);
+		if (string == null) {this.collection.push(string)}
+		else if (string[0] == ".") { this.collection = document.getElementsByClassName(string.slice(1))} else if (
 				string[0] == "#") {this.collection = [document.getElementById(string.slice(1))]} else {
-				 this.collection = document.getElementsByTagName(string) };
-     	
-		 if (!(this instanceof jQuery)) return new jQuery(string);
-		        return this.collection;
-			
-         	};
+			this.collection = document.getElementsByTagName(string)};
+			 this.length = this.collection.length;
+			 this.idx = function(num){
+			 return this.collection[num]
+			 }
 
-    jQuery.prototype.idx = function(num){
-			this.value = collection[num]
-		};
+			};
+				
+		 
+	
+
 window.onload = jQuery;
 
 
