@@ -5,11 +5,11 @@ function jqueryObject(selection) {
 
   this.length = this.jselection.length;
 
-  this.idx = function (i) {
+  this.idx = (i) => {
     return this.jselection[i];
   }
 
-  this.hasClass = function(name) {
+  this.hasClass = (name) => {
     for (var i = 0; i < this.jselection.length; i++) {
       if (this.jselection[i].className.includes(name)) {
         return true;
@@ -18,29 +18,29 @@ function jqueryObject(selection) {
     return false;
   }
 
-  this.each = function(func) {
+  this.each = (func) => {
     for (var i = 0; i < this.jselection.length; i++) {
       func(this.jselection[i], i);
     }
   }
 
-  this.addClass = function(name) {
-    this.each(function(el, idx) {
+  this.addClass = (name) => {
+    this.each((el, idx) => {
       el.className = el.className + " " + name;  
     })
   }
 
-  this.removeClass = function(name) {
-    this.each(function(el, idx) {
+  this.removeClass = (name) => {
+    this.each((el, idx) => {
       var classList = el.className.split(' ');
-      el.className = classList.filter(function(el, idx) { 
+      el.className = classList.filter((el, idx) => { 
         return el !== name
       }).join(' ');
     })
   }
   
-  this.toggleClass = function(name) {
-    this.each(function(el, idx) {
+  this.toggleClass = (name) => {
+    this.each((el, idx) => {
       if (el.className.includes(name)) {
         jquery(el).removeClass(name);
       } else {
@@ -49,11 +49,11 @@ function jqueryObject(selection) {
     })
   }
 
-  this.val = function(value) {
+  this.val = (value) => {
     if (value === undefined) {
       return this.jselection[0].value;
     } else {
-      this.each(function(el, idx) {
+      this.each((el, idx) => {
         el.value = value;
       })
     }
@@ -61,17 +61,17 @@ function jqueryObject(selection) {
 
   // following functions do not support numerical pixel values, to save time
 
-  this.css = function(property, value) {
+  this.css = (property, value) => {
     if (value === undefined) {
       return getComputedStyle(this.jselection[0])[property];
     } else {
-      this.each(function(el, idx) {
+      this.each((el, idx) => {
         el.style.setProperty(property, value);
       })
     }
   } 
 
-  this.height = function(value) {
+  this.height = (value) => {
     if (value === undefined) {
       return getComputedStyle(this.jselection[0])["height"];
     } else {
@@ -79,7 +79,7 @@ function jqueryObject(selection) {
     }
   } 
 
-  this.width = function(value) {
+  this.width = (value) => {
     if (value === undefined) {
       return getComputedStyle(this.jselection[0])["width"];
     } else {
@@ -87,21 +87,21 @@ function jqueryObject(selection) {
     }
   }
 
-  this.attr = function(name, value) {
+  this.attr = (name, value) => {
     if (value === undefined) {
       return this.jselection[0].getAttribute(name);
     } else {
-      this.each(function(el, idx) {
+      this.each((el, idx) => {
         el.setAttribute(name, value);
       })
     }
   }
 
-  this.html = function(value) {
+  this.html = (value) => {
     if (value === undefined) {
       return this.jselection[0].innerHTML;
     } else {
-      this.each(function(el, idx) {
+      this.each((el, idx) => {
         el.innerHTML = value;
       })
     }
@@ -113,7 +113,7 @@ function jquery(selector) {
 
   var jselection = [];  
 
-  function singleSelector(selector) {
+  var singleSelector = (selector) => {
     var firstChar = selector.split('')[0];
     switch(firstChar) {
       case "#":
@@ -125,7 +125,7 @@ function jquery(selector) {
     }
   }
   
-  function transformDOM(domElement) {
+  var transformDOM = (domElement) => {
     return [domElement];
   }
 
@@ -138,7 +138,6 @@ function jquery(selector) {
   return new jqueryObject(jselection);
 
 }
-
 
 // for testing
 
