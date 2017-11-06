@@ -94,6 +94,7 @@ myObj.each( function( el, index ) {
 // Item 1 is foo
 // Item 2 is 3
 
+
 // Callback and collection
 let collection = ['foo', 'bar', 'fiz', 'baz'];
 myObj.each(collection, function(el, index) {
@@ -103,6 +104,35 @@ myObj.each(collection, function(el, index) {
 // Item 1 is bar
 // Item 2 is fiz
 // Item 3 is baz
+
+
+
+
+
+
+
+
+// BUILD JQUERY
+
+function $(el){
+	if(!(this instanceof $)){
+		return new $(el);
+	}	
+	this.el = document.querySelector(el);
+	return this.el;
+}
+
+let peanutCurry = $('#peanut-curry');
+let greenCurry = $('#green-curry');
+
+
+
+
+
+
+
+
+
 
 
 
