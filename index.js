@@ -1,37 +1,32 @@
-
-function Foo (name){
-	console.log(this);
-	this.name = name;
-	this.hello = function (){
-		console.log(`Hello ${this.name}`);
-	};
+function Foo(){
+	this.name = 'Shaka';
+	this.method = () => console.log(`Boom ${this.name} Bra!`);
 }
+
 
 var foo = new Foo();
 console.log(foo instanceof Object);
 //=> true
 console.log(foo instanceof Foo);
 //=> true
+foo.method();
 
-// object constructor that retuns simple annonymous object
-function Bar (name){
-	console.log(this);
-	let obj = {
-		firstName: 'Davey',
-		hello: function (){
-			console.log(`Hello melaka ${name}`);
-		}
+
+let Bar = function(){
+	let shaka = {
+		name: 'Boom Shake Shake The Room',
+		method: () => console.log(`Boom ${shaka.name}`)
 	}
-	return obj;
+	return shaka
 }
 
-var bar = Bar('davey');
+var bar = Bar();
 console.log(bar instanceof Object);
 //=> true
 console.log(bar instanceof Bar);
 //=> false
-bar.hello();
 
+bar.method();
 
 
 
