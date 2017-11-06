@@ -1,6 +1,24 @@
+class FooBar {
+	constructor(){
+		this.name = 'FooBar class';
+	}
+	method(){
+		console.log(`This is the ${this.name}`);
+	}
+}
+
+let foobar = new FooBar();
+console.log(foobar instanceof Object);
+//=> true
+console.log(foobar instanceof FooBar);
+//=> true
+foobar.method();
+
+
+
 function Foo(){
-	this.name = 'Shaka';
-	this.method = () => console.log(`Boom ${this.name} Bra!`);
+	this.name = 'Foo Constructor';
+	this.method = () => console.log(`This is the ${this.name}`);;
 }
 
 var foo = new Foo();
@@ -25,6 +43,21 @@ console.log(bar instanceof Object);
 console.log(bar instanceof Bar);
 //=> false
 bar.method();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
