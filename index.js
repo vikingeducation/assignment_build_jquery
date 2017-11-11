@@ -185,7 +185,13 @@ function $(el){
 		return value;
 	}
 
-
+	this.css = (prop, value) => {
+		this.each(this.collection, (el, i) => {
+			if(prop && value){
+					el.style.setProperty(prop, value);
+			}
+		})
+	}
 
 }
 
