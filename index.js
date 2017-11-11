@@ -117,11 +117,13 @@ myObj.each(collection, function(el, index) {
 function $(el){
 	// return new instance of $ so we don't have to use the new keyword
 	if(!(this instanceof $)){
-		return new $(el);
-	}	
+		return new $(el);	
+	} 
+
 	this.selector = el;
 	this.collection = [];
 
+	// assign DOM element to collection array
 	if(typeof this.selector === 'string'){
 		// get DOM element passed as parameter
 		if(this.selector.charAt(0) === '#'){
@@ -134,12 +136,48 @@ function $(el){
 		this.collection.push(this.selector);
 	}
 
+	// collection length property
 	this.length = this.collection.length;
+
+	// collection index property
 	this.index = (i) => this.collection[i];
+
+	// loop through each item in collection
+	this.each = (array, callback) => {
+		array.forEach(callback)
+	}
+
+	// !!! doesn't work for more than one selector
+	this.hasClass = (className) => {
+		let hasClass;
+		this.each(this.collection, (el, i) => {
+			hasClass = el.classList.contains(className);
+		})
+		return hasClass
+	}
+
+	this.addClass = (className) => {
+		this.each(this.collection, (el, i) => {
+			(this.hasClass(className) ? false : el.classList.add(className));
+		})
+	}	
+
+	this.removeClass = (className) => {
+		this.each(this.collection, (el, i) => {
+			(this.hasClass(className) ? el.classList.remove(className) : false);
+		})
+	}
+
+	this.toggleClass = (className) => {
+		this.each(this.collection, (el, i) => {
+			(this.hasClass(className) ? el.classList.remove(className) : el.classList.add(className));
+		})
+	}
+
+
 }
 
-
-
+let el = $('h1');
 
 
 
