@@ -174,6 +174,18 @@ function $(el){
 		})
 	}
 
+	this.val = (value) => {
+		this.each(this.collection, (el, i) => {
+			if(value){
+				el.innerText = value;
+			} else {
+				value = el.innerText;
+			}
+		})
+		return value;
+	}
+
+
 
 }
 
