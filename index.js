@@ -115,17 +115,28 @@ myObj.each(collection, function(el, index) {
 // BUILD JQUERY
 
 function $(el){
+	// return new instance of $ so we don't have to use the new keyword
 	if(!(this instanceof $)){
 		return new $(el);
 	}	
-	this.el = document.querySelector(el);
-	return this.el;
+	this.selector = el;
+	this.collection = [];
+
+	if(typeof this.selector === 'string'){
+		// get DOM element passed as parameter
+		if(this.selector.charAt(0) === '#'){
+			let el = this.selector.slice(1);
+			this.collection.push(document.getElementById(el));
+		} else {
+			this.collection = document.querySelectorAll(this.selector);
+		}
+	} else {
+		this.collection.push(this.selector);
+	}
+
+	this.length = this.collection.length;
+	this.index = (i) => this.collection[i];
 }
-
-let peanutCurry = $('#peanut-curry');
-let greenCurry = $('#green-curry');
-
-
 
 
 
