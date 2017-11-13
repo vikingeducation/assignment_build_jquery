@@ -149,57 +149,93 @@ function $(el){
 
 	// !!! doesn't work for more than one selector
 	this.hasClass = (className) => {
-		let hasClass;
-		this.each(this.collection, (el, i) => {
-			hasClass = el.classList.contains(className);
-		})
-		return hasClass
+		return this.index(0).classList.contains(className);
 	}
 
 	this.addClass = (className) => {
-		this.each(this.collection, (el, i) => {
-			(this.hasClass(className) ? false : el.classList.add(className));
-		})
+		(this.hasClass(className)) ? false : el.classList.add(className);
 	}	
 
 	this.removeClass = (className) => {
-		this.each(this.collection, (el, i) => {
-			(this.hasClass(className) ? el.classList.remove(className) : false);
-		})
+		(this.hasClass(className)) ? el.classList.remove(className) : false;
 	}
 
 	this.toggleClass = (className) => {
-		this.each(this.collection, (el, i) => {
-			(this.hasClass(className) ? el.classList.remove(className) : el.classList.add(className));
-		})
+		(this.hasClass(className)) ? el.classList.remove(className) : el.classList.add(className);
 	}
 
 	this.val = (value) => {
-		this.each(this.collection, (el, i) => {
+		let text;
 			if(value){
-				el.innerText = value;
+				this.each(this.collection, (el, i) => {
+					el.innerText = value;
+				});
 			} else {
-				value = el.innerText;
+				text = this.index(0).innerText;
 			}
-		})
-		return value;
+		return text;
 	}
 
 	this.css = (prop, value) => {
-		this.each(this.collection, (el, i) => {
+		let cssProps;
 			if(prop && value){
+				this.each(this.collection, (el, i) => {
 					el.style.setProperty(prop, value);
+				});
+			} else {
+				cssProps = this.index(0).style.cssText;
 			}
-		})
+		return cssProps;
 	}
 
+	this.height = (newHeight) => {
+		let height;
+		if(newHeight){
+			this.each(this.collection, (el, i) => {
+				el.style.height = newHeight;
+			});
+		} else {
+			height = this.index(0).style.height;
+		}
+		return height;
+	}
+
+	this.width = (newWidth) => {
+		let width;
+		if(newWidth) {
+			this.each(this.collection, (el, i) => {
+				el.style.width = newWidth;
+			});
+		} else {
+				width = this.index(0).style.width;
+		}
+		return width;
+	}
+
+	this.attr = (name, value) => {
+		let attribute;
+		if(name && value) {
+			this.each(this.collection, (el, i) => {
+				el.setAttribute(name, value);
+			});
+		} else if(name) {
+			attribute = this.index(0).getAttribute(name);
+		}
+		return attribute;
+	}
+
+	this.html = (value) => {
+		let html;
+		if(value){
+			this.each(this.collection, (el, i) => {
+				el.outerHTML = value;
+			});
+		} else {
+			html = this.index(0).outerHTML;
+		}
+		return html;
+	}
 }
-
-let el = $('h1');
-
-
-
-
 
 
 
