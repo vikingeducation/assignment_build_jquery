@@ -60,16 +60,46 @@ console.log(baz instanceof Baz);
 
 //Constructor Simple Object
 function SimpleObject() {
-  this.collection = [],
+  this.collection = [];
   this.each = function(func) {
-    this.collection.map((el, index) => {
+    this.collection.forEach((el, index) => {
       return func(el, index);
     });
-  }
+  };
 }
 
 let myObj = new SimpleObject();
 myObj.collection = [1,"foo",3];
+//iterate over collection using passed in function
 myObj.each( function( el, index ) {
   console.log( "Item " + index + " is " + el);
 })
+//Item 0 is 1
+//Item 1 is foo
+//Item 2 is 3
+
+//Add method to SimpleObject that takes two parameters
+//and allows you to iterate over first parameter
+SimpleObject.each = function(arr, func) {
+  arr.forEach(function(el, index) {
+    return func(el, index);
+  });
+}
+//Note that this has NOT altered myObj, or any future new SimpleObjects!!
+
+var collection = ['foo', 'bar', 'fiz', 'baz'];
+
+SimpleObject.each(collection, function(el, index) {
+  console.log( "Item " + index + " is " + el);
+});
+//Item 0 is foo
+//Item 1 is bar
+//Item 2 is fiz
+//Item 3 is baz
+
+var newObj = new SimpleObject();
+//Takes on .each method of original SimpleObject, accepting 1 parameter(function)
+newObj.collection = ['woo', 'hoo'];
+newObj.each(function(el, index) {
+  console.log( "Item " + index + " is " + el);
+});
