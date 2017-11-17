@@ -1,7 +1,7 @@
 //constructor Foo
 function Foo() {
-  this.name = 'Foo!',
-  this.someMethod = () => `My name is ${this.name}`
+  this.name = 'Foo!';
+  this.someMethod = () => `My name is ${this.name}`;
 }
 
 let foo = new Foo();
@@ -17,8 +17,11 @@ let Bar = function() {
   //anonymous object
   let barObj = {
     name: 'Bar!',
-    otherMethod: () => `My name is ${barObj.name}`
-  }
+    otherMethod: function() {
+     let x = `My name is ${this.name}`
+     return x;
+    }
+  };
   return barObj;
 }
 
@@ -36,8 +39,8 @@ function Baz() {
   if (!(this instanceof Baz)) {
     return new Baz();
   }
-  this.name = 'Baz!',
-  this.someMethod = () => `My name is ${this.name}`
+  this.name = 'Baz!';
+  this.someMethod = () => `My name is ${this.name}`;
 }
 
 //invoke Baz without new
@@ -53,3 +56,20 @@ console.log(baz.someMethod());
 //My name is Baz!
 console.log(baz instanceof Baz);
 //true
+
+
+//Constructor Simple Object
+function SimpleObject() {
+  this.collection = [],
+  this.each = function(func) {
+    this.collection.map((el, index) => {
+      return func(el, index);
+    });
+  }
+}
+
+let myObj = new SimpleObject();
+myObj.collection = [1,"foo",3];
+myObj.each( function( el, index ) {
+  console.log( "Item " + index + " is " + el);
+})
