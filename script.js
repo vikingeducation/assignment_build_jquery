@@ -14,19 +14,19 @@ console.log(foo.someMethod());
 
 //"Constructor" Bar that returns an anonymous object
 let Bar = function() {
-  //anonymous object
-  let barObj = {
+//super anonymous Object
+  return {
     name: 'Bar!',
     otherMethod: function() {
      let x = `My name is ${this.name}`
      return x;
     }
   };
-  return barObj;
+
 }
 
 let bar = Bar();
-//essentially bar is the return value of Bar, which is barObj
+//essentially bar is the return value of Bar
 console.log(bar.otherMethod());
 //My name is Bar!
 console.log(bar instanceof Object);
