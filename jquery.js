@@ -35,11 +35,17 @@ window.onload = function() {
       }
     };
 
-   //SHORTHAND FOR this.selection()
+   //SHORTHAND FOR this.selection
    var z = this.selection();
 
-    //length property
-    this.length = z.length;
+   //length property
+   this.length = z.length;
+
+   this.each = (callback) => {
+    for (var i = 0; i < z.length; ++i) {
+      callback(z[i], i);
+    }
+   }
 
     //idx method
     this.idx = (num) => z[num];
@@ -47,26 +53,27 @@ window.onload = function() {
     //hasClass method, evaluates to true if any of the elements contain the class
     this.hasClass = (str) => {
       var check = false;
-      for (let i = 0; i < z.length; i++) {
-        if (z[i].classList.contains(str)) {
+      this.each(function(el) {
+        if (el.classList.contains(str)) {
           check = true;
         }
-      }
+      });
       return check;
     }
 
    //addClass method, first check if element already contains class
     this.addClass = (str) => {
-      for (let i = 0; i < z.length; i++) {
-        if (!(z[i].classList.contains(str))) {
-           z[i].className += ` ${str}`;
+      this.each(function(el) {
+        if (!(el.classList.contains(str))) {
+           el.className += ` ${str}`;
         }
-      }
+      });
       //return this for chaining
       return this;
     }
 
-    //removeClass method. Used i-- b/c when str = selector, z[i] is removed from z array
+    //removeClass method.
+    //Used i-- b/c in instance that str = selector, z[i] is removed from z array
     //so if going i++, after first iteration z[0] has been removed from z, z[1] is now z[0] and is skipped
     this.removeClass = (str) => {
       for(var i = z.length-1; i >= 0; i--) {
@@ -74,7 +81,7 @@ window.onload = function() {
       }
       //return this for chaining
       return this;
-     }
+    }
 
     this.toggleClass = (str) => {
       for (var i = z.length-1; i >= 0; i--) {
@@ -88,65 +95,66 @@ window.onload = function() {
     this.val = (input) => {
      if (input) {
        //setter for each
-       for (let i = 0; i < z.length; i++) {
-         return z[i].value = input;
-       }
+       this.each(function(el) {
+         return el.value = input;
+       });
      } else {
        //getter for first element
        return z[0].value;
      }
-    }
+     return this;
+   }
 
     this.css = (propertyName, value) => {
-         for (let i = 0; i < z.length; i++) {
+         this.each(function(el) {
          //setter
          if (value) {
-           z[i].style[propertyName] = value;
+           el.style[propertyName] = value;
          } else {
           //getter
-          console.log(z[i].style[propertyName]);
+          console.log(el.style[propertyName]);
          }
-       }
+       });
        return this;
     }
 
    this.height = (input) => {
-     for (let i = 0; i < z.length; i++) {
+     this.each(function(el){
      //setter
      if (input) {
        //assuming px for simplicity
-       z[i].style.height = `${input}px`;
+       el.style.height = `${input}px`;
      } else {
       //getter
-      console.log(parseInt(z[i].style.height));
+      console.log(parseInt(el.style.height));
      }
-   }
+   });
    return this;
-   }
+ }
 
    this.width = (input) => {
-     for (let i = 0; i < z.length; i++) {
+    this.each(function(el) {
      //setter
      if (input) {
        //assuming px for simplicity
-       z[i].style.width = `${input}px`;
+       el.style.width = `${input}px`;
      } else {
       //getter
-      console.log(parseInt(z[i].style.width));
+      console.log(parseInt(el.style.width));
      }
-   }
+   });
    return this;
-   }
+ }
 
   this.attr= (attrName, value) => {
     if (value) {
       //setter for all elements matched
-      for(let i = 0; i < z.length; i++) {
-        z[i].setAttribute(attrName, value);
-      }
+      this.each(function(el) {
+        el.setAttribute(attrName, value);
+      });
     } else {
       //getter for only the first element matched
-      return z[0].getAttribute(attrName);
+      console.log(z[0].getAttribute(attrName));
     }
     return this;
   }
@@ -154,12 +162,12 @@ window.onload = function() {
   this.html= (txt) => {
     if (txt) {
       //setter for all elements matched
-      for(let i = 0; i < z.length; i++) {
-        z[i].innerHTML = txt;
-      }
+      this.each(function(el){
+        el.innerHTML = txt;
+      });
     } else {
       //getter for only the first element matched
-      return z[0].innerHTML;
+      console.log(z[0].innerHTML);
     }
     return this;
   }
@@ -167,7 +175,5 @@ window.onload = function() {
 
 //end of function jQueryObj
 }
-
-
 
 }
