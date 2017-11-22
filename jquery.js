@@ -10,10 +10,10 @@ window.onload = function() {
   function jQueryObj(selector) {
     //selection method to access the Dom
     this.selection = function() {
-      if (typeof selector === "string") {
+      if (typeof selector === 'string') {
         let x = selector.slice(1);
         //jQuery("#some-id")
-        if (selector.charAt(0) === "#") {
+        if (selector.charAt(0) === '#') {
           if (document.getElementById(x) == null) {
             return [];
           } else {
@@ -22,7 +22,7 @@ window.onload = function() {
             return y;
           }
           //jQuery(".some-class")
-        } else if (selector.charAt(0) === ".") {
+        } else if (selector.charAt(0) === '.') {
           return document.getElementsByClassName(x);
         } else {
           //Elements, e.g. jQuery("div")

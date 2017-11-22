@@ -23,7 +23,6 @@ let Bar = function() {
       return x;
     }
   };
-
 };
 
 let bar = Bar();
@@ -58,7 +57,6 @@ console.log(baz.someMethod());
 console.log(baz instanceof Baz);
 //true
 
-
 //Constructor Simple Object
 function SimpleObject() {
   this.collection = [];
@@ -70,10 +68,10 @@ function SimpleObject() {
 }
 
 let myObj = new SimpleObject();
-myObj.collection = [1, "foo", 3];
+myObj.collection = [1, 'foo', 3];
 //iterate over collection using passed in function
 myObj.each(function(el, index) {
-  console.log("Item " + index + " is " + el);
+  console.log('Item ' + index + ' is ' + el);
 });
 //Item 0 is 1
 //Item 1 is foo
@@ -91,7 +89,7 @@ SimpleObject.each = function(arr, func) {
 var collection = ['foo', 'bar', 'fiz', 'baz'];
 
 SimpleObject.each(collection, function(el, index) {
-  console.log("Item " + index + " is " + el);
+  console.log('Item ' + index + ' is ' + el);
 });
 //Item 0 is foo
 //Item 1 is bar
@@ -102,5 +100,5 @@ var newObj = new SimpleObject();
 //Takes on .each method of original SimpleObject, accepting 1 parameter(function)
 newObj.collection = ['woo', 'hoo'];
 newObj.each(function(el, index) {
-  console.log("Item " + index + " is " + el);
+  console.log('Item ' + index + ' is ' + el);
 });
