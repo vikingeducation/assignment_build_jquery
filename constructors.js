@@ -1,9 +1,4 @@
 
-/*
- cd Documents/Viking/JS/build_jq
- */
-
-
 /* Create a normal constructor called Foo which returns a simple Foo instance
 containing a sample property and method when you call it with the new
 keyword.*/
@@ -15,7 +10,7 @@ function Foo() {
 }
 
 var foo = new Foo();
-console.log(foo)
+console.log(foo);
 console.log(foo instanceof Object);
 console.log(foo instanceof Foo);
 
@@ -32,7 +27,7 @@ function Bar() {
 }
 
 var bar = Bar();
-console.log(bar)
+console.log(bar);
 console.log(bar instanceof Object);
 console.log(bar instanceof Bar);
 
@@ -44,8 +39,8 @@ function Baz(name) {
 }
 
 var baz = new Baz("Jim");
-console.log(baz)
-console.log(baz instanceof Baz)
+console.log(baz);
+console.log(baz instanceof Baz);
 baz = Baz("Hal");
-console.log(baz)
-console.log(baz instanceof Baz)
+console.log(baz);
+console.log(baz instanceof Baz);
