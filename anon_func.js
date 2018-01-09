@@ -1,8 +1,4 @@
 
-/*
- cd Documents/Viking/JS/build_jq
-*/
-
 /* Let's do a quick warmup to verify that you understand how to define
 functions which take other functions. In this case, build a SimpleObject
 constructor which makes an object that contains a collection inside of it and
@@ -28,7 +24,11 @@ myObj.each( function( el, index ) {
 method each that takes two parameters. The first is a collection, and the
 second is a callback function that passes the element and index as arguments.
 */
-SimpleObject.each =
+SimpleObject.each = function(array, func) {
+  array.forEach(function(value, index) {
+    return func(value, index);
+  });
+}
 
 var collection = ['foo', 'bar', 'fiz', 'baz'];
 SimpleObject.each(collection, function(el, index) {
