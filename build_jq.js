@@ -18,12 +18,18 @@ function jQuery(selector) {
   return new selectorGet(selector);
 }
 
-function selectorGet(selector) = {
-  toArray: function() {
+// needs to return array
+function selectorGet(selector) {
+  function() {
+
+document.querySelectorAll("some-css");
+document.getElementsByClassName("some-class");
+document.getElementById("some-id");
+document.getElementsByTagName("some-tag");
+
 
   }
 }
-
 
 
 
