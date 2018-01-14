@@ -15,19 +15,16 @@ chained or nested ones like ".some-class someElement"
 window.top.onload = function() {
   $ = jQuery;
 
+//needs to return array
   function jQuery(selector) {
-    return new selectorGet(selector);
-  }
-
-// needs to return array
-  function selectorGet(selector) {
-    var empty = [];
-
-    var array = empty.map(function(selector) {
-      document.querySelectorAll(selector);
-    });
-
-    return array;
+    var nodes = document.querySelectorAll(selector);
+    var loopy = 0;
+    elements = [];
+    while (loopy < nodes.length) {
+      elements.push(nodes[loopy]);
+      loopy++;
+    }
+    return elements;
   }
 
 /*
