@@ -12,36 +12,30 @@ chained or nested ones like ".some-class someElement"
   Classes, e.g. jQuery(".some-class")
   IDs, e.g. jQuery("#some-id")
   Elements, e.g. jQuery("div")*/
+
 window.top.onload = function() {
   $ = jQuery;
 
-//needs to return array
   function jQuery(selector) {
+    var elements = [];
+
+    //if (selector[0] = ".")
+
+
     var nodes = document.querySelectorAll(selector);
+
+/*
+document.querySelectorAll("tag.class");
+document.getElementsByClassName(".some-class");
+document.getElementById("#some-id");
+document.getElementsByTagName("<some-tag> or </some-tag>");
+*/
+
     var loopy = 0;
-    elements = [];
     while (loopy < nodes.length) {
       elements.push(nodes[loopy]);
       loopy++;
     }
     return elements;
   }
-
-/*
-document.getElementsByClassName("some-class");
-document.getElementById("some-id");
-document.getElementsByTagName("some-tag");
-*/
-
-
-
-
-
-
-
-
-
-
-
 };
-// spacing
