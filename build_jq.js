@@ -1,11 +1,8 @@
 
-/*
- cd Documents/Viking/JS/build_jq
-*/
-
 /*1. Build the jQuery() function, which takes a string representing a CSS
 selector and returns a collection of elements (or the single element) that
-match it.
+match it. Make this function available when your page loads so you can play
+with it in the console.
 
 2. Add the following functionality: Note: assume only single selectors and not
 chained or nested ones like ".some-class someElement"
@@ -26,16 +23,19 @@ window.top.onload = function() {
     } else if (selector[0] === "#") {
       nodes = document.getElementById(term);
     } else {
+      // for html tags, also works for tag.class
       nodes = document.querySelectorAll(selector);
     }
 
     if (nodes[0] === undefined && nodes.length === 0) {
-      elements = null;
+      // empty nodelists
     } else if (nodes === null) {
-      elements = null;
+      // no results
     } else if (nodes[0] === undefined) {
+      // for ID's
       elements.push(nodes);
-    } else if (nodes.length < 2) {
+    } else if ((nodes.length = 1)) {
+      // nodelists with 1 item
       elements.push(nodes[0]);
     } else {
       var indexy = 0;
@@ -44,7 +44,34 @@ window.top.onload = function() {
         indexy++;
       }
     }
-
     return elements;
   }
 };
+
+/*
+ cd Documents/Viking/JS/build_jq
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// spacing
