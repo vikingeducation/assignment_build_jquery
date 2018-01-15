@@ -18,17 +18,27 @@ window.top.onload = function() {
 
   function jQuery(selector) {
     var elements = [];
+    var nodes = null
 
-    //if (selector[0] = ".")
-
-
-    var nodes = document.querySelectorAll(selector);
+    if (selector[0] = ".") {
+      nodes = document.getElementsByClassName(selector.substr(1));
+    } else if (selector[0] = "#") {
+      nodes = document.getElementById(selector.substr(1));
+    } else if (selector[0] = "<") {
+        if (selector[1] = "/") {
+          nodes = document.getElementsByTagName(selector.slice(2, -1));
+        } else {
+          nodes = document.getElementsByTagName(selector.slice(1, -1));
+        }
+    } else {
+      nodes = document.querySelectorAll(selector);
+    }
 
 /*
-document.querySelectorAll("tag.class");
 document.getElementsByClassName(".some-class");
 document.getElementById("#some-id");
 document.getElementsByTagName("<some-tag> or </some-tag>");
+document.querySelectorAll("tag.class");
 */
 
     var loopy = 0;
