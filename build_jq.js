@@ -1,5 +1,4 @@
-
-/*1. Build the jQuery() function, which takes a string representing a CSS
+/* 1. Build the jQuery() function, which takes a string representing a CSS
 selector and returns a collection of elements (or the single element) that
 match it. Make this function available when your page loads so you can play
 with it in the console.
@@ -8,7 +7,7 @@ with it in the console.
 chained or nested ones like ".some-class someElement"
   Classes, e.g. jQuery(".some-class")
   IDs, e.g. jQuery("#some-id")
-  Elements, e.g. jQuery("div")*/
+  Elements, e.g. jQuery("div") */
 
 window.top.onload = function() {
   $ = jQuery;
@@ -51,11 +50,6 @@ window.top.onload = function() {
 /*
  cd Documents/Viking/JS/build_jq
 */
-
-
-
-
-
 
 
 

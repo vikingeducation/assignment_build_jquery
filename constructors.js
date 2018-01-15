@@ -6,7 +6,7 @@ function Foo() {
   this.prop = "sample property";
   this.meth = function() {
     "sample method";
-  }
+  };
 }
 
 var foo = new Foo();

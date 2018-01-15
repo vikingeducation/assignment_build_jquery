@@ -15,22 +15,22 @@ function SimpleObject() {
 }
 
 myObj = new SimpleObject();
-myObj.collection = [1,"foo",3];
-myObj.each( function( el, index ) {
-  console.log( "Item " + index + " is " + el);
-})
+myObj.collection = [1, "foo", 3];
+myObj.each(function(el, index) {
+  console.log("Item " + index + " is " + el);
+});
 
 /* Now let's add a method to the SimpleObject function itself. Let's create a
 method each that takes two parameters. The first is a collection, and the
-second is a callback function that passes the element and index as arguments.
-*/
+second is a callback function that passes the element and index as arguments.*/
+
 SimpleObject.each = function(array, func) {
   array.forEach(function(value, index) {
     return func(value, index);
   });
-}
+};
 
-var collection = ['foo', 'bar', 'fiz', 'baz'];
+var collection = ["foo", "bar", "fiz", "baz"];
 SimpleObject.each(collection, function(el, index) {
-  console.log( "Item " + index + " is " + el);
+  console.log("Item " + index + " is " + el);
 });
