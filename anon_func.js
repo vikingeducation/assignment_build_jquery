@@ -7,7 +7,7 @@ using a passed-in function: */
 
 function SimpleObject() {
   this.collection = [];
-  this.each = function(yourFunction = null) {
+  this.each = function(yourFunction) {
     this.collection.forEach(function(value, index) {
       return yourFunction(value, index);
     });

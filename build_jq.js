@@ -3,13 +3,16 @@
  cd Documents/Viking/JS/build_jq
 
  test = $("#fish")
+
+ needs re-write, should be returning a jQuery-esque object which isn't
+ actually just an array
 */
 
 window.onload = function() {
   $ = jQuery;
 
   function jQuery(selector) {
-    var elements = [];
+    var collection = [];
 
     switch (selector[0]) {
       case ".":
@@ -31,23 +34,47 @@ window.onload = function() {
         // empty nodelists
       break;
       case nodes[0] === undefined:
-        elements.push(nodes);
+        collection.push(nodes);
         // for ID's
       break;
       case nodes.length === 1:
-        elements.push(nodes[0]);
+        collection.push(nodes[0]);
         // nodelists with 1 item
       break;
       default:
         var indexy = 0;
         while (indexy < nodes.length) {
-          elements.push(nodes[indexy]);
+          collection.push(nodes[indexy]);
           indexy++;
         }
     }
 
-    return elements;
+    return collection;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 };
