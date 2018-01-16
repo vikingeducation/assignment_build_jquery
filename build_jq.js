@@ -11,6 +11,7 @@ window.onload = function() {
   function jQuery(selector) {
     var elements = [];
 
+
     if (selector[0] === ".") {
       var nodes = document.getElementsByClassName(selector.substr(1));
     } else if (selector[0] === "#") {
@@ -20,6 +21,7 @@ window.onload = function() {
       var nodes = document.querySelectorAll(selector);
     }
 
+
     if (nodes === null) {
       // no results
     } else if (nodes[0] === undefined && nodes.length === 0) {
@@ -28,7 +30,7 @@ window.onload = function() {
       // for ID's
       elements.push(nodes);
     } else if (nodes.length === 1) {
-      // nodelists with 1 item
+      // single class or html tag
       elements.push(nodes[0]);
     } else {
       var indexy = 0;
@@ -37,6 +39,8 @@ window.onload = function() {
         indexy++;
       }
     }
+
+    
     return elements;
   }
 };
