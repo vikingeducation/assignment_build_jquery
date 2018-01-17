@@ -9,9 +9,9 @@
 */
 
 window.onload = function() {
-  $ = jQuery;
+  jQuery = $ = jQueryObject;
 
-  function jQuery(selector) {
+  function jQueryObject(selector) {
     var collection = [];
 
     switch (selector[0]) {
