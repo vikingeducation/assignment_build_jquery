@@ -2,10 +2,7 @@
 /*
  cd Documents/Viking/JS/build_jq
 
- test = $("#fish")
-
- needs re-write, should be returning a jQuery-esque object which isn't
- actually just an array
+ test = $("h4")
 */
 
 window.onload = function() {
@@ -13,68 +10,71 @@ window.onload = function() {
 
   function jQueryObject(selector) {
     var collection = [];
+    if (typeof selector !== "string") {
+      return [selector];
+    } else {
+      switch (selector[0]) {
+        case ".":
+          var nodes = document.getElementsByClassName(selector.substr(1));
+        break;
+        case "#":
+          var nodes = document.getElementById(selector.substr(1));
+        break;
+        default:
+          var nodes = document.querySelectorAll(selector);
+          // for html tags, also works for tag.class
+      }
 
-    switch (selector[0]) {
-      case ".":
-        var nodes = document.getElementsByClassName(selector.substr(1));
-      break;
-      case "#":
-        var nodes = document.getElementById(selector.substr(1));
-      break;
-      default:
-        var nodes = document.querySelectorAll(selector);
-        // for html tags, also works for tag.class
-    }
-
-    switch (true) {
-      case nodes === null:
-        // no results
-      break;
-      case nodes[0] === undefined && nodes.length === 0:
-        // empty nodelists
-      break;
-      case nodes[0] === undefined:
-        collection.push(nodes);
-        // for ID's
-      break;
-      case nodes.length === 1:
-        collection.push(nodes[0]);
-        // nodelists with 1 item
-      break;
-      default:
-        var indexy = 0;
-        while (indexy < nodes.length) {
-          collection.push(nodes[indexy]);
-          indexy++;
+        switch (true) {
+          case nodes === null:
+            nodes = [];
+            // no ID results
+          break;
+          case nodes.length < 2:
+            collection.push(nodes);
+          break;
+          default:
+            var indexy = 0;
+            while (indexy < nodes.length) {
+            collection.push(nodes[indexy]);
+            indexy++;
+            }
         }
     }
 
-    return collection;
+    var wrapper = nodes;
+
+    wrapper.length = collection.length;
+
+    wrapper.idx = function(index) {
+      if (collection.length < 2 && index === 0) {
+        return nodes;
+      } else {
+        return collection[index]
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return nodes;
+    //return wrapper;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 };
