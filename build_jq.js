@@ -53,6 +53,12 @@ window.onload = function() {
       return collection[index];
     };
 
+    wrapper.each = function(yourFunction) {
+      collection.forEach(function(value, index) {
+        return yourFunction(value, index);
+      });
+    };
+
     return wrapper;
   }
 };
