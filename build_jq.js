@@ -1,7 +1,7 @@
 /*
  cd Documents/Viking/JS/build_jq
 
- var test = $("#one")
+ var test = $("h4")
 */
 
 window.onload = function() {
@@ -9,10 +9,10 @@ window.onload = function() {
 
   function jQueryObject(selector) {
     var collection = [];
-    if (typeof selector !== "string") {
+    if (typeof selector === "object") {
       collection.push(selector);
       var nodes = collection;
-    } else {
+    } else if (typeof selector === "string") {
       switch (selector[0]) {
         case ".":
           var nodes = document.getElementsByClassName(selector.substr(1));
@@ -24,6 +24,9 @@ window.onload = function() {
           var nodes = document.querySelectorAll(selector);
         // for html tags, also works for tag.class
       }
+    } else {
+      return "Only strings or single DOM objects are accepted";
+    }
 
       switch (true) {
         case nodes === null:
@@ -43,7 +46,6 @@ window.onload = function() {
             indexy++;
           }
       }
-    }
 
     var wrapper = nodes;
 
@@ -54,10 +56,24 @@ window.onload = function() {
     };
 
     wrapper.each = function(yourFunction) {
-      collection.forEach(function(value, index) {
-        return yourFunction(value, index);
-      });
+      for (var index = 0; index < collection.length; index++) {
+        yourFunction(collection[index], index);
+      }
     };
+
+    // className must be in string form
+    wrapper.hasClass = function(className) {
+
+      wrapper.each(function(item) {
+        if (item.classList.contains(className)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    )
+      return result;
+    }
 
     return wrapper;
   }
