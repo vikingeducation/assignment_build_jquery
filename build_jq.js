@@ -2,7 +2,7 @@
 /*
  cd Documents/Viking/JS/build_jq
 
- test = $("h4")
+ var test = $("#one")
 */
 
 window.onload = function() {
@@ -11,7 +11,8 @@ window.onload = function() {
   function jQueryObject(selector) {
     var collection = [];
     if (typeof selector !== "string") {
-      return [selector];
+      collection.push(selector);
+      var nodes = collection;
     } else {
       switch (selector[0]) {
         case ".":
@@ -30,7 +31,10 @@ window.onload = function() {
             nodes = [];
             // no ID results
           break;
-          case nodes.length < 2:
+          case Array.isArray(nodes):
+            // do nothing when passing DOM object
+          break;
+          case nodes.length < 2 || nodes[0] === undefined:
             collection.push(nodes);
           break;
           default:
@@ -47,13 +51,10 @@ window.onload = function() {
     wrapper.length = collection.length;
 
     wrapper.idx = function(index) {
-      if (collection.length < 2 && index === 0) {
-        return nodes;
-      } else {
-        return collection[index]
-      }
+      return collection[index]
     }
 
+    
 
 
 
@@ -70,11 +71,6 @@ window.onload = function() {
 
 
 
-
-
-
-
-    return nodes;
-    //return wrapper;
+    return wrapper;
   }
 };
