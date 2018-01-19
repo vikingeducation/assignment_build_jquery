@@ -66,12 +66,14 @@ window.onload = function() {
 
     // className must be in string form
     wrapper.hasClass = function(className) {
-      var result = false;
       wrapper.each(function(item) {
-        if (item.classList === undefined) {
-          // if an item has no classes always stay false
+        var result = if (item.classList === undefined) {
+          return false;
+          // no classes, so obviously false
         } else if (item.classList.contains(className)) {
-          result = true;
+          return true;
+        } else {
+          return false;
         }
       });
       return result;
