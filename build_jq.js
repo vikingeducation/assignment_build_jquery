@@ -64,39 +64,52 @@ window.onload = function() {
       }
     };
 
-    wrapper.hasClass = function(yourClass) {
+    wrapper.hasClass = function(string) {
       var result = false;
       wrapper.each(function(element) {
         if (result === true) {
           return;
         } else if (element.classList === undefined) {
           // lack of classList means always false
-        } else if (element.classList.contains(yourClass)) {
+        } else if (element.classList.contains(string)) {
           result = true;
         }
       });
       return result;
     };
 
-    wrapper.addClass = function(desiredClass) {
+    wrapper.addClass = function(string) {
       wrapper.each(function(element) {
         if (element.classList === undefined) {
           // do nothing, can't add classes to invalid target
         } else {
-          element.classList.add(desiredClass);
+          element.classList.add(string);
         }
       });
       return wrapper;
     };
 
-    /*
-    use the same principles as the two methods above with
-    https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
-    for
-    https://api.jquery.com/removeClass/
-    and
-    https://api.jquery.com/toggleClass/
-    */
+    wrapper.removeClass = function(string) {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // do nothing, no classes to remove
+        } else {
+          element.classList.remove(string);
+        }
+      });
+      return wrapper;
+    };
+
+    wrapper.toggleClass = function(string) {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // do nothing, no classes to toggle
+        } else {
+          element.classList.toggle(string);
+        }
+      });
+      return wrapper;
+    };
 
     return wrapper;
   }
