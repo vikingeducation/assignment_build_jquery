@@ -64,7 +64,6 @@ window.onload = function() {
       }
     };
 
-    // className must be in string form
     wrapper.hasClass = function(className) {
       var result = false;
       wrapper.each(function(item) {
@@ -79,7 +78,10 @@ window.onload = function() {
       return result;
     };
 
-    
+    wrapper.addClass = function(className) {
+      // https://api.jquery.com/addClass/
+      // use ".classList.add("desired-class");" similarly to function above
+    }
 
     return wrapper;
   }
