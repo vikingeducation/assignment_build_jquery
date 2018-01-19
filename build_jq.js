@@ -64,24 +64,39 @@ window.onload = function() {
       }
     };
 
-    wrapper.hasClass = function(className) {
+    wrapper.hasClass = function(yourClass) {
       var result = false;
-      wrapper.each(function(item) {
+      wrapper.each(function(element) {
         if (result === true) {
           return;
-        } else if (item.classList === undefined) {
-          // no classes, so obviously false
-        } else if (item.classList.contains(className)) {
+        } else if (element.classList === undefined) {
+          // lack of classList means always false
+        } else if (element.classList.contains(yourClass)) {
           result = true;
         }
       });
       return result;
     };
 
-    wrapper.addClass = function(className) {
-      // https://api.jquery.com/addClass/
-      // use ".classList.add("desired-class");" similarly to function above
-    }
+    wrapper.addClass = function(desiredClass) {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // do nothing, can't add classes to invalid target
+        } else {
+          element.classList.add(desiredClass);
+        }
+      });
+      return wrapper;
+    };
+
+    /*
+    use the same principles as the two methods above with
+    https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+    for
+    https://api.jquery.com/removeClass/
+    and
+    https://api.jquery.com/toggleClass/
+    */
 
     return wrapper;
   }
