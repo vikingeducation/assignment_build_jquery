@@ -2,6 +2,10 @@
  cd Documents/Viking/JS/build_jq
 
  var test = $("h1")
+
+ TODO go back and try to better copy jQueries functionality, some of the
+ harder things like accepting an array to work with values aren't currently
+ implemented
 */
 
 window.onload = function() {
@@ -81,7 +85,7 @@ window.onload = function() {
     wrapper.addClass = function(string) {
       wrapper.each(function(element) {
         if (element.classList === undefined) {
-          // do nothing, can't add classes to invalid target
+          // can't add classes to invalid target
         } else {
           element.classList.add(string);
         }
@@ -103,13 +107,43 @@ window.onload = function() {
     wrapper.toggleClass = function(string) {
       wrapper.each(function(element) {
         if (element.classList === undefined) {
-          // do nothing, no classes to toggle
+          // invalid target for toggling classes
         } else {
           element.classList.toggle(string);
         }
       });
       return wrapper;
     };
+
+    wrapper.val = function(string = null) {
+      if (string === null) {
+        return collection[0].value;
+      } else {
+        wrapper.each(function(element) {
+          element.setAttribute("value", string);
+        });
+      }
+      return wrapper;
+    }
+
+    // https://api.jquery.com/css/
+
+    wrapper.css = function(arg) {
+      // get
+      var test = document.getElementById("one")
+      var style = window.getComputedStyle(test)
+      var thing = style.getPropertyValue("align-content")
+      // set
+      yourElement.style.color = "blue";
+    }
+
+    // https://api.jquery.com/height/
+
+    // https://api.jquery.com/width/
+
+    // https://api.jquery.com/attr/
+
+    // https://api.jquery.com/html/
 
     return wrapper;
   }
