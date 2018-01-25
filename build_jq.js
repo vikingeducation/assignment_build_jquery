@@ -4,11 +4,6 @@
  var z = $("h1")
 
  TODO
- 5. implement prototype -
- https://stackoverflow.com/questions/310870/use-of-prototype-vs-this-in-javascript
-
- 6. test implementation of this to replace wrapper
-
  7. go back and try to better copy jQueries functionality, some of the
  harder things like accepting an array to work with values aren't currently
  implemented
