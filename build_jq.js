@@ -8,7 +8,9 @@
  harder things like accepting an array to work with values aren't currently
  implemented
 
- 8. Allow chaining of selectors in your original jQuery function,
+ 8. test with no results for ID, Class, and Tag
+
+ 9. Allow chaining of selectors in your original jQuery function,
  e.g. jQuery("div .some-class .some-other-class"). You may use the new
  querySelector method for this.
 */
@@ -16,9 +18,8 @@
 jQuery = $ = jQueryObject;
 
 function jQueryObject(selector) {
-  // https://api.jquery.com/jQuery/ - accept arrays, include selector context
   var collection = [];
-  if (typeof selector === "object") {
+  if (selector instanceof HTMLElement) {
     if (selector.length === undefined) {
       collection.push(selector);
       var nodes = collection;
@@ -78,42 +79,53 @@ function jQueryObject(selector) {
     }
   };
 
-  wrapper.hasClass = function(myClass) {
+  wrapper.hasClass = function(aClass) {
     var result = false;
     wrapper.each(function(element) {
       if (result === true) {
         return;
       } else if (element.classList === undefined) {
         // lack of classList means false
-      } else if (element.classList.contains(myClass)) {
+      } else if (element.classList.contains(aClass)) {
         result = true;
       }
     });
     return result;
   };
 
-  // https://api.jquery.com/addClass/ - accept functions
-  wrapper.addClass = function(yourClass) {
-    wrapper.each(function(element) {
-      if (element.classList === undefined) {
-        // can't add classes to invalid target
-      } else {
-        element.classList.add(yourClass);
-      }
+  wrapper.addClass = function(...theArgs) {
+    theArgs.forEach(function(yourArgument) {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // can't add classes to invalid target
+        } else {
+          element.classList.add(yourArgument);
+        }
+      });
     });
     return wrapper;
   };
 
-  /* https://api.jquery.com/removeClass/ - remove all or multiple classes,
-accept functions */
-  wrapper.removeClass = function(aClass) {
-    wrapper.each(function(element) {
-      if (element.classList === undefined) {
-        // no classes to remove
-      } else {
-        element.classList.remove(aClass);
-      }
-    });
+  wrapper.removeClass = function(...theArgs) {
+    if (theArgs.length === 0) {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // no classes to remove
+        } else {
+          element.className = '';
+        }
+      });
+    } else {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // no classes to remove
+        } else {
+          theArgs.forEach(function(anArgument) {
+            element.classList.remove(anArgument);
+          });
+        }
+      });
+    }
     return wrapper;
   };
 
