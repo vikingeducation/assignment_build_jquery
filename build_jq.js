@@ -33,7 +33,7 @@ window.onload = function() {
   jQuery = $ = jQueryObject;
 
   function jQueryObject(selector) {
-// https://api.jquery.com/jQuery/ - accept arrays, include selector context
+    // https://api.jquery.com/jQuery/ - accept arrays, include selector context
     var collection = [];
     if (typeof selector === "object") {
       collection.push(selector);
@@ -104,7 +104,7 @@ window.onload = function() {
       return result;
     };
 
-// https://api.jquery.com/addClass/ - accept functions
+    // https://api.jquery.com/addClass/ - accept functions
     wrapper.addClass = function(string) {
       wrapper.each(function(element) {
         if (element.classList === undefined) {
@@ -116,7 +116,7 @@ window.onload = function() {
       return wrapper;
     };
 
-/* https://api.jquery.com/removeClass/ - remove all or multiple classes,
+    /* https://api.jquery.com/removeClass/ - remove all or multiple classes,
 accept functions */
     wrapper.removeClass = function(string) {
       wrapper.each(function(element) {
@@ -129,7 +129,7 @@ accept functions */
       return wrapper;
     };
 
-/* https://api.jquery.com/toggleClass/ - toggle multiple classes, accept state
+    /* https://api.jquery.com/toggleClass/ - toggle multiple classes, accept state
 and functions, toggle all */
     wrapper.toggleClass = function(string) {
       wrapper.each(function(element) {
@@ -142,7 +142,7 @@ and functions, toggle all */
       return wrapper;
     };
 
-/* https://api.jquery.com/val/ - make setter accept numbers, arrays, and
+    /* https://api.jquery.com/val/ - make setter accept numbers, arrays, and
 functions */
     wrapper.val = function(string = null) {
       if (string === null) {
@@ -153,9 +153,9 @@ functions */
         });
       }
       return wrapper;
-    }
+    };
 
-/* https://api.jquery.com/css/ - accept arrays, numbers, functions, and object
+    /* https://api.jquery.com/css/ - accept arrays, numbers, functions, and object
 of property value pairs */
     wrapper.css = function(string, value = null) {
       if (value === null) {
@@ -167,9 +167,9 @@ of property value pairs */
         });
       }
       return wrapper;
-    }
+    };
 
-// https://api.jquery.com/height/ - make setter accept numbers, and functions
+    // https://api.jquery.com/height/ - make setter accept numbers, and functions
     wrapper.height = function(string) {
       if (string) {
         wrapper.each(function(element) {
@@ -180,9 +180,9 @@ of property value pairs */
         return styles.getPropertyValue("height");
       }
       return wrapper;
-    }
+    };
 
-// https://api.jquery.com/width/ - make setter accept numbers, and functions
+    // https://api.jquery.com/width/ - make setter accept numbers, and functions
     wrapper.width = function(string) {
       if (string) {
         wrapper.each(function(element) {
@@ -193,9 +193,9 @@ of property value pairs */
         return styles.getPropertyValue("width");
       }
       return wrapper;
-    }
+    };
 
-/* https://api.jquery.com/attr/ - make setter accept strings, numbers, null,
+    /* https://api.jquery.com/attr/ - make setter accept strings, numbers, null,
 object of property value pairs, and functions */
     wrapper.attr = function(string, value) {
       if (value) {
@@ -206,9 +206,9 @@ object of property value pairs, and functions */
         return collection[0].getAttribute(string);
       }
       return wrapper;
-    }
+    };
 
-// https://api.jquery.com/html/ - accept functions
+    // https://api.jquery.com/html/ - accept functions
     wrapper.html = function(string) {
       if (string) {
         wrapper.each(function(element) {
@@ -218,7 +218,7 @@ object of property value pairs, and functions */
         return collection[0].textContent;
       }
       return wrapper;
-    }
+    };
 
     return wrapper;
   }
