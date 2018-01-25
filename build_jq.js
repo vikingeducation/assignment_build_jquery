@@ -164,8 +164,6 @@ window.onload = function() {
       return wrapper;
     }
 
-    // https://api.jquery.com/attr/
-
     wrapper.attr = function(string, value) {
       if (value) {
         wrapper.each(function(element) {
@@ -177,7 +175,16 @@ window.onload = function() {
       return wrapper;
     }
 
-    // https://api.jquery.com/html/
+    wrapper.html = function(string) {
+      if (string) {
+        wrapper.each(function(element) {
+          element.textContent = string;
+        });
+      } else {
+        return collection[0].textContent;
+      }
+      return wrapper;
+    }
 
     return wrapper;
   }
