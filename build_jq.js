@@ -5,7 +5,8 @@
 
  TODO go back and try to better copy jQueries functionality, some of the
  harder things like accepting an array to work with values aren't currently
- implemented
+ implemented, also improve handling of arguments that aren't provided to
+ functions/their handling in if statements, in addition make them unique
 */
 
 window.onload = function() {
@@ -138,6 +139,18 @@ window.onload = function() {
     }
 
     // https://api.jquery.com/height/
+
+    wrapper.height = function(string) {
+      if (string) {
+        wrapper.each(function(element) {
+          element.style.height = string;
+        });
+      } else {
+        var styles = window.getComputedStyle(collection[0]);
+        return styles.getPropertyValue("height");
+      }
+    }
+
 
     // https://api.jquery.com/width/
 
