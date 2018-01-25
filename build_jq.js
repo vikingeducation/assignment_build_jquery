@@ -126,15 +126,15 @@ window.onload = function() {
       return wrapper;
     }
 
-    // https://api.jquery.com/css/
-
-    wrapper.css = function(arg) {
-      // get
-      var test = document.getElementById("one")
-      var style = window.getComputedStyle(test)
-      var thing = style.getPropertyValue("align-content")
-      // set
-      yourElement.style.color = "blue";
+    wrapper.css = function(string, value = null) {
+      if (value === null) {
+        var styles = window.getComputedStyle(collection[0]);
+        return styles.getPropertyValue(string);
+      } else {
+        wrapper.each(function(element) {
+          element.style[string] = value;
+        });
+      }
     }
 
     // https://api.jquery.com/height/
