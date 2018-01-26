@@ -4,13 +4,7 @@
  var z = $("h1")
 
  TODO
- 7. go back and try to better copy jQueries functionality, some of the
- harder things like accepting an array to work with values aren't currently
- implemented
-
- 8. test with no results for ID, Class, and Tag
-
- 9. Allow chaining of selectors in your original jQuery function,
+ 0. Allow chaining of selectors in your original jQuery function,
  e.g. jQuery("div .some-class .some-other-class"). You may use the new
  querySelector method for this.
 */
@@ -112,7 +106,7 @@ function jQueryObject(selector) {
         if (element.classList === undefined) {
           // no classes to remove
         } else {
-          element.className = '';
+          element.className = "";
         }
       });
     } else {
@@ -137,7 +131,7 @@ function jQueryObject(selector) {
         } else {
           var indexy = element.classList.length;
           while (indexy > -1) {
-            element.classList.remove(element.classList[indexy])
+            element.classList.remove(element.classList[indexy]);
             indexy--;
           }
         }
@@ -156,8 +150,6 @@ function jQueryObject(selector) {
     return wrapper;
   };
 
-  /* https://api.jquery.com/val/ - make setter accept numbers, arrays, and
-functions */
   wrapper.val = function(yourValue) {
     if (yourValue) {
       wrapper.each(function(element) {
@@ -169,8 +161,6 @@ functions */
     return wrapper;
   };
 
-  /* https://api.jquery.com/css/ - accept arrays, numbers, functions, and object
-of property value pairs */
   wrapper.css = function(theCss, cssValue) {
     if (cssValue) {
       wrapper.each(function(element) {
@@ -183,7 +173,6 @@ of property value pairs */
     return wrapper;
   };
 
-  // https://api.jquery.com/height/ - make setter accept numbers, and functions
   wrapper.height = function(desiredHeight) {
     if (desiredHeight) {
       wrapper.each(function(element) {
@@ -196,7 +185,6 @@ of property value pairs */
     return wrapper;
   };
 
-  // https://api.jquery.com/width/ - make setter accept numbers, and functions
   wrapper.width = function(newWidth) {
     if (newWidth) {
       wrapper.each(function(element) {
@@ -209,8 +197,6 @@ of property value pairs */
     return wrapper;
   };
 
-  /* https://api.jquery.com/attr/ - make setter accept strings, numbers, null,
-object of property value pairs, and functions */
   wrapper.attr = function(theAttribute, attributeValue) {
     if (attributeValue) {
       wrapper.each(function(element) {
@@ -222,7 +208,6 @@ object of property value pairs, and functions */
     return wrapper;
   };
 
-  // https://api.jquery.com/html/ - accept functions
   wrapper.html = function(htmlContents) {
     if (htmlContents) {
       wrapper.each(function(element) {
