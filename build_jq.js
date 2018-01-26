@@ -1,12 +1,8 @@
 /*
- cd Documents/Viking/JS/build_jq
+ To use build_jq.js remember to add the script using defer like so:
+  <script src="build_jq.js" defer></script>
 
- var z = $("h1")
-
- TODO
- 0. Allow chaining of selectors in your original jQuery function,
- e.g. jQuery("div .some-class .some-other-class"). You may use the new
- querySelector method for this.
+ The majority of arguments for the build_jq.js script have to be in string form
 */
 
 jQuery = $ = jQueryObject;
@@ -22,16 +18,15 @@ function jQueryObject(selector) {
       var nodes = [selector];
     }
   } else if (typeof selector === "string") {
-    switch (selector[0]) {
-      case ".":
+    switch (true) {
+      case selector[0] === ".":
         var nodes = document.getElementsByClassName(selector.substr(1));
         break;
-      case "#":
+      case selector[0] === "#":
         var nodes = document.getElementById(selector.substr(1));
         break;
       default:
         var nodes = document.querySelectorAll(selector);
-      // for html tags, also works for tag.class
     }
   } else {
     return "Only strings or single DOM objects are accepted";
@@ -66,10 +61,10 @@ function jQueryObject(selector) {
   };
 
   wrapper.each = function(yourFunction) {
-    var indexy = 0;
-    while (indexy < collection.length) {
+    var indexy = collection.length;
+    while (indexy > -1) {
       yourFunction(collection[indexy], indexy);
-      indexy++;
+      indexy--;
     }
   };
 
@@ -112,7 +107,6 @@ function jQueryObject(selector) {
     } else {
       wrapper.each(function(element) {
         if (element.classList === undefined) {
-          // no classes to remove
         } else {
           theArgs.forEach(function(anArgument) {
             element.classList.remove(anArgument);
@@ -139,7 +133,6 @@ function jQueryObject(selector) {
     } else {
       wrapper.each(function(element) {
         if (element.classList === undefined) {
-          // invalid target for toggling classes
         } else {
           theArgs.forEach(function(anArgument) {
             element.classList.toggle(anArgument);
