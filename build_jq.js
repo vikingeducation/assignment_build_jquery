@@ -129,16 +129,30 @@ function jQueryObject(selector) {
     return wrapper;
   };
 
-  /* https://api.jquery.com/toggleClass/ - toggle multiple classes, accept state
-and functions, toggle all */
-  wrapper.toggleClass = function(theClass) {
-    wrapper.each(function(element) {
-      if (element.classList === undefined) {
-        // invalid target for toggling classes
-      } else {
-        element.classList.toggle(theClass);
-      }
-    });
+  wrapper.toggleClass = function(...theArgs) {
+    if (theArgs.length === 0) {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // invalid target for toggling classes
+        } else {
+          var indexy = element.classList.length;
+          while (indexy > -1) {
+            element.classList.remove(element.classList[indexy])
+            indexy--;
+          }
+        }
+      });
+    } else {
+      wrapper.each(function(element) {
+        if (element.classList === undefined) {
+          // invalid target for toggling classes
+        } else {
+          theArgs.forEach(function(anArgument) {
+            element.classList.toggle(anArgument);
+          });
+        }
+      });
+    }
     return wrapper;
   };
 
